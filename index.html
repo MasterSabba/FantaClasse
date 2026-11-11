@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FantaClasse 🎓 - Il Fanta-Studenti</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome per Icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* TEMI (DARK, LIGHT, BEIGE) */
+        body.theme-dark {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .theme-dark .clean-glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .theme-dark .clean-card {
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+        }
+        .theme-dark .clean-card:hover {
+            background: rgba(30, 41, 59, 0.75);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .theme-dark .input-field {
+            background: rgba(2, 6, 23, 0.8);
+            border-color: #1e293b;
+            color: #ffffff;
+        }
+        .theme-dark .subtext { color: #94a3b8; }
+
+        body.theme-light {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .theme-light .clean-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .theme-light .clean-card {
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            color: #0f172a;
+        }
+        .theme-light .clean-card:hover {
+            background: #ffffff;
+            border-color: rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .theme-light .input-field {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+        .theme-light .subtext { color: #64748b; }
+        .theme-light h1, .theme-light h2, .theme-light h3, .theme-light h4 { color: #0f172a !important; }
+
+        body.theme-beige {
+            background-color: #f5f0e6;
+            color: #2c2520;
+        }
+        .theme-beige .clean-glass {
+            background: rgba(245, 240, 230, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(120, 90, 60, 0.12);
+            box-shadow: 0 10px 25px -5px rgba(100, 70, 40, 0.06);
+        }
+        .theme-beige .clean-card {
+            background: rgba(235, 228, 215, 0.7);
+            border: 1px solid rgba(120, 90, 60, 0.1);
+            color: #2c2520;
+        }
+        .theme-beige .clean-card:hover {
+            background: #e8dfd1;
+            border-color: #b08968;
+        }
+        .theme-beige .input-field {
+            background: #faf6f0;
+            border-color: #d0c4b4;
+            color: #2c2520;
+        }
+        .theme-beige .subtext { color: #7f6e5d; }
+        .theme-beige h1, .theme-beige h2, .theme-beige h3, .theme-beige h4 { color: #2c2520 !important; }
+
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.3); border-radius: 9999px; }
+
+        .active-tab {
+            background: #4f46e5 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
+        }
+
+        .btn-retry {
+            background: var(--primary-btn, #4f46e5);
+            color: #ffffff;
+        }
+        
+        .menu-btn {
+            background: #334155 !important;
+            color: #ffffff;
+        }
+
+        /* STILE TASTO X MINIMALE E DISCRETO SULLA SINISTRA */
+        .exit-button {
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            z-index: 60;
+            width: 32px;
+            height: 32px;
+            border-radius: 9999px;
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .exit-button:hover {
+            background: rgba(148, 163, 184, 0.3);
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+
+    <a href="#" onclick="exitToHub(event); return false;" class="exit-button" title="Torna all'Hub">&times;</a>
+
+    <!-- APP CONTAINER -->
+    <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-4 sm:p-6 min-h-screen pl-14 sm:pl-16">
+
+        <!-- HEADER MINIMAL CON CAMBIO TEMA -->
+        <header class="clean-glass rounded-3xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-xl sticky top-4 z-40">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-600/30">
+                    🎓
+                </div>
+                <div>
+                    <h1 class="font-display font-extrabold text-xl tracking-tight flex items-center gap-2">
+                        FantaClasse
+                    </h1>
+                    <p id="header-room-name" class="text-xs subtext font-medium">Nessuna stanza attiva</p>
+                </div>
+            </div>
+
+            <!-- SELETTORE TEMI & AZIONI STANZA -->
+            <div class="flex items-center gap-2">
+                <div class="bg-slate-900/40 p-1 rounded-2xl border border-white/10 flex items-center gap-1">
+                    <button onclick="setTheme('dark')" title="Tema Scuro" class="w-7 h-7 rounded-xl flex items-center justify-center text-xs text-amber-300 hover:bg-white/10 transition">
+                        🌙
+                    </button>
+                    <button onclick="setTheme('light')" title="Tema Chiaro" class="w-7 h-7 rounded-xl flex items-center justify-center text-xs text-indigo-500 hover:bg-white/10 transition">
+                        ☀️
+                    </button>
+                    <button onclick="setTheme('beige')" title="Tema Beige Warm" class="w-7 h-7 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">
+                        📜
+                    </button>
+                </div>
+
+                <div id="header-actions" class="hidden flex items-center gap-2">
+                    <div class="bg-indigo-500/10 px-3 py-1.5 rounded-2xl border border-indigo-500/20 text-xs flex items-center gap-2">
+                        <span class="subtext">Codice:</span>
+                        <span id="header-room-code" class="font-mono font-bold text-amber-500 tracking-wider">----</span>
+                        <button onclick="copyRoomCode()" title="Copia Codice" class="subtext hover:text-indigo-500 transition ml-1">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div id="role-badge" class="px-3 py-1.5 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-slate-800 text-slate-300">
+                        <i class="fa-solid fa-user text-xs"></i> <span id="role-text">Studente</span>
+                    </div>
+
+                    <button onclick="logoutRoom()" class="p-2 subtext hover:text-rose-500 rounded-2xl transition" title="Esci">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENUTO PRINCIPALE -->
+        <main class="flex-1 flex flex-col">
+
+            <!-- LOBBY VIEW (LOGIN / CREAZIONE STANZA) -->
+            <section id="lobby-view" class="flex-1 flex items-center justify-center py-6">
+                <div class="w-full max-w-md space-y-6">
+
+                    <div class="text-center space-y-2">
+                        <h2 class="text-3xl font-display font-extrabold tracking-tight">FantaClasse</h2>
+                        <p class="text-xs subtext">Entra nella tua classe o creane una nuova da Admin.</p>
+                    </div>
+
+                    <div class="clean-glass p-1.5 rounded-2xl flex gap-1">
+                        <button id="tab-btn-join" onclick="switchLobbyTab('join')" class="flex-1 py-3 text-xs font-bold rounded-xl transition active-tab">
+                            Entra in Stanza
+                        </button>
+                        <button id="tab-btn-create" onclick="switchLobbyTab('create')" class="flex-1 py-3 text-xs font-bold rounded-xl subtext hover:text-indigo-500 transition">
+                            Crea Stanza (Admin)
+                        </button>
+                    </div>
+
+                    <!-- FORM ENTRA IN STANZA -->
+                    <div id="form-join" class="clean-glass p-6 rounded-3xl space-y-4 shadow-xl">
+                        <div>
+                            <label class="block text-xs font-bold subtext mb-1">Nome/Codice Stanza (Es. 3LDC)</label>
+                            <input type="text" id="join-code-input" placeholder="Es. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-wider focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold subtext mb-1">Il tuo Nome e Cognome</label>
+                            <input type="text" id="join-name-input" placeholder="Es. Mario Rossi" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <button onclick="joinRoom()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg transition">
+                            Entra nella Stanza
+                        </button>
+                    </div>
+
+                    <!-- FORM CREA STANZA -->
+                    <div id="form-create" class="clean-glass p-6 rounded-3xl space-y-4 shadow-xl hidden">
+                        <div>
+                            <label class="block text-xs font-bold subtext mb-1">Nome/Codice Stanza (Es. 3LDC)</label>
+                            <input type="text" id="create-room-name" placeholder="Es. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-wider focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold subtext mb-1">Nome Admin</label>
+                            <input type="text" id="create-admin-name" placeholder="Es. Prof / Capoclasse" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold subtext mb-1">PIN Admin Segreto</label>
+                            <input type="password" id="create-admin-pin" placeholder="Es. 1234" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <button onclick="createNewRoom()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg transition">
+                            Crea Stanza & Inizia
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- DASHBOARD VIEW -->
+            <section id="dashboard-view" class="flex-1 flex flex-col space-y-6 hidden">
+
+                <!-- MAIN TAB BAR -->
+                <div class="clean-glass p-1.5 rounded-2xl flex gap-1 overflow-x-auto">
+                    <button id="nav-btn-actions" onclick="switchDashboardTab('actions')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 whitespace-nowrap active-tab">
+                        <i class="fa-solid fa-bolt text-xs text-amber-400"></i> Segnala Cazzata / Nota
+                    </button>
+                    <button id="nav-btn-leaderboard" onclick="switchDashboardTab('leaderboard')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl subtext hover:text-indigo-500 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-trophy text-xs text-amber-500"></i> Classifica & Hall of Fame
+                    </button>
+                    <button id="nav-btn-memes" onclick="switchDashboardTab('memes')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl subtext hover:text-indigo-500 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-comments text-xs"></i> Chat di Classe
+                    </button>
+                    <button id="nav-btn-feed" onclick="switchDashboardTab('feed')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl subtext hover:text-indigo-500 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-clock-rotate-left text-xs"></i> Registro Note
+                    </button>
+                    <button id="nav-btn-admin" onclick="switchDashboardTab('admin')" class="py-3 px-5 text-xs font-bold rounded-xl text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-user-shield text-xs"></i> Admin <span id="admin-pending-badge" class="ml-1 px-2 py-0.5 text-[10px] bg-rose-500 text-white rounded-full font-black hidden">0</span>
+                    </button>
+                </div>
+
+                <!-- TAB 1: SEGNALA CAZZATA / NOTA -->
+                <div id="tab-actions" class="flex-1 space-y-6">
+
+                    <div class="clean-glass p-6 rounded-3xl space-y-6 shadow-xl">
+                        
+                        <div class="flex items-center justify-between gap-4 flex-wrap">
+                            <div>
+                                <h3 class="font-display font-bold text-xl">Nuova Segnalazione</h3>
+                                <p class="text-xs subtext">Scegli una cazzata veloce, una nota o apri il pannello personalizzato.</p>
+                            </div>
+                            <!-- PULSANTE ALTRO IN ALTO COME RICHIESTO -->
+                            <button onclick="openCustomModal()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-lg transition flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Altro / Personalizzato
+                            </button>
+                        </div>
+
+                        <!-- MOSTRA STUDENTE LOGGATO -->
+                        <div class="p-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between">
+                            <span class="text-xs subtext font-medium">Segnalatore / Coinvolto:</span>
+                            <span id="current-user-display-name" class="font-bold text-xs text-indigo-400">---</span>
+                        </div>
+
+                        <!-- BARRA DI RICERCA CAZZATE -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-bold subtext">Tasti Rapidi Cazzate & Note</label>
+                                <span class="text-[10px] subtext">Clicca su una cazzata per inviarla</span>
+                            </div>
+                            <div class="relative">
+                                <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-xs subtext"></i>
+                                <input type="text" id="cazzata-search-input" onkeyup="filterCazzate()" placeholder="Cerca cazzata (Es. iPad, dormire, gioco, nota...)" class="w-full input-field border rounded-2xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500">
+                            </div>
+
+                            <!-- GRIGLIA PULSANTI COLORATI CAZZATE -->
+                            <div id="cazzate-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-96 overflow-y-auto p-1">
+                                <!-- Popolato da JS -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TAB 2: CLASSIFICA & HALL OF FAME -->
+                <div id="tab-leaderboard" class="flex-1 space-y-6 hidden">
+                    
+                    <!-- PODIO DEL MESE -->
+                    <div id="podium-section" class="clean-glass p-6 rounded-3xl space-y-4 border-indigo-500/20">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-display font-extrabold text-xl flex items-center gap-2">
+                                    <i class="fa-solid fa-crown text-amber-500"></i> Podio del Mese
+                                </h3>
+                                <p class="text-xs subtext">Classifica aggiornata in tempo reale</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-bold">Stagione Attiva</span>
+                        </div>
+
+                        <div id="podium-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                            <!-- Popolato da JS -->
+                        </div>
+                    </div>
+
+                    <!-- CLASSIFICA COMPLETA -->
+                    <div class="clean-glass p-6 rounded-3xl space-y-4">
+                        <h4 class="font-display font-bold text-lg">Classifica Generale</h4>
+                        <div id="leaderboard-list" class="space-y-2">
+                            <!-- Popolato da JS -->
+                        </div>
+                    </div>
+
+                    <!-- HALL OF FAME / VINCITORI PASSATI -->
+                    <div class="clean-glass p-6 rounded-3xl space-y-4 border-amber-500/20">
+                        <h4 class="font-display font-bold text-lg text-amber-400 flex items-center gap-2">
+                            <i class="fa-solid fa-award"></i> Albo d'Oro dei Vincitori Mensili
+                        </h4>
+                        <div id="hall-of-fame-list" class="space-y-2">
+                            <!-- Popolato da JS -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 3: CHAT DI CLASSE & MEME -->
+                <div id="tab-memes" class="flex-1 space-y-6 hidden">
+                    <div class="clean-glass p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                                <i class="fa-solid fa-comments text-indigo-400"></i> Chat & Meme di Classe
+                            </h3>
+                        </div>
+
+                        <!-- MESSAGGI CHAT -->
+                        <div id="chat-messages" class="h-80 overflow-y-auto space-y-3 p-3 rounded-2xl bg-slate-900/40 border border-white/5">
+                            <!-- Popolato da JS -->
+                        </div>
+
+                        <!-- FORM INVIO CHAT CON INVIO DA TASTIERA -->
+                        <div class="flex gap-2">
+                            <input type="text" id="chat-input" onkeypress="handleChatKeyPress(event)" placeholder="Scrivi un messaggio o incolla un link meme..." class="flex-1 input-field border rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500">
+                            <button onclick="sendChatMessage()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: REGISTRO NOTE / FEED -->
+                <div id="tab-feed" class="flex-1 space-y-6 hidden">
+                    <div class="clean-glass p-6 rounded-3xl space-y-4">
+                        <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Cronologia Note Approvate
+                        </h3>
+                        <div id="feed-list" class="space-y-3">
+                            <!-- Popolato da JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: PANNELLO ADMIN -->
+                <div id="tab-admin" class="flex-1 space-y-6 hidden">
+                    
+                    <!-- ADMIN LOGIN FORM -->
+                    <div id="admin-login-box" class="clean-glass p-6 rounded-3xl space-y-4 max-w-md mx-auto">
+                        <h3 class="font-display font-bold text-xl text-amber-400">Accesso Area Riservata Admin</h3>
+                        <p class="text-xs subtext">Inserisci il PIN Admin per accedere ai comandi di gestione della classe.</p>
+                        <input type="password" id="admin-pin-input" placeholder="PIN Admin" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-500">
+                        <button onclick="unlockAdminPanel()" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
+                            Sblocca Pannello Admin
+                        </button>
+                    </div>
+
+                    <!-- ADMIN CONTROLS -->
+                    <div id="admin-controls-box" class="space-y-6 hidden">
+                        
+                        <!-- NOTE IN ATTESA -->
+                        <div class="clean-glass p-6 rounded-3xl space-y-4 border-amber-500/20">
+                            <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
+                            </h3>
+                            <div id="pending-notes-list" class="space-y-3">
+                                <!-- Popolato da JS -->
+                            </div>
+                        </div>
+
+                        <!-- GESTIONE STUDENTI -->
+                        <div class="clean-glass p-6 rounded-3xl space-y-4">
+                            <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                                <i class="fa-solid fa-users-gear text-indigo-400"></i> Gestione Studenti
+                            </h3>
+                            <div id="admin-students-list" class="space-y-2">
+                                <!-- Popolato da JS -->
+                            </div>
+                        </div>
+
+                        <!-- FINE MESE / RESET -->
+                        <div class="clean-glass p-6 rounded-3xl space-y-4 border-rose-500/20">
+                            <h3 class="font-display font-bold text-xl text-rose-400 flex items-center gap-2">
+                                <i class="fa-solid fa-trophy"></i> Concludi Mese & Proclama Vincitore
+                            </h3>
+                            <p class="text-xs subtext">Proclama il vincitore del mese corrente, salvalo nell'Albo d'Oro e azzera la classifica per il nuovo mese.</p>
+                            <button onclick="promptEndMonth()" class="py-3 px-6 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
+                                Concludi Mese & Azzera Punteggi
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODALE CONFERMA GENERICA -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="clean-glass p-6 rounded-3xl max-w-sm w-full space-y-4 text-center border-white/10 shadow-2xl">
+            <div id="confirm-icon" class="text-4xl text-amber-400">⚠️</div>
+            <h3 id="confirm-title" class="font-display font-bold text-xl">Sei sicuro?</h3>
+            <p id="confirm-message" class="text-xs subtext">Vuoi procedere con questa operazione?</p>
+            <div class="flex gap-2 pt-2">
+                <button onclick="closeConfirmModal(false)" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
+                    Annulla
+                </button>
+                <button id="confirm-action-btn" onclick="closeConfirmModal(true)" class="flex-1 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-2xl transition">
+                    Conferma
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE CAZZATA PERSONALIZZATA / ALTRO -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="clean-glass p-6 rounded-3xl max-w-md w-full space-y-4 border-indigo-500/30 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-sm"></i> Cazzata Personalizzata / Altro
+                </h3>
+                <button onclick="closeCustomModal()" class="subtext hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold subtext mb-1">Titolo Cazzata / Evento</label>
+                    <input type="text" id="custom-title-input" placeholder="Es. Ha fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold subtext mb-1">Descrizione / Dettagli</label>
+                    <textarea id="custom-desc-input" rows="3" placeholder="Descrivi brevemente la cazzata..." class="w-full input-field border rounded-2xl p-3 text-xs focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold subtext mb-1">Punti Proposti</label>
+                    <input type="number" id="custom-points-input" value="20" min="5" max="200" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button onclick="closeCustomModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
+                    Annulla
+                </button>
+                <button onclick="submitCustomCazzata()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-2xl transition">
+                    Invia all'Admin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // STATO APPLICAZIONE
+        let currentTheme = 'dark';
+        let currentRoom = null;
+        let currentUser = null; // { name, role: 'student'|'admin' }
+        let confirmCallback = null;
+
+        // LISTA CAZZATE PREIMPOSTATE AMPLIATA E COLORATA
+        const CAZZATE_LIST = [
+            { id: 1, title: 'iPad all\'1% durante la lezione', points: 10, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-battery-quarter' },
+            { id: 2, title: 'Gaming nascosto sotto il banco', points: 25, color: 'border-purple-500/30 bg-purple-500/10 text-purple-400', icon: 'fa-gamepad' },
+            { id: 3, title: 'Dormita profonda in prima fila', points: 30, color: 'border-blue-500/30 bg-blue-500/10 text-blue-400', icon: 'fa-bed' },
+            { id: 4, title: 'AirDrop molesto inviato a tutta la classe', points: 20, color: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400', icon: 'fa-wifi' },
+            { id: 5, title: 'Apple Pencil caduta nel silenzio tombale', points: 15, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-pen-slash' },
+            { id: 6, title: 'Battuta fuori luogo che fa ridere il prof', points: 35, color: 'border-pink-500/30 bg-pink-500/10 text-pink-400', icon: 'fa-face-laugh-squint' },
+            { id: 7, title: 'Nota Lieve su registro', points: 20, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-file-signature' },
+            { id: 8, title: 'Nota Media su registro', points: 40, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-triangle-exclamation' },
+            { id: 9, title: 'Nota Grave su registro', points: 60, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-circle-exclamation' },
+            { id: 10, title: 'Nota Leggendaria dal Preside', points: 100, color: 'border-rose-600/40 bg-rose-600/20 text-rose-400', icon: 'fa-skull' },
+            { id: 11, title: 'Hotspot condiviso con 10 compagni', points: 25, color: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400', icon: 'fa-tower-cell' },
+            { id: 12, title: 'Proiettore spento per sbaglio', points: 15, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-tv' },
+            { id: 13, title: 'Film in streaming durante spiegazione', points: 40, color: 'border-red-500/30 bg-red-500/10 text-red-400', icon: 'fa-film' },
+            { id: 14, title: 'Finta chiamata urgente per uscire', points: 20, color: 'border-orange-500/30 bg-orange-500/10 text-orange-400', icon: 'fa-phone-slash' },
+            { id: 15, title: 'Tutti in piedi 5 minuti prima della campanella', points: 15, color: 'border-violet-500/30 bg-violet-500/10 text-violet-400', icon: 'fa-bell' },
+            { id: 16, title: 'Professore che si accorge di nulla per un’ora', points: 50, color: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-400', icon: 'fa-ghost' },
+            { id: 17, title: 'Consegna compito in bianco scenografica', points: 30, color: 'border-stone-500/30 bg-stone-500/10 text-stone-300', icon: 'fa-file' },
+            { id: 18, title: 'Mangiare di nascosto dietro al compagno alto', points: 20, color: 'border-lime-500/30 bg-lime-500/10 text-lime-400', icon: 'fa-burger' }
+        ];
+
+        // CARICAMENTO INIZIALE
+        window.onload = function() {
+            setTheme('dark');
+            renderCazzateButtons();
+            loadSavedSession();
+        };
+
+        // RENDER DEI PULSANTI CAZZATA COLORATI CON RICERCA
+        function renderCazzateButtons(filterText = '') {
+            const grid = document.getElementById('cazzate-grid');
+            if (!grid) return;
+
+            const filtered = CAZZATE_LIST.filter(c => c.title.toLowerCase().includes(filterText.toLowerCase()));
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p class="text-xs subtext col-span-full text-center py-4">Nessuna cazzata trovata. Usa il pulsante "Altro" in alto!</p>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(c => `
+                <button onclick="onCazzataButtonClick('${c.title.replace(/'/g, "\\'")}', ${c.points})" class="p-3 rounded-2xl border ${c.color} text-left transition hover:scale-[1.02] flex items-center justify-between gap-2 shadow-sm">
+                    <div class="flex items-center gap-2.5 overflow-hidden">
+                        <i class="fa-solid ${c.icon} text-sm shrink-0"></i>
+                        <span class="font-bold text-xs truncate">${c.title}</span>
+                    </div>
+                    <span class="font-mono text-xs font-black shrink-0">+${c.points} pt</span>
+                </button>
+            `).join('');
+        }
+
+        function filterCazzate() {
+            const val = document.getElementById('cazzata-search-input').value;
+            renderCazzateButtons(val);
+        }
+
+        function onCazzataButtonClick(title, points) {
+            promptSubmitNote(title, points, 'Segnalazione veloce');
+        }
+
+        // APERTURA / CHIUSURA MODALE ALTRO
+        function openCustomModal() {
+            document.getElementById('custom-title-input').value = '';
+            document.getElementById('custom-desc-input').value = '';
+            document.getElementById('custom-points-input').value = '20';
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function submitCustomCazzata() {
+            const title = document.getElementById('custom-title-input').value.trim();
+            const desc = document.getElementById('custom-desc-input').value.trim() || 'Nessun dettaglio aggiuntivo';
+            const points = parseInt(document.getElementById('custom-points-input').value) || 20;
+
+            if (!title) {
+                alert('Inserisci un titolo per la cazzata personalizzata!');
+                return;
+            }
+
+            closeCustomModal();
+            promptSubmitNote(title, points, desc);
+        }
+
+        // GESTIONE TEMI
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.body.className = `h-full flex flex-col font-sans theme-${theme} overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300`;
+        }
+
+        // TASTO DI USCITA / TORNA ALL'HUB
+        function exitToHub(e) {
+            if (e) e.preventDefault();
+            logoutRoom();
+        }
+
+        // SWAP TABS LOBBY
+        function switchLobbyTab(tab) {
+            const joinBtn = document.getElementById('tab-btn-join');
+            const createBtn = document.getElementById('tab-btn-create');
+            const formJoin = document.getElementById('form-join');
+            const formCreate = document.getElementById('form-create');
+
+            if (tab === 'join') {
+                joinBtn.classList.add('active-tab');
+                joinBtn.classList.remove('subtext');
+                createBtn.classList.remove('active-tab');
+                createBtn.classList.add('subtext');
+                formJoin.classList.remove('hidden');
+                formCreate.classList.add('hidden');
+            } else {
+                createBtn.classList.add('active-tab');
+                createBtn.classList.remove('subtext');
+                joinBtn.classList.remove('active-tab');
+                joinBtn.classList.add('subtext');
+                formCreate.classList.remove('hidden');
+                formJoin.classList.add('hidden');
+            }
+        }
+
+        // OTTIENI O SALVA DATI LOCALI PER STANZA CON GARANZIA ARRAY
+        function getRoomData(roomCode) {
+            if (!roomCode) return null;
+            const code = roomCode.toUpperCase().trim();
+            const data = localStorage.getItem(`fanta_room_${code}`);
+            if (data) {
+                try {
+                    const room = JSON.parse(data);
+                    if (!room.students) room.students = [];
+                    if (!room.pendingNotes) room.pendingNotes = [];
+                    if (!room.approvedNotes) room.approvedNotes = [];
+                    if (!room.chatMessages) room.chatMessages = [];
+                    if (!room.hallOfFame) room.hallOfFame = [];
+                    return room;
+                } catch(e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        function saveRoomData(data) {
+            if (!data || !data.code) return;
+            localStorage.setItem(`fanta_room_${data.code}`, JSON.stringify(data));
+        }
+
+        // ACCESSO E CREAZIONE STANZE
+        function joinRoom() {
+            const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
+            const userName = document.getElementById('join-name-input').value.trim();
+
+            if (!roomCode || !userName) {
+                alert('Inserisci sia il nome della stanza sia il tuo nome!');
+                return;
+            }
+
+            let room = getRoomData(roomCode);
+            if (!room) {
+                alert('Stanza non trovata! Se sei l\'admin, creala prima nella sezione dedicata.');
+                return;
+            }
+
+            // Aggiungi studente se non esiste
+            let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
+            if (!student) {
+                student = { id: Date.now().toString(), name: userName, points: 0 };
+                room.students.push(student);
+                saveRoomData(room);
+            }
+
+            currentUser = { name: student.name, role: 'student' };
+            currentRoom = room;
+
+            enterDashboard();
+        }
+
+        function createNewRoom() {
+            const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
+            const adminPin = document.getElementById('create-admin-pin').value.trim();
+            const adminName = document.getElementById('create-admin-name').value.trim();
+
+            if (!roomCode || !adminPin || !adminName) {
+                alert('Compila tutti i campi per creare la stanza!');
+                return;
+            }
+
+            let existingRoom = getRoomData(roomCode);
+            if (existingRoom) {
+                alert('Questa stanza esiste già! Puoi entrare direttamente con la scheda di accesso.');
+                return;
+            }
+
+            const newRoom = {
+                code: roomCode,
+                pin: adminPin,
+                adminName: adminName,
+                students: [{ id: Date.now().toString(), name: adminName, points: 0 }],
+                pendingNotes: [],
+                approvedNotes: [],
+                chatMessages: [],
+                hallOfFame: []
+            };
+
+            saveRoomData(newRoom);
+
+            currentUser = { name: adminName, role: 'admin' };
+            currentRoom = newRoom;
+
+            enterDashboard();
+        }
+
+        function enterDashboard() {
+            if (!currentRoom || !currentUser) return;
+
+            document.getElementById('lobby-view').classList.add('hidden');
+            document.getElementById('dashboard-view').classList.remove('hidden');
+            document.getElementById('header-actions').classList.remove('hidden');
+
+            document.getElementById('header-room-name').innerText = `Stanza: ${currentRoom.code}`;
+            document.getElementById('header-room-code').innerText = currentRoom.code;
+
+            const roleText = document.getElementById('role-text');
+            const roleBadge = document.getElementById('role-badge');
+            if (currentUser.role === 'admin') {
+                roleText.innerText = 'Admin';
+                roleBadge.className = 'px-3 py-1.5 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-amber-500/20 text-amber-400 border border-amber-500/30';
+            } else {
+                roleText.innerText = 'Studente';
+                roleBadge.className = 'px-3 py-1.5 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-slate-800 text-slate-300';
+            }
+
+            saveSession();
+            updateUI();
+        }
+
+        function saveSession() {
+            if (currentRoom && currentUser) {
+                localStorage.setItem('fanta_session', JSON.stringify({ roomCode: currentRoom.code, user: currentUser }));
+            }
+        }
+
+        function loadSavedSession() {
+            const session = localStorage.getItem('fanta_session');
+            if (session) {
+                try {
+                    const { roomCode, user } = JSON.parse(session);
+                    const room = getRoomData(roomCode);
+                    if (room && user && user.name) {
+                        currentRoom = room;
+                        currentUser = user;
+                        enterDashboard();
+                    }
+                } catch(e) {}
+            }
+        }
+
+        function logoutRoom() {
+            localStorage.removeItem('fanta_session');
+            currentRoom = null;
+            currentUser = null;
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('header-actions').classList.add('hidden');
+            document.getElementById('lobby-view').classList.remove('hidden');
+            document.getElementById('header-room-name').innerText = 'Nessuna stanza attiva';
+        }
+
+        function copyRoomCode() {
+            if (!currentRoom) return;
+            navigator.clipboard.writeText(currentRoom.code);
+            alert(`Codice Stanza "${currentRoom.code}" copiato negli appunti!`);
+        }
+
+        // SWAP TABS DASHBOARD
+        function switchDashboardTab(tab) {
+            ['actions', 'leaderboard', 'memes', 'feed', 'admin'].forEach(t => {
+                const btn = document.getElementById(`nav-btn-${t}`);
+                const section = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.classList.add('active-tab');
+                    btn.classList.remove('subtext');
+                    section.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active-tab');
+                    btn.classList.add('subtext');
+                    section.classList.add('hidden');
+                }
+            });
+
+            updateUI();
+        }
+
+        // INVIA NOTA / CAZZATA CON POPUP DI CONFERMA
+        function promptSubmitNote(title, points, description) {
+            if (!currentUser || !currentRoom) return;
+            if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
+
+            let student = currentRoom.students.find(s => s.name.toLowerCase() === currentUser.name.toLowerCase());
+            if (!student) {
+                student = { id: Date.now().toString(), name: currentUser.name, points: 0 };
+                currentRoom.students.push(student);
+                saveRoomData(currentRoom);
+            }
+
+            showConfirmModal(
+                '❓',
+                'Sei sicuro di inviare?',
+                `Segnalazione: "${title}" (+${points} pt) per ${student.name}.`,
+                () => {
+                    const newNote = {
+                        id: Date.now().toString(),
+                        studentId: student.id,
+                        studentName: student.name,
+                        reporterName: currentUser.name,
+                        severity: title,
+                        points: points,
+                        description: description || 'Nessun dettaglio aggiuntivo',
+                        date: new Date().toLocaleString('it-IT')
+                    };
+
+                    currentRoom.pendingNotes.push(newNote);
+                    saveRoomData(currentRoom);
+                    alert('Segnalazione inviata all\'Admin per approvazione!');
+                    updateUI();
+                }
+            );
+        }
+
+        // REFRESH DELL'INTERFACCIA GENERALE SENZA UNDEFINED
+        function updateUI() {
+            if (!currentRoom) return;
+
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
+
+            const userDisplay = document.getElementById('current-user-display-name');
+            if (userDisplay && currentUser && currentUser.name) {
+                userDisplay.innerText = currentUser.name;
+            }
+
+            const headerRoomName = document.getElementById('header-room-name');
+            if (headerRoomName && currentRoom.code) {
+                headerRoomName.innerText = `Stanza: ${currentRoom.code}`;
+            }
+
+            const pendingBadge = document.getElementById('admin-pending-badge');
+            if (pendingBadge) {
+                if (currentRoom.pendingNotes && currentRoom.pendingNotes.length > 0) {
+                    pendingBadge.innerText = currentRoom.pendingNotes.length;
+                    pendingBadge.classList.remove('hidden');
+                } else {
+                    pendingBadge.classList.add('hidden');
+                }
+            }
+
+            renderLeaderboard();
+            renderChat();
+            renderFeed();
+            renderAdminView();
+        }
+
+        // RENDER CLASSIFICA E PODIO
+        function renderLeaderboard() {
+            if (!currentRoom || !currentRoom.students) return;
+            const sorted = [...currentRoom.students].sort((a, b) => b.points - a.points);
+            
+            const podiumContainer = document.getElementById('podium-container');
+            const top3 = sorted.slice(0, 3);
+            const badges = ['🥇 1° Posto', '🥈 2° Posto', '🥉 3° Posto'];
+            
+            if (podiumContainer) {
+                podiumContainer.innerHTML = top3.map((s, idx) => `
+                    <div class="clean-card p-4 rounded-2xl flex flex-col items-center text-center space-y-2 border-indigo-500/20">
+                        <span class="text-xs font-bold text-amber-400">${badges[idx]}</span>
+                        <h4 class="font-bold text-lg">${s.name}</h4>
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 font-mono font-bold text-sm">${s.points} pt</span>
+                    </div>
+                `).join('') || '<p class="text-xs subtext text-center col-span-3">Nessuno studente ancora in classifica</p>';
+            }
+
+            const leaderboardList = document.getElementById('leaderboard-list');
+            if (leaderboardList) {
+                leaderboardList.innerHTML = sorted.map((s, idx) => `
+                    <div class="clean-card p-3 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 text-center font-bold text-xs subtext">#${idx + 1}</span>
+                            <span class="font-semibold text-sm">${s.name}</span>
+                        </div>
+                        <span class="font-mono font-bold text-xs text-indigo-400">${s.points} pt</span>
+                    </div>
+                `).join('');
+            }
+
+            const hallList = document.getElementById('hall-of-fame-list');
+            if (hallList) {
+                if (!currentRoom.hallOfFame || currentRoom.hallOfFame.length === 0) {
+                    hallList.innerHTML = '<p class="text-xs subtext">Nessun vincitore proclamato finora.</p>';
+                } else {
+                    hallList.innerHTML = currentRoom.hallOfFame.map(h => `
+                        <div class="clean-card p-3 rounded-2xl flex items-center justify-between border-amber-500/20">
+                            <div>
+                                <span class="font-bold text-sm text-amber-400">${h.winnerName}</span>
+                                <span class="text-xs subtext block">${h.month}</span>
+                            </div>
+                            <span class="font-mono font-bold text-xs text-amber-400">${h.points} pt</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        // GESTIONE CHAT + EVENTO INVIO TASTIERA
+        function handleChatKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text || !currentUser || !currentRoom) return;
+
+            if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
+
+            const msg = {
+                id: Date.now().toString(),
+                sender: currentUser.name || 'Studente',
+                text: text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            currentRoom.chatMessages.push(msg);
+            saveRoomData(currentRoom);
+            input.value = '';
+            renderChat();
+        }
+
+        function renderChat() {
+            const chatBox = document.getElementById('chat-messages');
+            if (!chatBox || !currentRoom) return;
+            if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
+
+            chatBox.innerHTML = currentRoom.chatMessages.map(m => `
+                <div class="p-2.5 rounded-xl bg-slate-800/40 border border-white/5 space-y-1">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs text-indigo-400">${m.sender}</span>
+                        <span class="text-[10px] subtext">${m.time}</span>
+                    </div>
+                    <p class="text-xs">${m.text}</p>
+                </div>
+            `).join('');
+
+            if (currentRoom.chatMessages.length === 0) {
+                chatBox.innerHTML = '<p class="text-xs subtext text-center py-4">Nessun messaggio. Scrivi qualcosa alla classe!</p>';
+            }
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // FEED NOTE APPROVATE
+        function renderFeed() {
+            const feedList = document.getElementById('feed-list');
+            if (!feedList || !currentRoom) return;
+            if (!currentRoom.approvedNotes) currentRoom.approvedNotes = [];
+
+            feedList.innerHTML = currentRoom.approvedNotes.map(n => `
+                <div class="clean-card p-4 rounded-2xl space-y-1 border-emerald-500/20">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs text-emerald-400">Nota per ${n.studentName} (+${n.points} pt)</span>
+                        <span class="text-[10px] subtext">${n.date}</span>
+                    </div>
+                    <p class="text-xs">${n.description}</p>
+                    <span class="text-[10px] subtext block">Segnalato da: ${n.reporterName}</span>
+                </div>
+            `).join('');
+
+            if (currentRoom.approvedNotes.length === 0) {
+                feedList.innerHTML = '<p class="text-xs subtext text-center py-4">Nessuna nota ancora approvata.</p>';
+            }
+        }
+
+        // VISTA ADMIN
+        function unlockAdminPanel() {
+            const pin = document.getElementById('admin-pin-input').value.trim();
+            if (pin === currentRoom.pin) {
+                currentUser.role = 'admin';
+                document.getElementById('admin-login-box').classList.add('hidden');
+                document.getElementById('admin-controls-box').classList.remove('hidden');
+                saveSession();
+                updateUI();
+            } else {
+                alert('PIN Errato!');
+            }
+        }
+
+        function renderAdminView() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+
+            document.getElementById('admin-login-box').classList.add('hidden');
+            document.getElementById('admin-controls-box').classList.remove('hidden');
+
+            const pendingList = document.getElementById('pending-notes-list');
+            if (pendingList) {
+                if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
+
+                pendingList.innerHTML = currentRoom.pendingNotes.map(n => `
+                    <div class="clean-card p-4 rounded-2xl space-y-3 border-amber-500/30">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-amber-400">${n.severity} (+${n.points} pt)</span>
+                            <span class="text-xs subtext">Studente: <b>${n.studentName}</b></span>
+                        </div>
+                        <p class="text-xs">${n.description}</p>
+                        <div class="flex gap-2">
+                            <button onclick="approveNote('${n.id}')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">
+                                Accetta (Verde)
+                            </button>
+                            <button onclick="rejectNote('${n.id}')" class="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl transition">
+                                Nega (Rosso)
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+                if (currentRoom.pendingNotes.length === 0) {
+                    pendingList.innerHTML = '<p class="text-xs subtext">Nessuna nota in attesa di approvazione.</p>';
+                }
+            }
+
+            const studentsList = document.getElementById('admin-students-list');
+            if (studentsList) {
+                studentsList.innerHTML = currentRoom.students.map(s => `
+                    <div class="clean-card p-3 rounded-2xl flex items-center justify-between gap-2">
+                        <input type="text" value="${s.name}" onchange="renameStudent('${s.id}', this.value)" class="bg-transparent font-semibold text-sm border-b border-white/10 focus:outline-none focus:border-indigo-500">
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs font-bold text-indigo-400">${s.points} pt</span>
+                            <button onclick="deleteStudent('${s.id}')" class="text-xs text-rose-500 hover:text-rose-400 p-1">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function approveNote(noteId) {
+            const idx = currentRoom.pendingNotes.findIndex(n => n.id === noteId);
+            if (idx === -1) return;
+
+            const note = currentRoom.pendingNotes.splice(idx, 1)[0];
+            let student = currentRoom.students.find(s => s.id === note.studentId);
+            if (!student) {
+                student = { id: note.studentId || Date.now().toString(), name: note.studentName, points: 0 };
+                currentRoom.students.push(student);
+            }
+            student.points += note.points;
+
+            if (!currentRoom.approvedNotes) currentRoom.approvedNotes = [];
+            currentRoom.approvedNotes.unshift(note);
+            saveRoomData(currentRoom);
+            updateUI();
+        }
+
+        function rejectNote(noteId) {
+            currentRoom.pendingNotes = currentRoom.pendingNotes.filter(n => n.id !== noteId);
+            saveRoomData(currentRoom);
+            updateUI();
+        }
+
+        function renameStudent(studentId, newName) {
+            const student = currentRoom.students.find(s => s.id === studentId);
+            if (student && newName.trim()) {
+                student.name = newName.trim();
+                saveRoomData(currentRoom);
+                updateUI();
+            }
+        }
+
+        function deleteStudent(studentId) {
+            showConfirmModal(
+                '🗑️',
+                'Eliminare lo studente?',
+                'Lo studente verrà rimosso dalla classe e dalla classifica.',
+                () => {
+                    currentRoom.students = currentRoom.students.filter(s => s.id !== studentId);
+                    saveRoomData(currentRoom);
+                    updateUI();
+                }
+            );
+        }
+
+        function promptEndMonth() {
+            showConfirmModal(
+                '🏆',
+                'Concludere il Mese?',
+                'Il primo in classifica verrà salvato nell\'Albo d\'Oro e tutti i punti della classe verranno azzerati per il nuovo mese.',
+                () => {
+                    const sorted = [...currentRoom.students].sort((a, b) => b.points - a.points);
+                    if (sorted.length > 0 && sorted[0].points > 0) {
+                        const winner = sorted[0];
+                        if (!currentRoom.hallOfFame) currentRoom.hallOfFame = [];
+                        currentRoom.hallOfFame.unshift({
+                            winnerName: winner.name,
+                            points: winner.points,
+                            month: new Date().toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })
+                        });
+                    }
+                    currentRoom.students.forEach(s => s.points = 0);
+                    saveRoomData(currentRoom);
+                    alert('Mese concluso con successo! Nuova stagione avviata.');
+                    updateUI();
+                }
+            );
+        }
+
+        // MODALE CONFERMA GENERICA
+        function showConfirmModal(icon, title, message, onConfirm) {
+            document.getElementById('confirm-icon').innerText = icon;
+            document.getElementById('confirm-title').innerText = title;
+            document.getElementById('confirm-message').innerText = message;
+            confirmCallback = onConfirm;
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        function closeConfirmModal(accepted) {
+            document.getElementById('confirm-modal').classList.add('hidden');
+            if (accepted && confirmCallback) {
+                confirmCallback();
+            }
+            confirmCallback = null;
+        }
+    </script>
+</body>
+</html>
