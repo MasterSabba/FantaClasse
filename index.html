@@ -127,29 +127,27 @@
             color: #ffffff;
         }
 
-        /* STILE TASTO X MINIMALE E DISCRETO SULLA SINISTRA */
+        /* STILE TASTO X MINIMALE E DISCRETO SULLA SINISTRA (SENZA CERCHIO) */
         .exit-button {
             position: fixed;
             top: 14px;
             left: 14px;
             z-index: 60;
-            width: 32px;
-            height: 32px;
-            border-radius: 9999px;
-            background: rgba(148, 163, 184, 0.15);
+            width: 28px;
+            height: 28px;
             color: #94a3b8;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             text-decoration: none;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: color 0.2s ease;
+            background: transparent;
+            border: none;
         }
         .exit-button:hover {
-            background: rgba(148, 163, 184, 0.3);
-            color: #cbd5e1;
+            color: #f8fafc;
         }
     </style>
 </head>
@@ -381,7 +379,7 @@
                         </div>
 
                         <!-- MESSAGGI CHAT -->
-                        <div id="chat-messages" class="h-80 overflow-y-auto space-y-3 p-3 rounded-2xl bg-slate-900/40 border border-white/5">
+                        <div id="chat-messages" class="h-80 overflow-y-auto space-y-3 p-3 rounded-2xl clean-card border border-white/5">
                             <!-- Popolato da JS -->
                         </div>
 
@@ -408,118 +406,121 @@
                 </div>
 
                 <!-- TAB 5: PANNELLO ADMIN -->
-                <div id="tab-admin" class="flex-1 space-y-6 hidden">
-                    
-                    <!-- ADMIN LOGIN FORM -->
-                    <div id="admin-login-box" class="clean-glass p-6 rounded-3xl space-y-4 max-w-md mx-auto">
-                        <h3 class="font-display font-bold text-xl text-amber-400">Accesso Area Riservata Admin</h3>
-                        <p class="text-xs subtext">Inserisci il PIN Admin per accedere ai comandi di gestione della classe.</p>
-                        <input type="password" id="admin-pin-input" placeholder="PIN Admin" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-500">
-                        <button onclick="unlockAdminPanel()" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
-                            Sblocca Pannello Admin
-                        </button>
-                    </div>
-
-                    <!-- ADMIN CONTROLS -->
-                    <div id="admin-controls-box" class="space-y-6 hidden">
-                        
-                        <!-- NOTE IN ATTESA -->
-                        <div class="clean-glass p-6 rounded-3xl space-y-4 border-amber-500/20">
-                            <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
-                            </h3>
-                            <div id="pending-notes-list" class="space-y-3">
-                                <!-- Popolato da JS -->
-                            </div>
-                        </div>
-
-                        <!-- GESTIONE STUDENTI -->
-                        <div class="clean-glass p-6 rounded-3xl space-y-4">
-                            <h3 class="font-display font-bold text-xl flex items-center gap-2">
-                                <i class="fa-solid fa-users-gear text-indigo-400"></i> Gestione Studenti
-                            </h3>
-                            <div id="admin-students-list" class="space-y-2">
-                                <!-- Popolato da JS -->
-                            </div>
-                        </div>
-
-                        <!-- FINE MESE / RESET -->
-                        <div class="clean-glass p-6 rounded-3xl space-y-4 border-rose-500/20">
-                            <h3 class="font-display font-bold text-xl text-rose-400 flex items-center gap-2">
-                                <i class="fa-solid fa-trophy"></i> Concludi Mese & Proclama Vincitore
-                            </h3>
-                            <p class="text-xs subtext">Proclama il vincitore del mese corrente, salvalo nell'Albo d'Oro e azzera la classifica per il nuovo mese.</p>
-                            <button onclick="promptEndMonth()" class="py-3 px-6 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
-                                Concludi Mese & Azzera Punteggi
-                            </button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </main>
-    </div>
-
-    <!-- MODALE CONFERMA GENERICA -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="clean-glass p-6 rounded-3xl max-w-sm w-full space-y-4 text-center border-white/10 shadow-2xl">
-            <div id="confirm-icon" class="text-4xl text-amber-400">⚠️</div>
-            <h3 id="confirm-title" class="font-display font-bold text-xl">Sei sicuro?</h3>
-            <p id="confirm-message" class="text-xs subtext">Vuoi procedere con questa operazione?</p>
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeConfirmModal(false)" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
-                    Annulla
-                </button>
-                <button id="confirm-action-btn" onclick="closeConfirmModal(true)" class="flex-1 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-2xl transition">
-                    Conferma
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODALE CAZZATA PERSONALIZZATA / ALTRO -->
-    <div id="custom-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="clean-glass p-6 rounded-3xl max-w-md w-full space-y-4 border-indigo-500/30 shadow-2xl">
-            <div class="flex items-center justify-between">
-                <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-sm"></i> Cazzata Personalizzata / Altro
-                </h3>
-                <button onclick="closeCustomModal()" class="subtext hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
+        <div id="tab-admin" class="flex-1 space-y-6 hidden">
             
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold subtext mb-1">Titolo Cazzata / Evento</label>
-                    <input type="text" id="custom-title-input" placeholder="Es. Ha fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold subtext mb-1">Descrizione / Dettagli</label>
-                    <textarea id="custom-desc-input" rows="3" placeholder="Descrivi brevemente la cazzata..." class="w-full input-field border rounded-2xl p-3 text-xs focus:outline-none focus:border-indigo-500"></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold subtext mb-1">Punti Proposti</label>
-                    <input type="number" id="custom-points-input" value="20" min="5" max="200" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
-                </div>
+            <!-- ADMIN LOGIN FORM -->
+            <div id="admin-login-box" class="clean-glass p-6 rounded-3xl space-y-4 max-w-md mx-auto">
+                <h3 class="font-display font-bold text-xl text-amber-400">Accesso Area Riservata Admin</h3>
+                <p class="text-xs subtext">Inserisci il PIN Admin per accedere ai comandi di gestione della classe.</p>
+                <input type="password" id="admin-pin-input" placeholder="PIN Admin" class="w-full input-field border rounded-2xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-500">
+                <button onclick="unlockAdminPanel()" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
+                    Sblocca Pannello Admin
+                </button>
             </div>
 
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeCustomModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
-                    Annulla
-                </button>
-                <button onclick="submitCustomCazzata()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-2xl transition">
-                    Invia all'Admin
-                </button>
+            <!-- ADMIN CONTROLS -->
+            <div id="admin-controls-box" class="space-y-6 hidden">
+                
+                <!-- NOTE IN ATTESA -->
+                <div class="clean-glass p-6 rounded-3xl space-y-4 border-amber-500/20">
+                    <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
+                    </h3>
+                    <div id="pending-notes-list" class="space-y-3">
+                        <!-- Popolato da JS -->
+                    </div>
+                </div>
+
+                <!-- GESTIONE STUDENTI -->
+                <div class="clean-glass p-6 rounded-3xl space-y-4">
+                    <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear text-indigo-400"></i> Gestione Studenti
+                    </h3>
+                    <div id="admin-students-list" class="space-y-2">
+                        <!-- Popolato da JS -->
+                    </div>
+                </div>
+
+                <!-- FINE MESE / RESET -->
+                <div class="clean-glass p-6 rounded-3xl space-y-4 border-rose-500/20">
+                    <h3 class="font-display font-bold text-xl text-rose-400 flex items-center gap-2">
+                        <i class="fa-solid fa-trophy"></i> Concludi Mese & Proclama Vincitore
+                    </h3>
+                    <p class="text-xs subtext">Proclama il vincitore del mese corrente, salvalo nell'Albo d'Oro e azzera la classifica per il nuovo mese.</p>
+                    <button onclick="promptEndMonth()" class="py-3 px-6 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-2xl shadow-lg transition">
+                        Concludi Mese & Azzera Punteggi
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+</div>
+
+<!-- MODALE CAZZATA PERSONALIZZATA / ALTRO -->
+<div id="custom-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="clean-glass p-6 rounded-3xl max-w-md w-full space-y-4 border-indigo-500/30 shadow-2xl">
+        <div class="flex items-center justify-between">
+            <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-sm"></i> Cazzata Personalizzata / Altro
+            </h3>
+            <button onclick="closeCustomModal()" class="subtext hover:text-white transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-3">
+            <div>
+                <label class="block text-xs font-semibold subtext mb-1">Titolo Cazzata / Evento</label>
+                <input type="text" id="custom-title-input" placeholder="Es. Ha fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold subtext mb-1">Descrizione / Dettagli</label>
+                <textarea id="custom-desc-input" rows="3" placeholder="Descrivi brevemente la cazzata..." class="w-full input-field border rounded-2xl p-3 text-xs focus:outline-none focus:border-indigo-500"></textarea>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold subtext mb-1">Punti Proposti</label>
+                <input type="number" id="custom-points-input" value="20" min="5" max="200" class="w-full input-field border rounded-2xl px-4 py-2.5 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
             </div>
         </div>
-    </div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
+        <div class="flex gap-2 pt-2">
+            <button onclick="closeCustomModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
+                Annulla
+            </button>
+            <button onclick="submitCustomCazzata()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-2xl transition">
+                Invia all'Admin
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODALE CONFERMA GENERICA -->
+<div id="confirm-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="clean-glass p-6 rounded-3xl max-w-sm w-full space-y-4 text-center border-white/10 shadow-2xl">
+        <div id="confirm-icon" class="text-4xl text-amber-400">⚠️</div>
+        <h3 id="confirm-title" class="font-display font-bold text-xl">Sei sicuro?</h3>
+        <p id="confirm-message" class="text-xs subtext">Vuoi procedere con questa operazione?</p>
+        <div class="flex gap-2 pt-2">
+            <button onclick="closeConfirmModal(false)" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition">
+                Annulla
+            </button>
+            <button id="confirm-action-btn" onclick="closeConfirmModal(true)" class="flex-1 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-2xl transition">
+                Conferma
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST NOTIFICATION CONTAINER (BASSO A DESTRA) -->
+<div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
         // STATO APPLICAZIONE
         let currentTheme = 'dark';
         let currentRoom = null;
@@ -587,6 +588,30 @@
             promptSubmitNote(title, points, 'Segnalazione veloce');
         }
 
+        // SISTEMA DI TOAST NOTIFICATION IN BASSO A DESTRA
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-600 text-white' : (type === 'error' ? 'bg-rose-600 text-white' : 'bg-slate-800 text-slate-100');
+            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-2xl text-xs font-bold flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border border-white/10 ${bgClass}`;
+            
+            const icon = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-circle-xmark' : 'fa-circle-info');
+            toast.innerHTML = `<i class="fa-solid ${icon} text-sm"></i><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
         // APERTURA / CHIUSURA MODALE ALTRO
         function openCustomModal() {
             document.getElementById('custom-title-input').value = '';
@@ -605,7 +630,7 @@
             const points = parseInt(document.getElementById('custom-points-input').value) || 20;
 
             if (!title) {
-                alert('Inserisci un titolo per la cazzata personalizzata!');
+                showToast('Inserisci un titolo per la cazzata personalizzata!', 'error');
                 return;
             }
 
@@ -674,24 +699,22 @@
             if (!data || !data.code) return;
             localStorage.setItem(`fanta_room_${data.code}`, JSON.stringify(data));
         }
-
-        // ACCESSO E CREAZIONE STANZE
+        // ACCESSO E CREAZIONE STANZE CON SINCRONIZZAZIONE
         function joinRoom() {
             const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
             const userName = document.getElementById('join-name-input').value.trim();
 
             if (!roomCode || !userName) {
-                alert('Inserisci sia il nome della stanza sia il tuo nome!');
+                showToast('Inserisci sia il nome della stanza sia il tuo nome!', 'error');
                 return;
             }
 
             let room = getRoomData(roomCode);
             if (!room) {
-                alert('Stanza non trovata! Se sei l\'admin, creala prima nella sezione dedicata.');
+                showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
                 return;
             }
 
-            // Aggiungi studente se non esiste
             let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
             if (!student) {
                 student = { id: Date.now().toString(), name: userName, points: 0 };
@@ -703,6 +726,7 @@
             currentRoom = room;
 
             enterDashboard();
+            showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
         }
 
         function createNewRoom() {
@@ -711,13 +735,13 @@
             const adminName = document.getElementById('create-admin-name').value.trim();
 
             if (!roomCode || !adminPin || !adminName) {
-                alert('Compila tutti i campi per creare la stanza!');
+                showToast('Compila tutti i campi per creare la stanza!', 'error');
                 return;
             }
 
             let existingRoom = getRoomData(roomCode);
             if (existingRoom) {
-                alert('Questa stanza esiste già! Puoi entrare direttamente con la scheda di accesso.');
+                showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
                 return;
             }
 
@@ -738,6 +762,7 @@
             currentRoom = newRoom;
 
             enterDashboard();
+            showToast(`Stanza ${roomCode} creata con successo!`, 'success');
         }
 
         function enterDashboard() {
@@ -798,7 +823,7 @@
         function copyRoomCode() {
             if (!currentRoom) return;
             navigator.clipboard.writeText(currentRoom.code);
-            alert(`Codice Stanza "${currentRoom.code}" copiato negli appunti!`);
+            showToast(`Codice "${currentRoom.code}" copiato negli appunti!`, 'success');
         }
 
         // SWAP TABS DASHBOARD
@@ -817,12 +842,23 @@
                 }
             });
 
+            // Se l'utente clicca su Admin e non è loggato come admin, blocca mostrando il form PIN
+            if (tab === 'admin') {
+                if (!currentUser || currentUser.role !== 'admin') {
+                    document.getElementById('admin-login-box').classList.remove('hidden');
+                    document.getElementById('admin-controls-box').classList.add('hidden');
+                    const pinInput = document.getElementById('admin-pin-input');
+                    if (pinInput) pinInput.value = '';
+                }
+            }
+
             updateUI();
         }
 
         // INVIA NOTA / CAZZATA CON POPUP DI CONFERMA
         function promptSubmitNote(title, points, description) {
             if (!currentUser || !currentRoom) return;
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
 
             let student = currentRoom.students.find(s => s.name.toLowerCase() === currentUser.name.toLowerCase());
@@ -832,6 +868,7 @@
                 saveRoomData(currentRoom);
             }
 
+            // APRE SEMPRE IL POPUP DI CONFERMA COME RICHIESTO
             showConfirmModal(
                 '❓',
                 'Sei sicuro di inviare?',
@@ -850,13 +887,13 @@
 
                     currentRoom.pendingNotes.push(newNote);
                     saveRoomData(currentRoom);
-                    alert('Segnalazione inviata all\'Admin per approvazione!');
+                    showToast('Segnalazione inviata all\'Admin!', 'success');
                     updateUI();
                 }
             );
         }
 
-        // REFRESH DELL'INTERFACCIA GENERALE SENZA UNDEFINED
+        // REFRESH DELL'INTERFACCIA GENERALE CON SINCRONIZZAZIONE DATI
         function updateUI() {
             if (!currentRoom) return;
 
@@ -951,6 +988,7 @@
             const text = input.value.trim();
             if (!text || !currentUser || !currentRoom) return;
 
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
 
             const msg = {
@@ -966,13 +1004,34 @@
             renderChat();
         }
 
+        function clearChat() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+            showConfirmModal(
+                '🗑️',
+                'Svuotare la chat?',
+                'Tutti i messaggi della chat di gruppo verranno eliminati definitivamente.',
+                () => {
+                    currentRoom.chatMessages = [];
+                    saveRoomData(currentRoom);
+                    renderChat();
+                    showToast('Chat svuotata con successo!', 'success');
+                }
+            );
+        }
+
         function renderChat() {
             const chatBox = document.getElementById('chat-messages');
             if (!chatBox || !currentRoom) return;
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
 
-            chatBox.innerHTML = currentRoom.chatMessages.map(m => `
-                <div class="p-2.5 rounded-xl bg-slate-800/40 border border-white/5 space-y-1">
+            let adminClearBtn = '';
+            if (currentUser && currentUser.role === 'admin' && currentRoom.chatMessages.length > 0) {
+                adminClearBtn = `<div class="flex justify-end pb-2"><button onclick="clearChat()" class="px-3 py-1 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30 rounded-xl text-[10px] font-bold transition flex items-center gap-1.5"><i class="fa-solid fa-trash"></i> Svuota Chat</button></div>`;
+            }
+
+            chatBox.innerHTML = adminClearBtn + currentRoom.chatMessages.map(m => `
+                <div class="p-3 rounded-2xl clean-card border border-white/10 space-y-1 shadow-sm">
                     <div class="flex items-center justify-between">
                         <span class="font-bold text-xs text-indigo-400">${m.sender}</span>
                         <span class="text-[10px] subtext">${m.time}</span>
@@ -982,7 +1041,7 @@
             `).join('');
 
             if (currentRoom.chatMessages.length === 0) {
-                chatBox.innerHTML = '<p class="text-xs subtext text-center py-4">Nessun messaggio. Scrivi qualcosa alla classe!</p>';
+                chatBox.innerHTML = adminClearBtn + '<p class="text-xs subtext text-center py-4">Nessun messaggio. Scrivi qualcosa alla classe!</p>';
             }
 
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -1013,22 +1072,31 @@
         // VISTA ADMIN
         function unlockAdminPanel() {
             const pin = document.getElementById('admin-pin-input').value.trim();
-            if (pin === currentRoom.pin) {
+            if (currentRoom && pin === currentRoom.pin) {
                 currentUser.role = 'admin';
                 document.getElementById('admin-login-box').classList.add('hidden');
                 document.getElementById('admin-controls-box').classList.remove('hidden');
                 saveSession();
                 updateUI();
+                showToast('Pannello Admin sbloccato!', 'success');
             } else {
-                alert('PIN Errato!');
+                showToast('PIN Errato!', 'error');
             }
         }
 
         function renderAdminView() {
-            if (!currentUser || currentUser.role !== 'admin') return;
+            if (!currentUser || currentUser.role !== 'admin') {
+                const loginBox = document.getElementById('admin-login-box');
+                const controlsBox = document.getElementById('admin-controls-box');
+                if (loginBox) loginBox.classList.remove('hidden');
+                if (controlsBox) controlsBox.classList.add('hidden');
+                return;
+            }
 
-            document.getElementById('admin-login-box').classList.add('hidden');
-            document.getElementById('admin-controls-box').classList.remove('hidden');
+            const loginBox = document.getElementById('admin-login-box');
+            const controlsBox = document.getElementById('admin-controls-box');
+            if (loginBox) loginBox.classList.add('hidden');
+            if (controlsBox) controlsBox.classList.remove('hidden');
 
             const pendingList = document.getElementById('pending-notes-list');
             if (pendingList) {
@@ -1074,6 +1142,7 @@
         }
 
         function approveNote(noteId) {
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             const idx = currentRoom.pendingNotes.findIndex(n => n.id === noteId);
             if (idx === -1) return;
 
@@ -1089,20 +1158,25 @@
             currentRoom.approvedNotes.unshift(note);
             saveRoomData(currentRoom);
             updateUI();
+            showToast(`Nota approvata per ${student.name} (+${note.points} pt)!`, 'success');
         }
 
         function rejectNote(noteId) {
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             currentRoom.pendingNotes = currentRoom.pendingNotes.filter(n => n.id !== noteId);
             saveRoomData(currentRoom);
             updateUI();
+            showToast('Segnalazione rifiutata.', 'info');
         }
 
         function renameStudent(studentId, newName) {
+            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             const student = currentRoom.students.find(s => s.id === studentId);
             if (student && newName.trim()) {
                 student.name = newName.trim();
                 saveRoomData(currentRoom);
                 updateUI();
+                showToast('Studente rinominato con successo!', 'success');
             }
         }
 
@@ -1112,9 +1186,11 @@
                 'Eliminare lo studente?',
                 'Lo studente verrà rimosso dalla classe e dalla classifica.',
                 () => {
+                    currentRoom = getRoomData(currentRoom.code) || currentRoom;
                     currentRoom.students = currentRoom.students.filter(s => s.id !== studentId);
                     saveRoomData(currentRoom);
                     updateUI();
+                    showToast('Studente eliminato.', 'info');
                 }
             );
         }
@@ -1125,6 +1201,7 @@
                 'Concludere il Mese?',
                 'Il primo in classifica verrà salvato nell\'Albo d\'Oro e tutti i punti della classe verranno azzerati per il nuovo mese.',
                 () => {
+                    currentRoom = getRoomData(currentRoom.code) || currentRoom;
                     const sorted = [...currentRoom.students].sort((a, b) => b.points - a.points);
                     if (sorted.length > 0 && sorted[0].points > 0) {
                         const winner = sorted[0];
@@ -1137,8 +1214,8 @@
                     }
                     currentRoom.students.forEach(s => s.points = 0);
                     saveRoomData(currentRoom);
-                    alert('Mese concluso con successo! Nuova stagione avviata.');
                     updateUI();
+                    showToast('Mese concluso! Classifica azzerata.', 'success');
                 }
             );
         }
