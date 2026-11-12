@@ -13,6 +13,35 @@
     <!-- FontAwesome per Icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Firebase SDK CDN -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBxZQF5OO5-znaipaPYeFcjOARjFXO1_gc",
+        authDomain: "mastersabba-games.firebaseapp.com",
+        databaseURL: "https://mastersabba-games-default-rtdb.firebaseio.com",
+        projectId: "mastersabba-games",
+        storageBucket: "mastersabba-games.firebasestorage.app",
+        messagingSenderId: "254141019232",
+        appId: "1:254141019232:web:29702c03b91f8a76677f05",
+        measurementId: "G-775DFWZ6PC"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Rendiamo gli oggetti globali per usarli nello script del portale
+    window.db = db;
+    window.dbRef = ref;
+    window.dbSet = set;
+    window.dbGet = get;
+    window.dbChild = child;
+    window.dbOnValue = onValue;
+    window.dbRemove = remove;
+</script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -640,29 +669,52 @@
             }
         }
 
-        function getRoomData(roomCode) {
-            if (!roomCode) return null;
-            const code = roomCode.toUpperCase().trim();
-            const data = localStorage.getItem(`fanta_room_${code}`);
-            if (data) {
-                try {
-                    const room = JSON.parse(data);
-                    if (!room.students) room.students = [];
-                    if (!room.pendingNotes) room.pendingNotes = [];
-                    if (!room.approvedNotes) room.approvedNotes = [];
-                    if (!room.chatMessages) room.chatMessages = [];
-                    if (!room.hallOfFame) room.hallOfFame = [];
-                    return room;
-                } catch(e) { return null; }
-            }
-            return null;
-        }
+     // Funzione asincrona per leggere la stanza da Firebase
+async function getRoomData(roomCode) {
+    if (!roomCode) return null;
+    const code = roomCode.toUpperCase().trim();
+    if (!window.db) return null;
 
-        function saveRoomData(data) {
-            if (!data || !data.code) return;
-            localStorage.setItem(`fanta_room_${data.code}`, JSON.stringify(data));
+    try {
+        const dbRef = window.dbRef(window.db, `fanta_rooms/${code}`);
+        const snapshot = await window.dbGet(dbRef);
+        if (snapshot.exists()) {
+            const room = snapshot.val();
+            if (!room.students) room.students = [];
+            if (!room.pendingNotes) room.pendingNotes = [];
+            if (!room.approvedNotes) room.approvedNotes = [];
+            if (!room.chatMessages) room.chatMessages = [];
+            if (!room.hallOfFame) room.hallOfFame = [];
+            return room;
         }
+    } catch (e) {
+        console.error("Errore lettura Firebase:", e);
+    }
+    return null;
+}
 
+// Funzione per salvare/aggiornare la stanza su Firebase
+function saveRoomData(data) {
+    if (!data || !data.code || !window.db) return;
+    const code = data.code.toUpperCase().trim();
+    window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data).catch(err => {
+        console.error("Errore salvataggio Firebase:", err);
+    });
+}
+
+// Ascolta i cambiamenti in tempo reale sulla stanza attiva
+function listenToRoomUpdates(roomCode) {
+    if (!window.db || !roomCode) return;
+    const code = roomCode.toUpperCase().trim();
+    const roomRef = window.dbRef(window.db, `fanta_rooms/${code}`);
+    
+    window.dbOnValue(roomRef, (snapshot) => {
+        if (snapshot.exists()) {
+            currentRoom = snapshot.val();
+            updateUI();
+        }
+    });
+}
         function joinRoom() {
             const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
             const userName = document.getElementById('join-name-input').value.trim();
@@ -689,6 +741,7 @@
             currentRoom = room;
 
             enterDashboard();
+            listenToRoomUpdates(currentRoom.code);
             showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
         }
 
@@ -724,6 +777,7 @@
             currentRoom = newRoom;
 
             enterDashboard();
+            listenToRoomUpdates(currentRoom.code);
             showToast(`Stanza ${roomCode} creata con successo!`, 'success');
         }
 
@@ -767,6 +821,7 @@
                         currentRoom = room;
                         currentUser = user;
                         enterDashboard();
+                        listenToRoomUpdates(currentRoom.code);
                     }
                 } catch(e) {}
             }
