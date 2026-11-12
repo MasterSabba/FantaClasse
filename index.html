@@ -715,71 +715,71 @@ function listenToRoomUpdates(roomCode) {
         }
     });
 }
-        function joinRoom() {
-            const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
-            const userName = document.getElementById('join-name-input').value.trim();
+      async function joinRoom() {
+    const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
+    const userName = document.getElementById('join-name-input').value.trim();
 
-            if (!roomCode || !userName) {
-                showToast('Inserisci sia il codice stanza che il tuo nome!', 'error');
-                return;
-            }
+    if (!roomCode || !userName) {
+        showToast('Inserisci sia il codice stanza che il tuo nome!', 'error');
+        return;
+    }
 
-            let room = getRoomData(roomCode);
-            if (!room) {
-                showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
-                return;
-            }
+    let room = await getRoomData(roomCode);
+    if (!room) {
+        showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
+        return;
+    }
 
-            let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
-            if (!student) {
-                student = { id: Date.now().toString(), name: userName, points: 0 };
-                room.students.push(student);
-                saveRoomData(room);
-            }
+    let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
+    if (!student) {
+        student = { id: Date.now().toString(), name: userName, points: 0 };
+        room.students.push(student);
+        saveRoomData(room);
+    }
 
-            currentUser = { name: student.name, role: 'student' };
-            currentRoom = room;
+    currentUser = { name: student.name, role: 'student' };
+    currentRoom = room;
 
-            enterDashboard();
-            listenToRoomUpdates(currentRoom.code);
-            showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
-        }
+    enterDashboard();
+    listenToRoomUpdates(currentRoom.code);
+    showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
+}
 
-        function createNewRoom() {
-            const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
-            const adminPin = document.getElementById('create-admin-pin').value.trim();
-            const adminName = document.getElementById('create-admin-name').value.trim();
+async function createNewRoom() {
+    const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
+    const adminPin = document.getElementById('create-admin-pin').value.trim();
+    const adminName = document.getElementById('create-admin-name').value.trim();
 
-            if (!roomCode || !adminPin || !adminName) {
-                showToast('Compila tutti i campi per creare la stanza!', 'error');
-                return;
-            }
+    if (!roomCode || !adminPin || !adminName) {
+        showToast('Compila tutti i campi per creare la stanza!', 'error');
+        return;
+    }
 
-            let existingRoom = getRoomData(roomCode);
-            if (existingRoom) {
-                showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
-                return;
-            }
+    let existingRoom = await getRoomData(roomCode);
+    if (existingRoom) {
+        showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
+        return;
+    }
 
-            const newRoom = {
-                code: roomCode,
-                pin: adminPin,
-                adminName: adminName,
-                students: [{ id: Date.now().toString(), name: adminName, points: 0 }],
-                pendingNotes: [],
-                approvedNotes: [],
-                chatMessages: [],
-                hallOfFame: []
-            };
+    const newRoom = {
+        code: roomCode,
+        pin: adminPin,
+        adminName: adminName,
+        students: [{ id: Date.now().toString(), name: adminName, points: 0 }],
+        pendingNotes: [],
+        approvedNotes: [],
+        chatMessages: [],
+        hallOfFame: []
+    };
 
-            saveRoomData(newRoom);
-            currentUser = { name: adminName, role: 'admin' };
-            currentRoom = newRoom;
+    saveRoomData(newRoom);
+    currentUser = { name: adminName, role: 'admin' };
+    currentRoom = newRoom;
 
-            enterDashboard();
-            listenToRoomUpdates(currentRoom.code);
-            showToast(`Stanza ${roomCode} creata con successo!`, 'success');
-        }
+    enterDashboard();
+    listenToRoomUpdates(currentRoom.code);
+    showToast(`Stanza ${roomCode} creata con successo!`, 'success');
+}
 
         function enterDashboard() {
             if (!currentRoom || !currentUser) return;
@@ -811,21 +811,21 @@ function listenToRoomUpdates(roomCode) {
             }
         }
 
-        function loadSavedSession() {
-            const session = localStorage.getItem('fanta_session');
-            if (session) {
-                try {
-                    const { roomCode, user } = JSON.parse(session);
-                    const room = getRoomData(roomCode);
-                    if (room && user && user.name) {
-                        currentRoom = room;
-                        currentUser = user;
-                        enterDashboard();
-                        listenToRoomUpdates(currentRoom.code);
-                    }
-                } catch(e) {}
+       async function loadSavedSession() {
+    const session = localStorage.getItem('fanta_session');
+    if (session) {
+        try {
+            const { roomCode, user } = JSON.parse(session);
+            const room = await getRoomData(roomCode);
+            if (room && user && user.name) {
+                currentRoom = room;
+                currentUser = user;
+                enterDashboard();
+                listenToRoomUpdates(currentRoom.code);
             }
-        }
+        } catch(e) {}
+    }
+}
 
         function logoutRoom() {
             localStorage.removeItem('fanta_session');
