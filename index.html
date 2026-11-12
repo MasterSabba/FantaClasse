@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" class="min-h-full">
+<html lang="it" class="min-h-full theme-dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome per Icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -41,7 +41,6 @@
         window.dbRemove = remove;
         window.firebaseReady = true;
 
-        // Se c'era una sessione salvata, caricala appena Firebase è pronto
         if (typeof window.loadSavedSession === 'function') {
             window.loadSavedSession();
         }
@@ -60,103 +59,125 @@
         }
     </script>
     <style>
+        :root {
+            --text: #f8fafc;
+        }
+
         html, body {
             min-height: 100vh;
             margin: 0;
             padding: 0;
         }
 
-        /* TEMI (DARK, LIGHT, GREEN) */
+        /* TASTO CHIUSURA X */
+        .exit-button {
+            position: absolute; top: 15px; left: 20px; font-size: 2rem; line-height: 1;
+            color: #555; text-decoration: none; z-index: 1001;
+            transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; font-family: Arial, sans-serif;
+        }
+        .exit-button:hover { color: var(--text); transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .header-box { margin-top: 40px; }
+        }
+
+        /* =========================================
+           TEMA 1: CYBER MIDNIGHT (DARK)
+           ========================================= */
         html.theme-dark, body.theme-dark {
-            background-color: #020617;
+            --text: #f8fafc;
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #090d16 45%, #030712 100%);
             color: #f8fafc;
         }
         .theme-dark .clean-glass {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(129, 140, 248, 0.16);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
         .theme-dark .clean-card {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: #ffffff;
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            color: #f8fafc;
         }
         .theme-dark .clean-card:hover {
-            background: rgba(30, 41, 59, 0.8);
-            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(30, 41, 59, 0.78);
+            border-color: rgba(99, 102, 241, 0.45);
         }
         .theme-dark .input-field {
-            background: rgba(2, 6, 23, 0.9);
-            border-color: #1e293b;
+            background: rgba(3, 7, 18, 0.85);
+            border-color: rgba(99, 102, 241, 0.25);
             color: #ffffff;
         }
         .theme-dark .subtext { color: #94a3b8; }
 
+        /* =========================================
+           TEMA 2: NORDIC DAYLIGHT (LIGHT)
+           ========================================= */
         html.theme-light, body.theme-light {
-            background-color: #f8fafc;
+            --text: #0f172a;
+            background: radial-gradient(circle at top left, #e0e7ff 0%, #f1f5f9 45%, #f8fafc 100%);
             color: #0f172a;
         }
         .theme-light .clean-glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(99, 102, 241, 0.14);
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
         .theme-light .clean-card {
-            background: rgba(241, 245, 249, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.07);
             color: #0f172a;
         }
         .theme-light .clean-card:hover {
             background: #ffffff;
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            border-color: rgba(79, 70, 229, 0.35);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.08);
         }
         .theme-light .input-field {
             background: #ffffff;
             border-color: #cbd5e1;
             color: #0f172a;
         }
-        .theme-light .subtext { color: #64748b; }
+        .theme-light .subtext { color: #475569; }
         .theme-light h1, .theme-light h2, .theme-light h3, .theme-light h4 { color: #0f172a !important; }
-        .theme-light .exit-button {
-            background: rgba(15, 23, 42, 0.06);
-            border-color: rgba(15, 23, 42, 0.12);
-            color: #334155;
-        }
-        .theme-light .exit-button:hover {
-            background: rgba(15, 23, 42, 0.12);
-            color: #0f172a;
-        }
+        .theme-light .exit-button { color: #64748b; }
 
-        /* TEMA VERDE */
+        /* =========================================
+           TEMA 3: EMERALD FOREST (GREEN)
+           ========================================= */
         html.theme-green, body.theme-green {
-            background-color: #064e3b;
+            --text: #ecfdf5;
+            background: radial-gradient(circle at top right, #065f46 0%, #022c22 50%, #011c16 100%);
             color: #ecfdf5;
         }
         .theme-green .clean-glass {
-            background: rgba(6, 78, 59, 0.85);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-            box-shadow: 0 20px 40px -15px rgba(2, 44, 34, 0.7);
+            background: rgba(4, 47, 36, 0.78);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(52, 211, 153, 0.22);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(167, 243, 208, 0.1);
         }
         .theme-green .clean-card {
-            background: rgba(4, 120, 87, 0.5);
-            border: 1px solid rgba(52, 211, 153, 0.15);
+            background: rgba(6, 78, 59, 0.45);
+            border: 1px solid rgba(52, 211, 153, 0.16);
             color: #ecfdf5;
         }
         .theme-green .clean-card:hover {
-            background: rgba(4, 120, 87, 0.8);
+            background: rgba(6, 95, 70, 0.75);
             border-color: rgba(52, 211, 153, 0.5);
         }
         .theme-green .input-field {
-            background: rgba(2, 44, 34, 0.9);
-            border-color: #047857;
+            background: rgba(1, 28, 22, 0.88);
+            border-color: rgba(52, 211, 153, 0.3);
             color: #ecfdf5;
         }
-        .theme-green .subtext { color: #a7f3d0; }
+        .theme-green .subtext { color: #6ee7b7; }
         .theme-green h1, .theme-green h2, .theme-green h3, .theme-green h4 { color: #ffffff !important; }
+        .theme-green .exit-button { color: #6ee7b7; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -166,80 +187,68 @@
         .active-tab {
             background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
             color: #ffffff !important;
-            box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.45);
+        }
+        .theme-green .active-tab {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.45);
         }
 
-        /* TASTO DI USCITA MINIMALE */
-        .exit-button {
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 60;
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #cbd5e1;
-        }
-        .exit-button:hover {
-            background: rgba(255, 255, 255, 0.18);
-            color: #ffffff;
-            transform: scale(1.05);
+        .uppercase-input {
+            text-transform: uppercase;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+<body class="min-h-screen flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-all duration-300">
 
-    <!-- FRECCIA INDIETRO VERSO L'HUB -->
-    <a href="index.html" onclick="exitToHub(event)" class="exit-button" title="Torna all'Hub"><i class="fa-solid fa-arrow-left text-sm"></i></a>
+    <!-- TASTO X DI USCITA -->
+    <a href="#" onclick="exitToHub(event); return false;" class="exit-button" title="Torna all'Hub">×</a>
 
     <!-- APP CONTAINER -->
-    <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-4 sm:p-6 min-h-screen pl-16 sm:pl-20">
+    <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-4 sm:p-6 min-h-screen">
 
-        <!-- HEADER MINIMAL CON CAMBIO TEMA -->
-        <header class="clean-glass rounded-3xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4 sticky top-4 z-40">
+        <!-- HEADER -->
+        <header class="header-box clean-glass rounded-3xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4 sticky top-4 z-40">
             <div class="flex items-center gap-3.5">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-600/30">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-fuchsia-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-600/30">
                     🎓
                 </div>
                 <div>
-                    <h1 class="font-display font-extrabold text-xl sm:text-2xl tracking-tight flex items-center gap-2">
-                        FantaClasse
-                    </h1>
-                    <p id="header-room-name" class="text-xs subtext font-medium">Nessuna stanza attiva</p>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-display font-black text-xl sm:text-2xl tracking-tight">
+                            FANTACLASSE
+                        </h1>
+                        <span id="header-status-pill" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-500/20 subtext border border-white/10">
+                            OFFLINE
+                        </span>
+                    </div>
+                    <p id="header-room-name" class="text-xs subtext font-semibold uppercase tracking-wide mt-0.5">Pronto per entrare in classe</p>
                 </div>
             </div>
 
             <!-- SELETTORE TEMI & AZIONI STANZA -->
             <div class="flex items-center gap-2.5">
-                <div class="bg-slate-900/30 p-1.5 rounded-2xl border border-white/10 flex items-center gap-1">
-                    <button onclick="setTheme('dark')" title="Tema Scuro" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-amber-300 hover:bg-white/10 transition">🌙</button>
-                    <button onclick="setTheme('light')" title="Tema Chiaro" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-indigo-500 hover:bg-white/10 transition">☀️</button>
-                    <button onclick="setTheme('green')" title="Tema Verde" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-emerald-400 hover:bg-white/10 transition">🌿</button>
+                <div class="bg-black/20 p-1.5 rounded-2xl border border-white/10 flex items-center gap-1">
+                    <button onclick="setTheme('dark')" title="Cyber Midnight (Scuro)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">🌙</button>
+                    <button onclick="setTheme('light')" title="Nordic Daylight (Chiaro)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">☀️</button>
+                    <button onclick="setTheme('green')" title="Emerald Forest (Verde)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">🌿</button>
                 </div>
 
                 <div id="header-actions" class="hidden flex items-center gap-2.5">
-                    <div class="bg-indigo-500/10 px-3.5 py-2 rounded-2xl border border-indigo-500/20 text-xs flex items-center gap-2">
-                        <span class="subtext">Codice:</span>
-                        <span id="header-room-code" class="font-mono font-bold text-amber-500 tracking-wider">----</span>
+                    <div class="bg-indigo-500/15 px-3.5 py-2 rounded-2xl border border-indigo-500/30 text-xs flex items-center gap-2">
+                        <span class="subtext font-semibold">STANZA:</span>
+                        <span id="header-room-code" class="font-mono font-black text-amber-400 tracking-wider">----</span>
                         <button onclick="copyRoomCode()" title="Copia Codice" class="subtext hover:text-indigo-400 transition ml-1">
                             <i class="fa-regular fa-copy"></i>
                         </button>
                     </div>
 
-                    <div id="role-badge" class="px-3.5 py-2 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-slate-800 text-slate-300">
-                        <i class="fa-solid fa-user text-xs"></i> <span id="role-text">Studente</span>
+                    <div id="role-badge" class="px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5 bg-slate-800 text-slate-300">
+                        <i class="fa-solid fa-user text-xs"></i> <span id="role-text">STUDENTE</span>
                     </div>
 
-                    <button onclick="logoutRoom()" class="p-2.5 subtext hover:text-rose-500 rounded-2xl transition hover:bg-rose-500/10" title="Esci dalla Stanza">
+                    <button onclick="logoutRoom()" class="p-2.5 subtext hover:text-rose-500 rounded-2xl transition hover:bg-rose-500/10" title="Disconnetti dalla Stanza">
                         <i class="fa-solid fa-right-from-bracket text-sm"></i>
                     </button>
                 </div>
@@ -254,15 +263,16 @@
                 <div class="w-full max-w-md space-y-6">
 
                     <div class="text-center space-y-2">
-                        <h2 class="text-3xl font-display font-extrabold tracking-tight">Benvenuto in FantaClasse</h2>
-                        <p class="text-xs subtext">Entra nella tua classe scolastica o creane una nuova da Admin.</p>
+                        <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/25 text-[11px] font-extrabold uppercase tracking-widest">PORTALE SCOLASTICO LIVE</span>
+                        <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight">Entra in FantaClasse</h2>
+                        <p class="text-xs subtext">Segnala imprese epiche, scala la classifica mensile e conquista l'Albo d'Oro.</p>
                     </div>
 
                     <div class="clean-glass p-1.5 rounded-2xl flex gap-1">
-                        <button id="tab-btn-join" onclick="switchLobbyTab('join')" class="flex-1 py-3 text-xs font-bold rounded-xl transition active-tab">
+                        <button id="tab-btn-join" onclick="switchLobbyTab('join')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition active-tab">
                             Entra in Stanza
                         </button>
-                        <button id="tab-btn-create" onclick="switchLobbyTab('create')" class="flex-1 py-3 text-xs font-bold rounded-xl subtext hover:text-indigo-400 transition">
+                        <button id="tab-btn-create" onclick="switchLobbyTab('create')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-400 transition">
                             Crea Stanza (Admin)
                         </button>
                     </div>
@@ -270,14 +280,14 @@
                     <!-- FORM ENTRA IN STANZA -->
                     <div id="form-join" class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4">
                         <div>
-                            <label class="block text-xs font-bold subtext mb-1.5">Codice Stanza (Es. 3LDC)</label>
-                            <input type="text" id="join-code-input" placeholder="Es. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase tracking-wider focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Codice Stanza (Es. 3LDC)</label>
+                            <input type="text" id="join-code-input" placeholder="ES. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold subtext mb-1.5">Il tuo Nome e Cognome</label>
-                            <input type="text" id="join-name-input" placeholder="Es. Mario Rossi" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Il tuo Nome e Cognome</label>
+                            <input type="text" id="join-name-input" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-500 transition">
                         </div>
-                        <button id="btn-join-submit" onclick="joinRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
+                        <button id="btn-join-submit" onclick="joinRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
                             Entra nella Stanza
                         </button>
                     </div>
@@ -285,18 +295,18 @@
                     <!-- FORM CREA STANZA -->
                     <div id="form-create" class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 hidden">
                         <div>
-                            <label class="block text-xs font-bold subtext mb-1.5">Nome/Codice Stanza (Es. 3LDC)</label>
-                            <input type="text" id="create-room-name" placeholder="Es. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase tracking-wider focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Nome/Codice Stanza (Es. 3LDC)</label>
+                            <input type="text" id="create-room-name" placeholder="ES. 3LDC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold subtext mb-1.5">Nome Admin</label>
-                            <input type="text" id="create-admin-name" placeholder="Es. Mario Rossi" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Nome Admin</label>
+                            <input type="text" id="create-admin-name" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold subtext mb-1.5">PIN Admin Segreto</label>
-                            <input type="password" id="create-admin-pin" placeholder="Es. 1234" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">PIN Admin Segreto</label>
+                            <input type="password" id="create-admin-pin" placeholder="ES. 1234" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition">
                         </div>
-                        <button id="btn-create-submit" onclick="createNewRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
+                        <button id="btn-create-submit" onclick="createNewRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
                             Crea Stanza & Inizia
                         </button>
                     </div>
@@ -321,40 +331,45 @@
                     <button id="nav-btn-feed" onclick="switchDashboardTab('feed')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl subtext hover:text-indigo-400 transition flex items-center justify-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-clock-rotate-left text-xs"></i> Registro Note
                     </button>
-                    <button id="nav-btn-admin" onclick="switchDashboardTab('admin')" class="py-3 px-5 text-xs font-bold rounded-xl text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                    <button id="nav-btn-admin" onclick="switchDashboardTab('admin')" class="py-3 px-5 text-xs font-bold rounded-xl text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 transition flex items-center justify-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-user-shield text-xs"></i> Admin <span id="admin-pending-badge" class="ml-1 px-2 py-0.5 text-[10px] bg-rose-500 text-white rounded-full font-black hidden">0</span>
                     </button>
                 </div>
 
-                <!-- TAB 1: SEGNALA CAZZATA / NOTA -->
+                <!-- TAB 1: SEGNALA CAZZATA / NOTA (SOLO PER SE STESSI) -->
                 <div id="tab-actions" class="flex-1 space-y-6">
                     <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-6">
                         
                         <div class="flex items-center justify-between gap-4 flex-wrap">
                             <div>
-                                <h3 class="font-display font-bold text-xl">Nuova Segnalazione</h3>
-                                <p class="text-xs subtext">Scegli una cazzata rapida o apri il pannello personalizzato.</p>
+                                <h3 class="font-display font-extrabold text-xl">Nuova Segnalazione</h3>
+                                <p class="text-xs subtext">Segnala una tua cazzata rapida oppure crea una segnalazione personalizzata.</p>
                             </div>
-                            <button onclick="openCustomModal()" class="px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-plus"></i> Altro / Personalizzato
+                            <button onclick="openCustomModal()" class="px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Personalizzata + Suggeritore
                             </button>
                         </div>
 
-                        <!-- MOSTRA STUDENTE LOGGATO -->
+                        <!-- MOSTRA SOLO STUDENTE LOGGATO -->
                         <div class="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between">
-                            <span class="text-xs subtext font-medium">Utente attivo:</span>
-                            <span id="current-user-display-name" class="font-bold text-xs text-indigo-400">---</span>
+                            <span class="text-xs subtext font-medium">Segnalazione per te:</span>
+                            <span id="current-user-display-name" class="font-black text-xs text-indigo-400 uppercase">---</span>
                         </div>
 
-                        <!-- BARRA DI RICERCA CAZZATE -->
+                        <!-- BARRA DI RICERCA E FILTRI CATEGORIA -->
                         <div class="space-y-3">
-                            <div class="flex items-center justify-between">
-                                <label class="block text-xs font-bold subtext">Tasti Rapidi Cazzate & Note</label>
-                                <span class="text-[10px] subtext">Clicca per inviare la segnalazione</span>
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <label class="block text-xs font-bold subtext uppercase tracking-wider">Catalogo Cazzate & Note</label>
+                                <div class="flex gap-1.5 flex-wrap">
+                                    <button onclick="setCategoryFilter('all')" id="cat-all" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white">Tutte</button>
+                                    <button onclick="setCategoryFilter('tech')" id="cat-tech" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">Tech & iPad</button>
+                                    <button onclick="setCategoryFilter('classe')" id="cat-classe" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">In Classe</button>
+                                    <button onclick="setCategoryFilter('note')" id="cat-note" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">Note & Preside</button>
+                                </div>
                             </div>
                             <div class="relative">
                                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-xs subtext"></i>
-                                <input type="text" id="cazzata-search-input" onkeyup="filterCazzate()" placeholder="Cerca cazzata (Es. iPad, dormire, gioco, nota...)" class="w-full input-field border rounded-2xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-indigo-500 transition">
+                                <input type="text" id="cazzata-search-input" onkeyup="filterCazzate()" placeholder="Cerca cazzata (Es. iPad, dormire, nota, telefono, ritardo...)" class="w-full input-field border rounded-2xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-indigo-500 transition">
                             </div>
 
                             <!-- GRIGLIA PULSANTI CAZZATE -->
@@ -377,7 +392,9 @@
                                 </h3>
                                 <p class="text-xs subtext">Classifica aggiornata in tempo reale</p>
                             </div>
-                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-bold">Stagione Attiva</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 text-xs font-bold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> LIVE
+                            </span>
                         </div>
 
                         <div id="podium-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
@@ -428,12 +445,17 @@
                     </div>
                 </div>
 
-                <!-- TAB 4: REGISTRO NOTE / FEED -->
+                <!-- TAB 4: REGISTRO NOTE / FEED (CON ANNULLA SOLO ADMIN) -->
                 <div id="tab-feed" class="flex-1 space-y-6 hidden">
                     <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4">
-                        <h3 class="font-display font-bold text-xl flex items-center gap-2">
-                            <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Cronologia Note Approvate
-                        </h3>
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <div>
+                                <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                                    <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Cronologia Note Approvate
+                                </h3>
+                                <p id="feed-admin-hint" class="text-xs subtext hidden">Modalità Admin: puoi annullare ed eliminare eventuali note assegnate per errore.</p>
+                            </div>
+                        </div>
                         <div id="feed-list" class="space-y-3">
                             <!-- Popolato da JS -->
                         </div>
@@ -454,21 +476,81 @@
 
                     <!-- ADMIN CONTROLS -->
                     <div id="admin-controls-box" class="space-y-6 hidden">
-                        <!-- NOTE IN ATTESA -->
-                        <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 border-amber-500/20">
-                            <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
-                            </h3>
-                            <div id="pending-notes-list" class="space-y-3">
+                        
+                        <!-- ASSEGNA DIRETTAMENTE CAZZATA / PUNTI A QUALCUNO -->
+                        <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 border-indigo-500/30">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
+                                        <i class="fa-solid fa-bolt"></i> Assegna Cazzata Diretta (Admin)
+                                    </h3>
+                                    <p class="text-xs subtext">Aggiungi subito una cazzata o punti a qualsiasi studente senza attesa.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div>
+                                    <label class="block text-xs font-bold subtext mb-1">Studente</label>
+                                    <select id="admin-direct-student" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-extrabold uppercase focus:outline-none focus:border-indigo-500">
+                                        <!-- Popolato da JS -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold subtext mb-1">Scegli Cazzata Rapida (Opzionale)</label>
+                                    <select id="admin-preset-cazzata" onchange="applyAdminPreset()" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-indigo-500">
+                                        <option value="">-- Oppure scrivi sotto --</option>
+                                        <!-- Popolato da JS -->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold subtext mb-1">Titolo Cazzata / Motivo</label>
+                                    <input type="text" id="admin-direct-title" oninput="updatePointSuggestion(this.value, 'admin-suggestion-box', 'admin-direct-points')" placeholder="Es. Ha fatto suonare la sveglia durante verifica..." class="w-full input-field border rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold subtext mb-1">Punti (+ / -)</label>
+                                    <input type="number" id="admin-direct-points" value="25" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-mono font-black focus:outline-none focus:border-indigo-500">
+                                </div>
+                            </div>
+
+                            <!-- BOX SUGGERITORE PUNTEGGIO PER ADMIN -->
+                            <div id="admin-suggestion-box" class="hidden p-3 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-between gap-2 text-xs">
+                                <!-- Popolato da JS -->
+                            </div>
+
+                            <button onclick="adminAssignDirectNote()" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition">
+                                <i class="fa-solid fa-check-double mr-1"></i> Assegna Subito Punti & Registra
+                            </button>
+                        </div>
+
+                        <!-- NOTE IN ATTESA (CON MODIFICA TESTO E PUNTI) -->
+                        <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 border-amber-500/25">
+                            <div>
+                                <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
+                                </h3>
+                                <p class="text-xs subtext">Puoi modificare direttamente titolo, descrizione e punti prima di approvare!</p>
+                            </div>
+                            <div id="pending-notes-list" class="space-y-3.5">
                                 <!-- Popolato da JS -->
                             </div>
                         </div>
 
-                        <!-- GESTIONE STUDENTI -->
+                        <!-- GESTIONE STUDENTI (SCRITTA RIMOSSA) -->
                         <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4">
-                            <h3 class="font-display font-bold text-xl flex items-center gap-2">
-                                <i class="fa-solid fa-users-gear text-indigo-400"></i> Gestione Studenti
-                            </h3>
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <h3 class="font-display font-bold text-xl flex items-center gap-2">
+                                    <i class="fa-solid fa-users-gear text-indigo-400"></i> Gestione Studenti
+                                </h3>
+                                <div class="flex gap-2">
+                                    <input type="text" id="admin-new-student-name" oninput="this.value = this.value.toUpperCase()" placeholder="NUOVO STUDENTE..." class="input-field border rounded-xl px-3 py-1.5 text-xs font-bold uppercase-input focus:outline-none focus:border-indigo-500">
+                                    <button onclick="adminAddStudent()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">
+                                        + Aggiungi
+                                    </button>
+                                </div>
+                            </div>
                             <div id="admin-students-list" class="space-y-2.5">
                                 <!-- Popolato da JS -->
                             </div>
@@ -492,12 +574,12 @@
         </main>
     </div>
 
-    <!-- MODALE CAZZATA PERSONALIZZATA -->
-    <div id="custom-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <!-- MODALE CAZZATA PERSONALIZZATA CON SUGGERITORE INTELLIGENTE -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clean-glass p-6 sm:p-8 rounded-3xl max-w-md w-full space-y-4 border-indigo-500/30 shadow-2xl">
             <div class="flex items-center justify-between">
                 <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-sm"></i> Cazzata Personalizzata
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Cazzata Personalizzata
                 </h3>
                 <button onclick="closeCustomModal()" class="subtext hover:text-white transition">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -507,15 +589,21 @@
             <div class="space-y-3.5">
                 <div>
                     <label class="block text-xs font-semibold subtext mb-1.5">Titolo Cazzata / Evento</label>
-                    <input type="text" id="custom-title-input" placeholder="Es. Ha fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
+                    <input type="text" id="custom-title-input" oninput="updatePointSuggestion(this.value, 'student-suggestion-box', 'custom-points-input')" placeholder="Es. Ho fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
                 </div>
+
+                <!-- SUGGERITORE PUNTEGGIO PER STUDENTE -->
+                <div id="student-suggestion-box" class="hidden p-3 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-between gap-2 text-xs">
+                    <!-- Popolato da JS -->
+                </div>
+
                 <div>
                     <label class="block text-xs font-semibold subtext mb-1.5">Descrizione / Dettagli</label>
-                    <textarea id="custom-desc-input" rows="3" placeholder="Descrivi brevemente l'accaduto..." class="w-full input-field border rounded-2xl p-3 text-xs focus:outline-none focus:border-indigo-500"></textarea>
+                    <textarea id="custom-desc-input" rows="2" oninput="updatePointSuggestion(document.getElementById('custom-title-input').value + ' ' + this.value, 'student-suggestion-box', 'custom-points-input')" placeholder="Descrivi brevemente l'accaduto..." class="w-full input-field border rounded-2xl p-3 text-xs focus:outline-none focus:border-indigo-500"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold subtext mb-1.5">Punti Proposti</label>
-                    <input type="number" id="custom-points-input" value="20" min="5" max="200" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
+                    <label class="block text-xs font-semibold subtext mb-1.5">Punti Proposti (L'Admin potrà comunque modificarli)</label>
+                    <input type="number" id="custom-points-input" value="20" min="5" max="300" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
                 </div>
             </div>
 
@@ -531,7 +619,7 @@
     </div>
 
     <!-- MODALE CONFERMA GENERICA -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div id="confirm-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clean-glass p-6 sm:p-8 rounded-3xl max-w-sm w-full space-y-4 text-center border-white/10 shadow-2xl">
             <div id="confirm-icon" class="text-4xl text-amber-400">⚠️</div>
             <h3 id="confirm-title" class="font-display font-bold text-xl">Sei sicuro?</h3>
@@ -556,44 +644,132 @@
         let currentRoom = null;
         let currentUser = null;
         let confirmCallback = null;
+        let currentCategoryFilter = 'all';
 
         const CAZZATE_LIST = [
-            { id: 1, title: 'iPad all\'1% durante la lezione', points: 10, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-battery-quarter' },
-            { id: 2, title: 'Gaming nascosto sotto il banco', points: 25, color: 'border-purple-500/30 bg-purple-500/10 text-purple-400', icon: 'fa-gamepad' },
-            { id: 3, title: 'Dormita profonda in prima fila', points: 30, color: 'border-blue-500/30 bg-blue-500/10 text-blue-400', icon: 'fa-bed' },
-            { id: 4, title: 'AirDrop molesto inviato a tutta la classe', points: 20, color: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400', icon: 'fa-wifi' },
-            { id: 5, title: 'Apple Pencil caduta nel silenzio tombale', points: 15, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-pen-slash' },
-            { id: 6, title: 'Battuta fuori luogo che fa ridere il prof', points: 35, color: 'border-pink-500/30 bg-pink-500/10 text-pink-400', icon: 'fa-face-laugh-squint' },
-            { id: 7, title: 'Nota Lieve su registro', points: 20, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-file-signature' },
-            { id: 8, title: 'Nota Media su registro', points: 40, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-triangle-exclamation' },
-            { id: 9, title: 'Nota Grave su registro', points: 60, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-circle-exclamation' },
-            { id: 10, title: 'Nota Leggendaria dal Preside', points: 100, color: 'border-rose-600/40 bg-rose-600/20 text-rose-400', icon: 'fa-skull' },
-            { id: 11, title: 'Hotspot condiviso con 10 compagni', points: 25, color: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400', icon: 'fa-tower-cell' },
-            { id: 12, title: 'Proiettore spento per sbaglio', points: 15, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-tv' },
-            { id: 13, title: 'Film in streaming durante spiegazione', points: 40, color: 'border-red-500/30 bg-red-500/10 text-red-400', icon: 'fa-film' },
-            { id: 14, title: 'Finta chiamata urgente per uscire', points: 20, color: 'border-orange-500/30 bg-orange-500/10 text-orange-400', icon: 'fa-phone-slash' },
-            { id: 15, title: 'Tutti in piedi 5 minuti prima della campanella', points: 15, color: 'border-violet-500/30 bg-violet-500/10 text-violet-400', icon: 'fa-bell' },
-            { id: 16, title: 'Professore che si accorge di nulla per un’ora', points: 50, color: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-400', icon: 'fa-ghost' },
-            { id: 17, title: 'Consegna compito in bianco scenografica', points: 30, color: 'border-stone-500/30 bg-stone-500/10 text-stone-300', icon: 'fa-file' },
-            { id: 18, title: 'Mangiare di nascosto dietro al compagno alto', points: 20, color: 'border-lime-500/30 bg-lime-500/10 text-lime-400', icon: 'fa-burger' }
+            { id: 1, cat: 'tech', title: 'iPad all\'1% durante la lezione', points: 10, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-battery-quarter' },
+            { id: 2, cat: 'tech', title: 'Gaming nascosto sotto il banco', points: 25, color: 'border-purple-500/30 bg-purple-500/10 text-purple-400', icon: 'fa-gamepad' },
+            { id: 3, cat: 'classe', title: 'Dormita profonda in prima fila', points: 30, color: 'border-blue-500/30 bg-blue-500/10 text-blue-400', icon: 'fa-bed' },
+            { id: 4, cat: 'tech', title: 'AirDrop molesto inviato a tutta la classe', points: 20, color: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400', icon: 'fa-wifi' },
+            { id: 5, cat: 'tech', title: 'Apple Pencil caduta nel silenzio tombale', points: 15, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-pen-slash' },
+            { id: 6, cat: 'classe', title: 'Battuta fuori luogo che fa ridere il prof', points: 35, color: 'border-pink-500/30 bg-pink-500/10 text-pink-400', icon: 'fa-face-laugh-squint' },
+            { id: 7, cat: 'note', title: 'Nota Lieve su registro', points: 20, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-file-signature' },
+            { id: 8, cat: 'note', title: 'Nota Media su registro', points: 40, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-triangle-exclamation' },
+            { id: 9, cat: 'note', title: 'Nota Grave su registro', points: 60, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-circle-exclamation' },
+            { id: 10, cat: 'note', title: 'Nota Leggendaria dal Preside', points: 100, color: 'border-rose-600/40 bg-rose-600/20 text-rose-400', icon: 'fa-skull' },
+            { id: 11, cat: 'tech', title: 'Hotspot condiviso con 10 compagni', points: 25, color: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400', icon: 'fa-tower-cell' },
+            { id: 12, cat: 'tech', title: 'Proiettore/LIM spento per sbaglio', points: 15, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-tv' },
+            { id: 13, cat: 'tech', title: 'Film o partita in streaming in classe', points: 40, color: 'border-red-500/30 bg-red-500/10 text-red-400', icon: 'fa-film' },
+            { id: 14, cat: 'classe', title: 'Finta chiamata urgente per uscire', points: 20, color: 'border-orange-500/30 bg-orange-500/10 text-orange-400', icon: 'fa-phone-slash' },
+            { id: 15, cat: 'classe', title: 'Tutti in piedi 5 minuti prima della campanella', points: 15, color: 'border-violet-500/30 bg-violet-500/10 text-violet-400', icon: 'fa-bell' },
+            { id: 16, cat: 'classe', title: 'Prof che non si accorge di nulla per un’ora', points: 50, color: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-400', icon: 'fa-ghost' },
+            { id: 17, cat: 'classe', title: 'Consegna compito in bianco scenografica', points: 30, color: 'border-stone-500/30 bg-stone-500/10 text-stone-300', icon: 'fa-file' },
+            { id: 18, cat: 'classe', title: 'Mangiare di nascosto dietro al compagno alto', points: 20, color: 'border-lime-500/30 bg-lime-500/10 text-lime-400', icon: 'fa-burger' },
+            { id: 19, cat: 'tech', title: 'Telefono sequestrato sulla cattedra', points: 45, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-mobile-screen' },
+            { id: 20, cat: 'tech', title: 'Suoneria al massimo nel silenzio assoluto', points: 35, color: 'border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400', icon: 'fa-volume-high' },
+            { id: 21, cat: 'classe', title: 'Ritardo epico con scusa assurda', points: 20, color: 'border-sky-500/30 bg-sky-500/10 text-sky-400', icon: 'fa-person-running' },
+            { id: 22, cat: 'classe', title: 'Interrogazione schivata all\'ultimo secondo', points: 30, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-shield-halved' },
+            { id: 23, cat: 'note', title: 'Cacciato fuori dall\'aula', points: 55, color: 'border-red-600/35 bg-red-600/15 text-red-400', icon: 'fa-door-open' },
+            { id: 24, cat: 'note', title: 'Nota di classe collettiva innescata', points: 75, color: 'border-amber-600/40 bg-amber-600/20 text-amber-300', icon: 'fa-bomb' }
         ];
 
-       window.onload = function() {
+        // ============================================================
+        // ALGORITMO SUGGERITORE INTELLIGENTE DI PUNTEGGIO
+        // ============================================================
+        function analyzeCazzataPoints(text) {
+            const t = (text || '').toLowerCase().trim();
+            if (!t) return null;
+
+            const rules = [
+                { keywords: ['preside', 'sospensione', 'sospeso', 'convocazione', 'genitori'], points: 100, label: 'Evento Leggendario / Preside' },
+                { keywords: ['collettiva', 'tutta la classe', 'cacciato', 'fuori dall\'aula', 'espulso'], points: 65, label: 'Alta Gravità / Impatto Classe' },
+                { keywords: ['nota grave', 'nota disciplinare', 'sequestrato', 'sequestro', 'copiato', 'bigliettino'], points: 55, label: 'Sanzione / Rischio Elevato' },
+                { keywords: ['nota', 'film', 'partita', 'streaming', 'dormito', 'dormire', 'russo'], points: 40, label: 'Infrazione Media' },
+                { keywords: ['suoneria', 'battuta', 'risata', 'interrogazione', 'bianco', 'ritardo'], points: 30, label: 'Classico da Classe' },
+                { keywords: ['gioco', 'brawl', 'clash', 'minecraft', 'fortnite', 'airdrop', 'hotspot', 'mangiare', 'panino'], points: 20, label: 'Leggera / Quotidiana' },
+                { keywords: ['ipad', 'batteria', 'caricatore', 'penna', 'pencil', 'bagno', 'acqua', 'caduta'], points: 15, label: 'Piccolo Imprevisto' }
+            ];
+
+            for (const rule of rules) {
+                if (rule.keywords.some(kw => t.includes(kw))) {
+                    return { points: rule.points, label: rule.label };
+                }
+            }
+
+            if (t.length > 45) return { points: 30, label: 'Impresa ben dettagliata' };
+            return { points: 20, label: 'Punteggio standard consigliato' };
+        }
+
+        function updatePointSuggestion(text, boxId, inputId) {
+            const box = document.getElementById(boxId);
+            if (!box) return;
+            const suggestion = analyzeCazzataPoints(text);
+            if (!suggestion || text.trim().length < 3) {
+                box.classList.add('hidden');
+                return;
+            }
+            box.classList.remove('hidden');
+            box.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-sparkles text-amber-400"></i>
+                    <span>Consigliato: <b class="text-amber-400">+${suggestion.points} pt</b> <span class="subtext">(${suggestion.label})</span></span>
+                </div>
+                <button type="button" onclick="document.getElementById('${inputId}').value = ${suggestion.points}; showToast('Punteggio suggerito applicato!', 'info')" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-[10px] shrink-0 transition">
+                    Applica
+                </button>
+            `;
+        }
+
+        window.onload = function() {
             const savedTheme = localStorage.getItem('fanta_theme') || 'dark';
             setTheme(savedTheme);
             renderCazzateButtons();
+            populateAdminPresets();
             loadSavedSession();
         };
 
-       
+        function populateAdminPresets() {
+            const sel = document.getElementById('admin-preset-cazzata');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">-- Oppure scrivi sotto --</option>' +
+                CAZZATE_LIST.map(c => `<option value="${c.id}">${c.title} (+${c.points} pt)</option>`).join('');
+        }
+
+        function applyAdminPreset() {
+            const id = parseInt(document.getElementById('admin-preset-cazzata').value);
+            const item = CAZZATE_LIST.find(c => c.id === id);
+            if (item) {
+                document.getElementById('admin-direct-title').value = item.title;
+                document.getElementById('admin-direct-points').value = item.points;
+                document.getElementById('admin-suggestion-box').classList.add('hidden');
+            }
+        }
+
+        function setCategoryFilter(cat) {
+            currentCategoryFilter = cat;
+            ['all', 'tech', 'classe', 'note'].forEach(c => {
+                const btn = document.getElementById(`cat-${c}`);
+                if (!btn) return;
+                if (c === cat) {
+                    btn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext';
+                }
+            });
+            filterCazzate();
+        }
 
         function renderCazzateButtons(filterText = '') {
             const grid = document.getElementById('cazzate-grid');
             if (!grid) return;
-            const filtered = CAZZATE_LIST.filter(c => c.title.toLowerCase().includes(filterText.toLowerCase()));
+            const filtered = CAZZATE_LIST.filter(c => {
+                const matchesText = c.title.toLowerCase().includes(filterText.toLowerCase());
+                const matchesCat = currentCategoryFilter === 'all' || c.cat === currentCategoryFilter;
+                return matchesText && matchesCat;
+            });
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<p class="text-xs subtext col-span-full text-center py-6">Nessuna cazzata trovata. Usa il pulsante "Altro" in alto!</p>';
+                grid.innerHTML = '<p class="text-xs subtext col-span-full text-center py-6">Nessuna cazzata trovata. Usa "Personalizzata" in alto!</p>';
                 return;
             }
 
@@ -640,6 +816,7 @@
             document.getElementById('custom-title-input').value = '';
             document.getElementById('custom-desc-input').value = '';
             document.getElementById('custom-points-input').value = '20';
+            document.getElementById('student-suggestion-box').classList.add('hidden');
             document.getElementById('custom-modal').classList.remove('hidden');
         }
 
@@ -665,22 +842,20 @@
             currentTheme = theme;
             localStorage.setItem('fanta_theme', theme);
             document.documentElement.className = `min-h-full theme-${theme}`;
-            document.body.className = `min-h-screen flex flex-col font-sans theme-${theme} overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300`;
+            document.body.className = `min-h-screen flex flex-col font-sans theme-${theme} overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-all duration-300`;
         }
 
         function exitToHub(e) {
             if (e) e.preventDefault();
-            // Mantiene salvata la sessione (fanta_session) così al rientro sei già dentro!
-
-            // Se aperto in iframe dall'Hub, avvisa l'Hub di chiudere il gioco
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({ type: 'CLOSE_GAME' }, '*');
                 window.parent.postMessage('closeGame', '*');
             }
-
-            // Torna all'Hub principale (gestisce sia sottocartelle es. /games/fantaclasse.html sia root)
-            const isSubfolder = window.location.pathname.split('/').filter(Boolean).length > 1;
-            window.location.href = isSubfolder ? '../index.html' : 'index.html';
+            window.close();
+            setTimeout(() => {
+                const isSubfolder = window.location.pathname.split('/').filter(Boolean).length > 1;
+                window.location.href = isSubfolder ? '../index.html' : 'index.html';
+            }, 100);
         }
 
         function switchLobbyTab(tab) {
@@ -709,6 +884,7 @@
         function normalizeRoom(room) {
             if (!room) return null;
             if (!room.students) room.students = [];
+            room.students = room.students.map(s => ({ ...s, name: (s.name || '').toUpperCase() }));
             if (!room.pendingNotes) room.pendingNotes = [];
             if (!room.approvedNotes) room.approvedNotes = [];
             if (!room.chatMessages) room.chatMessages = [];
@@ -721,7 +897,6 @@
             if (!roomCode) return null;
             const code = roomCode.toUpperCase().trim();
 
-            // Attendi fino a 3 secondi se Firebase sta finendo di caricarsi
             let retries = 0;
             while (!window.db && retries < 30) {
                 await new Promise(r => setTimeout(r, 100));
@@ -743,7 +918,6 @@
                 }
             }
 
-            // Fallback locale se presente sullo stesso dispositivo
             const localData = localStorage.getItem(`fanta_room_${code}`);
             if (localData) {
                 try {
@@ -758,15 +932,13 @@
             if (!data || !data.code) return;
             const code = data.code.toUpperCase().trim();
             localStorage.setItem(`fanta_room_${code}`, JSON.stringify(data));
+            saveSession();
 
             if (window.db) {
                 try {
                     await window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data);
                 } catch (err) {
                     console.error("Errore salvataggio Firebase:", err);
-                    if (err.code === 'PERMISSION_DENIED' || (err.message && err.message.includes('Permission denied'))) {
-                        showToast('Errore permessi Firebase: aggiorna le Regole del Realtime Database!', 'error');
-                    }
                 }
             }
         }
@@ -779,6 +951,7 @@
             window.dbOnValue(roomRef, (snapshot) => {
                 if (snapshot.exists()) {
                     currentRoom = normalizeRoom(snapshot.val());
+                    saveSession();
                     updateUI();
                 }
             });
@@ -786,7 +959,7 @@
 
         async function joinRoom() {
             const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
-            const userName = document.getElementById('join-name-input').value.trim();
+            const userName = document.getElementById('join-name-input').value.toUpperCase().trim();
 
             if (!roomCode || !userName) {
                 showToast('Inserisci sia il codice stanza che il tuo nome!', 'error');
@@ -794,36 +967,37 @@
             }
 
             const btn = document.getElementById('btn-join-submit');
-            if (btn) { btn.disabled = true; btn.innerText = 'Accesso in corso...'; }
+            if (btn) { btn.disabled = true; btn.innerText = 'ACCESSO IN CORSO...'; }
 
             let room = await getRoomData(roomCode);
 
-            if (btn) { btn.disabled = false; btn.innerText = 'Entra nella Stanza'; }
+            if (btn) { btn.disabled = false; btn.innerText = 'ENTRA NELLA STANZA'; }
 
             if (!room) {
                 showToast('Stanza non trovata! Controlla il codice o chiedi all\'Admin di crearla.', 'error');
                 return;
             }
 
-            let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
+            let student = room.students.find(s => s.name.toUpperCase() === userName);
             if (!student) {
                 student = { id: Date.now().toString(), name: userName, points: 0 };
                 room.students.push(student);
                 await saveRoomData(room);
             }
 
-            currentUser = { name: student.name, role: 'student' };
+            const isCreatorAdmin = room.adminName && room.adminName.toUpperCase() === userName;
+            currentUser = { name: student.name.toUpperCase(), role: isCreatorAdmin ? 'admin' : 'student' };
             currentRoom = room;
 
             enterDashboard();
             listenToRoomUpdates(currentRoom.code);
-            showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
+            showToast(`BENVENUTO IN ${room.code}, ${student.name}!`, 'success');
         }
 
         async function createNewRoom() {
             const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
             const adminPin = document.getElementById('create-admin-pin').value.trim();
-            const adminName = document.getElementById('create-admin-name').value.trim();
+            const adminName = document.getElementById('create-admin-name').value.toUpperCase().trim();
 
             if (!roomCode || !adminPin || !adminName) {
                 showToast('Compila tutti i campi per creare la stanza!', 'error');
@@ -831,11 +1005,11 @@
             }
 
             const btn = document.getElementById('btn-create-submit');
-            if (btn) { btn.disabled = true; btn.innerText = 'Creazione stanza...'; }
+            if (btn) { btn.disabled = true; btn.innerText = 'CREAZIONE STANZA...'; }
 
             let existingRoom = await getRoomData(roomCode);
             if (existingRoom) {
-                if (btn) { btn.disabled = false; btn.innerText = 'Crea Stanza & Inizia'; }
+                if (btn) { btn.disabled = false; btn.innerText = 'CREA STANZA & INIZIA'; }
                 showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
                 return;
             }
@@ -852,41 +1026,47 @@
             };
 
             await saveRoomData(newRoom);
-            if (btn) { btn.disabled = false; btn.innerText = 'Crea Stanza & Inizia'; }
+            if (btn) { btn.disabled = false; btn.innerText = 'CREA STANZA & INIZIA'; }
 
             currentUser = { name: adminName, role: 'admin' };
             currentRoom = newRoom;
 
             enterDashboard();
             listenToRoomUpdates(currentRoom.code);
-            showToast(`Stanza ${roomCode} creata con successo!`, 'success');
+            showToast(`STANZA ${roomCode} CREATA CON SUCCESSO!`, 'success');
         }
 
         function enterDashboard() {
             if (!currentRoom || !currentUser) return;
+            currentUser.name = currentUser.name.toUpperCase();
 
             document.getElementById('lobby-view').classList.add('hidden');
             document.getElementById('dashboard-view').classList.remove('hidden');
             document.getElementById('header-actions').classList.remove('hidden');
 
-            document.getElementById('header-room-name').innerText = `Stanza: ${currentRoom.code}`;
+            const pill = document.getElementById('header-status-pill');
+            if (pill) {
+                pill.innerText = 'ONLINE';
+                pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+            }
+
+            document.getElementById('header-room-name').innerText = `CLASSE ${currentRoom.code} • ${currentUser.name}`;
             document.getElementById('header-room-code').innerText = currentRoom.code;
 
             const roleText = document.getElementById('role-text');
             const roleBadge = document.getElementById('role-badge');
             if (currentUser.role === 'admin') {
-                roleText.innerText = 'Admin';
-                roleBadge.className = 'px-3.5 py-2 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-amber-500/20 text-amber-400 border border-amber-500/30';
+                roleText.innerText = 'ADMIN';
+                roleBadge.className = 'px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5 bg-amber-500/20 text-amber-400 border border-amber-500/30';
             } else {
-                roleText.innerText = 'Studente';
-                roleBadge.className = 'px-3.5 py-2 rounded-2xl text-xs font-semibold flex items-center gap-1.5 bg-slate-800 text-slate-300';
+                roleText.innerText = 'STUDENTE';
+                roleBadge.className = 'px-3.5 py-2 rounded-2xl text-xs font-bold flex items-center gap-1.5 bg-slate-800 text-slate-300';
             }
 
             saveSession();
             updateUI();
         }
 
-        
         function saveSession() {
             if (currentRoom && currentUser) {
                 localStorage.setItem('fanta_session', JSON.stringify({
@@ -905,19 +1085,16 @@
                 const { roomCode, user, roomBackup } = JSON.parse(raw);
                 if (!roomCode || !user || !user.name) return;
 
-                // 1. Ripristino immediato da backup locale così entri subito senza schermata di login
-                const cachedRoom = roomBackup || normalizeRoom(JSON.parse(localStorage.getItem(`fanta_room_${roomCode}`)));
-                if (cachedRoom) {
-                    currentRoom = normalizeRoom(cachedRoom);
-                    currentUser = user;
+                if (roomBackup) {
+                    currentRoom = normalizeRoom(roomBackup);
+                    currentUser = { ...user, name: user.name.toUpperCase() };
                     enterDashboard();
                 }
 
-                // 2. Sincronizzazione con Firebase appena disponibile
                 const liveRoom = await getRoomData(roomCode);
                 if (liveRoom) {
                     currentRoom = liveRoom;
-                    currentUser = user;
+                    currentUser = { ...user, name: user.name.toUpperCase() };
                     enterDashboard();
                     listenToRoomUpdates(currentRoom.code);
                 }
@@ -926,7 +1103,6 @@
             }
         };
 
-
         function logoutRoom() {
             localStorage.removeItem('fanta_session');
             currentRoom = null;
@@ -934,13 +1110,19 @@
             document.getElementById('dashboard-view').classList.add('hidden');
             document.getElementById('header-actions').classList.add('hidden');
             document.getElementById('lobby-view').classList.remove('hidden');
-            document.getElementById('header-room-name').innerText = 'Nessuna stanza attiva';
+            document.getElementById('header-room-name').innerText = 'Pronto per entrare in classe';
+
+            const pill = document.getElementById('header-status-pill');
+            if (pill) {
+                pill.innerText = 'OFFLINE';
+                pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-500/20 subtext border border-white/10';
+            }
         }
 
         function copyRoomCode() {
             if (!currentRoom) return;
             navigator.clipboard.writeText(currentRoom.code);
-            showToast(`Codice "${currentRoom.code}" copiato negli appunti!`, 'success');
+            showToast(`CODICE "${currentRoom.code}" COPIATO!`, 'success');
         }
 
         function switchDashboardTab(tab) {
@@ -969,13 +1151,14 @@
             updateUI();
         }
 
+        // SEGNALAZIONE SOLO PER SE STESSI
         function promptSubmitNote(title, points, description) {
             if (!currentUser || !currentRoom) return;
             if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
 
-            let student = currentRoom.students.find(s => s.name.toLowerCase() === currentUser.name.toLowerCase());
+            let student = currentRoom.students.find(s => s.name.toUpperCase() === currentUser.name.toUpperCase());
             if (!student) {
-                student = { id: Date.now().toString(), name: currentUser.name, points: 0 };
+                student = { id: Date.now().toString(), name: currentUser.name.toUpperCase(), points: 0 };
                 currentRoom.students.push(student);
                 saveRoomData(currentRoom);
             }
@@ -983,13 +1166,13 @@
             showConfirmModal(
                 '❓',
                 'Confermi l\'invio?',
-                `Segnalazione: "${title}" (+${points} pt) per ${student.name}.`,
+                `Segnalazione per te (${student.name.toUpperCase()}): "${title}" (+${points} pt).`,
                 () => {
                     const newNote = {
                         id: Date.now().toString(),
                         studentId: student.id,
-                        studentName: student.name,
-                        reporterName: currentUser.name,
+                        studentName: student.name.toUpperCase(),
+                        reporterName: currentUser.name.toUpperCase(),
                         severity: title,
                         points: points,
                         description: description || 'Nessun dettaglio aggiuntivo',
@@ -1009,12 +1192,12 @@
 
             const userDisplay = document.getElementById('current-user-display-name');
             if (userDisplay && currentUser && currentUser.name) {
-                userDisplay.innerText = currentUser.name;
+                userDisplay.innerText = currentUser.name.toUpperCase();
             }
 
             const headerRoomName = document.getElementById('header-room-name');
-            if (headerRoomName && currentRoom.code) {
-                headerRoomName.innerText = `Stanza: ${currentRoom.code}`;
+            if (headerRoomName && currentRoom.code && currentUser) {
+                headerRoomName.innerText = `CLASSE ${currentRoom.code} • ${currentUser.name.toUpperCase()}`;
             }
 
             const pendingBadge = document.getElementById('admin-pending-badge');
@@ -1039,14 +1222,14 @@
             
             const podiumContainer = document.getElementById('podium-container');
             const top3 = sorted.slice(0, 3);
-            const badges = ['🥇 1° Posto', '🥈 2° Posto', '🥉 3° Posto'];
+            const badges = ['🥇 1° POSTO', '🥈 2° POSTO', '🥉 3° POSTO'];
             
             if (podiumContainer) {
                 podiumContainer.innerHTML = top3.map((s, idx) => `
                     <div class="clean-card p-5 rounded-2xl flex flex-col items-center text-center space-y-2 border-indigo-500/20 shadow-sm">
-                        <span class="text-xs font-bold text-amber-400">${badges[idx]}</span>
-                        <h4 class="font-bold text-base sm:text-lg">${s.name}</h4>
-                        <span class="px-3.5 py-1 rounded-full bg-indigo-500/20 text-indigo-400 font-mono font-bold text-sm">${s.points} pt</span>
+                        <span class="text-xs font-extrabold text-amber-400 tracking-wider">${badges[idx]}</span>
+                        <h4 class="font-extrabold text-base sm:text-lg uppercase">${s.name.toUpperCase()}</h4>
+                        <span class="px-3.5 py-1 rounded-full bg-indigo-500/20 text-indigo-400 font-mono font-black text-sm">${s.points} pt</span>
                     </div>
                 `).join('') || '<p class="text-xs subtext text-center col-span-3 py-4">Nessuno studente ancora in classifica</p>';
             }
@@ -1056,10 +1239,10 @@
                 leaderboardList.innerHTML = sorted.map((s, idx) => `
                     <div class="clean-card p-3.5 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3.5">
-                            <span class="w-6 text-center font-bold text-xs subtext">#${idx + 1}</span>
-                            <span class="font-semibold text-sm">${s.name}</span>
+                            <span class="w-6 text-center font-black text-xs subtext">#${idx + 1}</span>
+                            <span class="font-bold text-sm uppercase">${s.name.toUpperCase()}</span>
                         </div>
-                        <span class="font-mono font-bold text-xs text-indigo-400">${s.points} pt</span>
+                        <span class="font-mono font-extrabold text-xs text-indigo-400">${s.points} pt</span>
                     </div>
                 `).join('');
             }
@@ -1072,8 +1255,8 @@
                     hallList.innerHTML = currentRoom.hallOfFame.map(h => `
                         <div class="clean-card p-4 rounded-2xl flex items-center justify-between border-amber-500/20">
                             <div>
-                                <span class="font-bold text-sm text-amber-400">${h.winnerName}</span>
-                                <span class="text-xs subtext block">${h.month}</span>
+                                <span class="font-extrabold text-sm text-amber-400 uppercase">${h.winnerName.toUpperCase()}</span>
+                                <span class="text-xs subtext block uppercase">${h.month}</span>
                             </div>
                             <span class="font-mono font-bold text-xs text-amber-400">${h.points} pt</span>
                         </div>
@@ -1096,7 +1279,7 @@
 
             const msg = {
                 id: Date.now().toString(),
-                sender: currentUser.name || 'Studente',
+                sender: (currentUser.name || 'STUDENTE').toUpperCase(),
                 text: text,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
@@ -1135,7 +1318,7 @@
             chatBox.innerHTML = adminClearBtn + currentRoom.chatMessages.map(m => `
                 <div class="p-3.5 rounded-2xl clean-card border border-white/5 space-y-1 shadow-sm">
                     <div class="flex items-center justify-between">
-                        <span class="font-bold text-xs text-indigo-400">${m.sender}</span>
+                        <span class="font-extrabold text-xs text-indigo-400 uppercase">${(m.sender || '').toUpperCase()}</span>
                         <span class="text-[10px] subtext">${m.time}</span>
                     </div>
                     <p class="text-xs sm:text-sm">${m.text}</p>
@@ -1149,19 +1332,34 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
+        // REGISTRO NOTE CON PULSANTE ANNULLA VISIBILE SOLO ALL'ADMIN
         function renderFeed() {
             const feedList = document.getElementById('feed-list');
+            const adminHint = document.getElementById('feed-admin-hint');
             if (!feedList || !currentRoom) return;
             if (!currentRoom.approvedNotes) currentRoom.approvedNotes = [];
 
+            const isAdmin = currentUser && currentUser.role === 'admin';
+            if (adminHint) {
+                if (isAdmin) adminHint.classList.remove('hidden');
+                else adminHint.classList.add('hidden');
+            }
+
             feedList.innerHTML = currentRoom.approvedNotes.map(n => `
                 <div class="clean-card p-4 rounded-2xl space-y-1.5 border-emerald-500/20">
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-xs text-emerald-400">Nota per ${n.studentName} (+${n.points} pt)</span>
-                        <span class="text-[10px] subtext">${n.date}</span>
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="font-extrabold text-xs text-emerald-400 uppercase">${n.severity} • ${n.studentName.toUpperCase()} (${n.points >= 0 ? '+' : ''}${n.points} pt)</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] subtext">${n.date}</span>
+                            ${isAdmin ? `
+                                <button onclick="undoApprovedNote('${n.id}')" title="Annulla ed elimina nota" class="px-2.5 py-1 bg-rose-500/20 hover:bg-rose-500/35 text-rose-400 border border-rose-500/30 rounded-lg text-[10px] font-extrabold uppercase transition flex items-center gap-1">
+                                    <i class="fa-solid fa-rotate-left"></i> Annulla
+                                </button>
+                            ` : ''}
+                        </div>
                     </div>
                     <p class="text-xs sm:text-sm">${n.description}</p>
-                    <span class="text-[10px] subtext block">Segnalato da: ${n.reporterName}</span>
+                    <span class="text-[10px] subtext block uppercase">Segnalato da: ${n.reporterName.toUpperCase()}</span>
                 </div>
             `).join('');
 
@@ -1170,14 +1368,40 @@
             }
         }
 
+        // FUNZIONE SOLO ADMIN PER ANNULLARE UNA NOTA APPROVATA E SCALARE I PUNTI
+        function undoApprovedNote(noteId) {
+            if (!currentUser || currentUser.role !== 'admin') return;
+            const note = (currentRoom.approvedNotes || []).find(n => n.id === noteId);
+            if (!note) return;
+
+            showConfirmModal(
+                '↩️',
+                'Annullare questa nota?',
+                `La nota "${note.severity}" verrà rimossa dal registro e verranno tolti ${note.points} pt a ${note.studentName.toUpperCase()}.`,
+                () => {
+                    currentRoom.approvedNotes = currentRoom.approvedNotes.filter(n => n.id !== noteId);
+
+                    let student = currentRoom.students.find(s => s.id === note.studentId) ||
+                                  currentRoom.students.find(s => s.name.toUpperCase() === note.studentName.toUpperCase());
+
+                    if (student) {
+                        student.points = Math.max(0, (student.points || 0) - note.points);
+                    }
+
+                    saveRoomData(currentRoom);
+                    updateUI();
+                    showToast(`Nota annullata e ${note.points} pt rimossi a ${note.studentName.toUpperCase()}!`, 'info');
+                }
+            );
+        }
+
         function unlockAdminPanel() {
             const pin = document.getElementById('admin-pin-input').value.trim();
             if (currentRoom && pin === currentRoom.pin) {
                 currentUser.role = 'admin';
                 document.getElementById('admin-login-box').classList.add('hidden');
                 document.getElementById('admin-controls-box').classList.remove('hidden');
-                saveSession();
-                updateUI();
+                enterDashboard();
                 showToast('Pannello Admin sbloccato!', 'success');
             } else {
                 showToast('PIN Errato!', 'error');
@@ -1198,22 +1422,46 @@
             if (loginBox) loginBox.classList.add('hidden');
             if (controlsBox) controlsBox.classList.remove('hidden');
 
+            const directSelect = document.getElementById('admin-direct-student');
+            if (directSelect && currentRoom.students) {
+                const prev = directSelect.value;
+                directSelect.innerHTML = currentRoom.students.map(s =>
+                    `<option value="${s.id}" ${prev === s.id ? 'selected' : ''}>${s.name.toUpperCase()} (${s.points} pt)</option>`
+                ).join('');
+            }
+
             const pendingList = document.getElementById('pending-notes-list');
             if (pendingList) {
                 if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
 
                 pendingList.innerHTML = currentRoom.pendingNotes.map(n => `
-                    <div class="clean-card p-4 rounded-2xl space-y-3 border-amber-500/30">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-xs text-amber-400">${n.severity} (+${n.points} pt)</span>
-                            <span class="text-xs subtext">Studente: <b>${n.studentName}</b></span>
+                    <div class="clean-card p-4 rounded-2xl space-y-3 border-amber-500/35">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <span class="text-xs font-extrabold uppercase text-indigo-400">STUDENTE: ${n.studentName.toUpperCase()}</span>
+                            <span class="text-[10px] subtext uppercase">Inviato da: ${n.reporterName.toUpperCase()} • ${n.date}</span>
                         </div>
-                        <p class="text-xs">${n.description}</p>
-                        <div class="flex gap-2.5">
-                            <button onclick="approveNote('${n.id}')" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">
-                                Accetta
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                            <div class="sm:col-span-2">
+                                <label class="block text-[10px] font-bold subtext uppercase mb-1">Titolo Cazzata (Modificabile)</label>
+                                <input type="text" id="edit-title-${n.id}" value="${(n.severity || '').replace(/"/g, '&quot;')}" class="w-full input-field border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold subtext uppercase mb-1">Punti (Modificabili)</label>
+                                <input type="number" id="edit-points-${n.id}" value="${n.points}" class="w-full input-field border rounded-xl px-3 py-2 text-xs font-mono font-black text-amber-400 focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold subtext uppercase mb-1">Descrizione / Dettagli (Modificabile)</label>
+                            <input type="text" id="edit-desc-${n.id}" value="${(n.description || '').replace(/"/g, '&quot;')}" class="w-full input-field border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500">
+                        </div>
+
+                        <div class="flex gap-2.5 pt-1">
+                            <button onclick="approveNote('${n.id}')" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase rounded-xl transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-check"></i> Approva & Salva Modifiche
                             </button>
-                            <button onclick="rejectNote('${n.id}')" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl transition">
+                            <button onclick="rejectNote('${n.id}')" class="py-2.5 px-4 bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs uppercase rounded-xl transition">
                                 Rifiuta
                             </button>
                         </div>
@@ -1229,10 +1477,10 @@
             if (studentsList) {
                 studentsList.innerHTML = currentRoom.students.map(s => `
                     <div class="clean-card p-3.5 rounded-2xl flex items-center justify-between gap-3">
-                        <input type="text" value="${s.name}" onchange="renameStudent('${s.id}', this.value)" class="bg-transparent font-semibold text-sm border-b border-white/10 focus:outline-none focus:border-indigo-500 flex-1 py-1">
+                        <input type="text" value="${s.name.toUpperCase()}" oninput="this.value = this.value.toUpperCase()" onchange="renameStudent('${s.id}', this.value)" class="bg-transparent font-extrabold text-sm uppercase border-b border-white/15 focus:outline-none focus:border-indigo-500 flex-1 py-1">
                         <div class="flex items-center gap-3">
-                            <span class="font-mono text-xs font-bold text-indigo-400">${s.points} pt</span>
-                            <button onclick="deleteStudent('${s.id}')" class="text-xs text-rose-500 hover:text-rose-400 p-1.5 transition">
+                            <span class="font-mono text-xs font-black text-indigo-400">${s.points} pt</span>
+                            <button onclick="deleteStudent('${s.id}')" class="text-xs text-rose-500 hover:text-rose-400 p-1.5 transition" title="Elimina Studente">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -1241,14 +1489,84 @@
             }
         }
 
+        function adminAssignDirectNote() {
+            const studentId = document.getElementById('admin-direct-student').value;
+            const title = document.getElementById('admin-direct-title').value.trim();
+            const points = parseInt(document.getElementById('admin-direct-points').value);
+
+            if (!studentId || !title || isNaN(points)) {
+                showToast('Seleziona lo studente, scrivi la cazzata e inserisci i punti!', 'error');
+                return;
+            }
+
+            const student = currentRoom.students.find(s => s.id === studentId);
+            if (!student) return;
+
+            student.points += points;
+
+            const approvedEntry = {
+                id: Date.now().toString(),
+                studentId: student.id,
+                studentName: student.name.toUpperCase(),
+                reporterName: `${currentUser.name.toUpperCase()} (ADMIN)`,
+                severity: title,
+                points: points,
+                description: title,
+                date: new Date().toLocaleString('it-IT')
+            };
+
+            if (!currentRoom.approvedNotes) currentRoom.approvedNotes = [];
+            currentRoom.approvedNotes.unshift(approvedEntry);
+
+            document.getElementById('admin-direct-title').value = '';
+            document.getElementById('admin-preset-cazzata').value = '';
+            document.getElementById('admin-suggestion-box').classList.add('hidden');
+
+            saveRoomData(currentRoom);
+            updateUI();
+            showToast(`Assegnati ${points >= 0 ? '+' : ''}${points} pt a ${student.name.toUpperCase()}!`, 'success');
+        }
+
+        function adminAddStudent() {
+            const input = document.getElementById('admin-new-student-name');
+            const name = (input.value || '').toUpperCase().trim();
+            if (!name) return;
+
+            if (currentRoom.students.some(s => s.name.toUpperCase() === name)) {
+                showToast('Studente già presente in classe!', 'error');
+                return;
+            }
+
+            currentRoom.students.push({ id: Date.now().toString(), name: name, points: 0 });
+            input.value = '';
+            saveRoomData(currentRoom);
+            updateUI();
+            showToast(`STUDENTE ${name} AGGIUNTO!`, 'success');
+        }
+
         function approveNote(noteId) {
             const idx = currentRoom.pendingNotes.findIndex(n => n.id === noteId);
             if (idx === -1) return;
 
+            const editedTitleEl = document.getElementById(`edit-title-${noteId}`);
+            const editedPointsEl = document.getElementById(`edit-points-${noteId}`);
+            const editedDescEl = document.getElementById(`edit-desc-${noteId}`);
+
             const note = currentRoom.pendingNotes.splice(idx, 1)[0];
+
+            if (editedTitleEl && editedTitleEl.value.trim()) {
+                note.severity = editedTitleEl.value.trim();
+            }
+            if (editedPointsEl && !isNaN(parseInt(editedPointsEl.value))) {
+                note.points = parseInt(editedPointsEl.value);
+            }
+            if (editedDescEl) {
+                note.description = editedDescEl.value.trim() || note.severity;
+            }
+
             let student = currentRoom.students.find(s => s.id === note.studentId);
             if (!student) {
-                student = { id: note.studentId || Date.now().toString(), name: note.studentName, points: 0 };
+                student = { id: note.studentId || Date.now().toString(), name: note.studentName.toUpperCase(), points: 0 };
                 currentRoom.students.push(student);
             }
             student.points += note.points;
@@ -1257,7 +1575,7 @@
             currentRoom.approvedNotes.unshift(note);
             saveRoomData(currentRoom);
             updateUI();
-            showToast(`Nota approvata per ${student.name} (+${note.points} pt)!`, 'success');
+            showToast(`Nota approvata per ${student.name.toUpperCase()} (${note.points >= 0 ? '+' : ''}${note.points} pt)!`, 'success');
         }
 
         function rejectNote(noteId) {
@@ -1270,10 +1588,10 @@
         function renameStudent(studentId, newName) {
             const student = currentRoom.students.find(s => s.id === studentId);
             if (student && newName.trim()) {
-                student.name = newName.trim();
+                student.name = newName.trim().toUpperCase();
                 saveRoomData(currentRoom);
                 updateUI();
-                showToast('Studente rinominato con successo!', 'success');
+                showToast('Studente rinominato!', 'success');
             }
         }
 
@@ -1302,9 +1620,9 @@
                         const winner = sorted[0];
                         if (!currentRoom.hallOfFame) currentRoom.hallOfFame = [];
                         currentRoom.hallOfFame.unshift({
-                            winnerName: winner.name,
+                            winnerName: winner.name.toUpperCase(),
                             points: winner.points,
-                            month: new Date().toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })
+                            month: new Date().toLocaleDateString('it-IT', { month: 'long', year: 'numeric' }).toUpperCase()
                         });
                     }
                     currentRoom.students.forEach(s => s.points = 0);
