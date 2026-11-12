@@ -578,14 +578,14 @@
             { id: 18, title: 'Mangiare di nascosto dietro al compagno alto', points: 20, color: 'border-lime-500/30 bg-lime-500/10 text-lime-400', icon: 'fa-burger' }
         ];
 
-        window.onload = function() {
+       window.onload = function() {
             const savedTheme = localStorage.getItem('fanta_theme') || 'dark';
             setTheme(savedTheme);
             renderCazzateButtons();
-            if (window.firebaseReady) {
-                loadSavedSession();
-            }
+            loadSavedSession();
         };
+
+       
 
         function renderCazzateButtons(filterText = '') {
             const grid = document.getElementById('cazzate-grid');
@@ -670,8 +670,17 @@
 
         function exitToHub(e) {
             if (e) e.preventDefault();
-            // Torna alla pagina principale dell'Hub (se ha un altro nome es. hub.html, modificalo qui)
-            window.location.href = 'index.html';
+            // Mantiene salvata la sessione (fanta_session) così al rientro sei già dentro!
+
+            // Se aperto in iframe dall'Hub, avvisa l'Hub di chiudere il gioco
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: 'CLOSE_GAME' }, '*');
+                window.parent.postMessage('closeGame', '*');
+            }
+
+            // Torna all'Hub principale (gestisce sia sottocartelle es. /games/fantaclasse.html sia root)
+            const isSubfolder = window.location.pathname.split('/').filter(Boolean).length > 1;
+            window.location.href = isSubfolder ? '../index.html' : 'index.html';
         }
 
         function switchLobbyTab(tab) {
@@ -877,27 +886,46 @@
             updateUI();
         }
 
+        
         function saveSession() {
             if (currentRoom && currentUser) {
-                localStorage.setItem('fanta_session', JSON.stringify({ roomCode: currentRoom.code, user: currentUser }));
+                localStorage.setItem('fanta_session', JSON.stringify({
+                    roomCode: currentRoom.code,
+                    user: currentUser,
+                    roomBackup: currentRoom
+                }));
             }
         }
 
         window.loadSavedSession = async function() {
-            const session = localStorage.getItem('fanta_session');
-            if (session) {
-                try {
-                    const { roomCode, user } = JSON.parse(session);
-                    const room = await getRoomData(roomCode);
-                    if (room && user && user.name) {
-                        currentRoom = room;
-                        currentUser = user;
-                        enterDashboard();
-                        listenToRoomUpdates(currentRoom.code);
-                    }
-                } catch(e) {}
+            const raw = localStorage.getItem('fanta_session');
+            if (!raw) return;
+
+            try {
+                const { roomCode, user, roomBackup } = JSON.parse(raw);
+                if (!roomCode || !user || !user.name) return;
+
+                // 1. Ripristino immediato da backup locale così entri subito senza schermata di login
+                const cachedRoom = roomBackup || normalizeRoom(JSON.parse(localStorage.getItem(`fanta_room_${roomCode}`)));
+                if (cachedRoom) {
+                    currentRoom = normalizeRoom(cachedRoom);
+                    currentUser = user;
+                    enterDashboard();
+                }
+
+                // 2. Sincronizzazione con Firebase appena disponibile
+                const liveRoom = await getRoomData(roomCode);
+                if (liveRoom) {
+                    currentRoom = liveRoom;
+                    currentUser = user;
+                    enterDashboard();
+                    listenToRoomUpdates(currentRoom.code);
+                }
+            } catch (e) {
+                console.error("Errore ripristino sessione:", e);
             }
         };
+
 
         function logoutRoom() {
             localStorage.removeItem('fanta_session');
