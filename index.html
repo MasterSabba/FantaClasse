@@ -14,33 +14,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Firebase SDK CDN -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, set, get, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBxZQF5OO5-znaipaPYeFcjOARjFXO1_gc",
-        authDomain: "mastersabba-games.firebaseapp.com",
-        databaseURL: "https://mastersabba-games-default-rtdb.firebaseio.com",
-        projectId: "mastersabba-games",
-        storageBucket: "mastersabba-games.firebasestorage.app",
-        messagingSenderId: "254141019232",
-        appId: "1:254141019232:web:29702c03b91f8a76677f05",
-        measurementId: "G-775DFWZ6PC"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxZQF5OO5-znaipaPYeFcjOARjFXO1_gc",
+            authDomain: "mastersabba-games.firebaseapp.com",
+            databaseURL: "https://mastersabba-games-default-rtdb.firebaseio.com",
+            projectId: "mastersabba-games",
+            storageBucket: "mastersabba-games.firebasestorage.app",
+            messagingSenderId: "254141019232",
+            appId: "1:254141019232:web:29702c03b91f8a76677f05",
+            measurementId: "G-775DFWZ6PC"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-    // Rendiamo gli oggetti globali per usarli nello script del portale
-    window.db = db;
-    window.dbRef = ref;
-    window.dbSet = set;
-    window.dbGet = get;
-    window.dbChild = child;
-    window.dbOnValue = onValue;
-    window.dbRemove = remove;
-</script>
+        window.db = db;
+        window.dbRef = ref;
+        window.dbSet = set;
+        window.dbGet = get;
+        window.dbChild = child;
+        window.dbOnValue = onValue;
+        window.dbRemove = remove;
+    </script>
 
     <script>
         tailwind.config = {
@@ -55,7 +54,7 @@
         }
     </script>
     <style>
-        /* TEMI (DARK, LIGHT, BEIGE) */
+        /* TEMI (DARK, LIGHT, GREEN) */
         body.theme-dark {
             background-color: #020617;
             color: #f8fafc;
@@ -110,32 +109,33 @@
         .theme-light .subtext { color: #64748b; }
         .theme-light h1, .theme-light h2, .theme-light h3, .theme-light h4 { color: #0f172a !important; }
 
-        body.theme-beige {
-            background-color: #fdfbf7;
-            color: #2c2520;
+        /* TEMA VERDE (Sostituto del Beige) */
+        body.theme-green {
+            background-color: #064e3b;
+            color: #ecfdf5;
         }
-        .theme-beige .clean-glass {
-            background: rgba(253, 251, 247, 0.9);
+        .theme-green .clean-glass {
+            background: rgba(6, 78, 59, 0.85);
             backdrop-filter: blur(24px);
-            border: 1px solid rgba(120, 90, 60, 0.1);
-            box-shadow: 0 20px 40px -15px rgba(100, 70, 40, 0.05);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            box-shadow: 0 20px 40px -15px rgba(2, 44, 34, 0.7);
         }
-        .theme-beige .clean-card {
-            background: rgba(245, 240, 232, 0.8);
-            border: 1px solid rgba(120, 90, 60, 0.08);
-            color: #2c2520;
+        .theme-green .clean-card {
+            background: rgba(4, 120, 87, 0.5);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: #ecfdf5;
         }
-        .theme-beige .clean-card:hover {
-            background: #f0eae1;
-            border-color: #b08968;
+        .theme-green .clean-card:hover {
+            background: rgba(4, 120, 87, 0.8);
+            border-color: rgba(52, 211, 153, 0.5);
         }
-        .theme-beige .input-field {
-            background: #ffffff;
-            border-color: #d0c4b4;
-            color: #2c2520;
+        .theme-green .input-field {
+            background: rgba(2, 44, 34, 0.9);
+            border-color: #047857;
+            color: #ecfdf5;
         }
-        .theme-beige .subtext { color: #7f6e5d; }
-        .theme-beige h1, .theme-beige h2, .theme-beige h3, .theme-beige h4 { color: #2c2520 !important; }
+        .theme-green .subtext { color: #a7f3d0; }
+        .theme-green h1, .theme-green h2, .theme-green h3, .theme-green h4 { color: #ffffff !important; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -201,7 +201,7 @@
                 <div class="bg-slate-900/30 p-1.5 rounded-2xl border border-white/10 flex items-center gap-1">
                     <button onclick="setTheme('dark')" title="Tema Scuro" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-amber-300 hover:bg-white/10 transition">🌙</button>
                     <button onclick="setTheme('light')" title="Tema Chiaro" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-indigo-500 hover:bg-white/10 transition">☀️</button>
-                    <button onclick="setTheme('beige')" title="Tema Beige Warm" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">📜</button>
+                    <button onclick="setTheme('green')" title="Tema Verde" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-emerald-400 hover:bg-white/10 transition">🌿</button>
                 </div>
 
                 <div id="header-actions" class="hidden flex items-center gap-2.5">
@@ -268,7 +268,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold subtext mb-1.5">Nome Admin</label>
-                            <input type="text" id="create-admin-name" placeholder="Es. Mario Rossi " class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-indigo-500 transition">
+                            <input type="text" id="create-admin-name" placeholder="Es. Mario Rossi" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold subtext mb-1.5">PIN Admin Segreto</label>
@@ -669,117 +669,116 @@
             }
         }
 
-     // Funzione asincrona per leggere la stanza da Firebase
-async function getRoomData(roomCode) {
-    if (!roomCode) return null;
-    const code = roomCode.toUpperCase().trim();
-    if (!window.db) return null;
+        // --- FIREBASE ASYNC DATA MANAGEMENT ---
+        async function getRoomData(roomCode) {
+            if (!roomCode) return null;
+            const code = roomCode.toUpperCase().trim();
+            if (!window.db) return null;
 
-    try {
-        const dbRef = window.dbRef(window.db, `fanta_rooms/${code}`);
-        const snapshot = await window.dbGet(dbRef);
-        if (snapshot.exists()) {
-            const room = snapshot.val();
-            if (!room.students) room.students = [];
-            if (!room.pendingNotes) room.pendingNotes = [];
-            if (!room.approvedNotes) room.approvedNotes = [];
-            if (!room.chatMessages) room.chatMessages = [];
-            if (!room.hallOfFame) room.hallOfFame = [];
-            return room;
+            try {
+                const dbRef = window.dbRef(window.db, `fanta_rooms/${code}`);
+                const snapshot = await window.dbGet(dbRef);
+                if (snapshot.exists()) {
+                    const room = snapshot.val();
+                    if (!room.students) room.students = [];
+                    if (!room.pendingNotes) room.pendingNotes = [];
+                    if (!room.approvedNotes) room.approvedNotes = [];
+                    if (!room.chatMessages) room.chatMessages = [];
+                    if (!room.hallOfFame) room.hallOfFame = [];
+                    return room;
+                }
+            } catch (e) {
+                console.error("Errore lettura Firebase:", e);
+            }
+            return null;
         }
-    } catch (e) {
-        console.error("Errore lettura Firebase:", e);
-    }
-    return null;
-}
 
-// Funzione per salvare/aggiornare la stanza su Firebase
-function saveRoomData(data) {
-    if (!data || !data.code || !window.db) return;
-    const code = data.code.toUpperCase().trim();
-    window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data).catch(err => {
-        console.error("Errore salvataggio Firebase:", err);
-    });
-}
-
-// Ascolta i cambiamenti in tempo reale sulla stanza attiva
-function listenToRoomUpdates(roomCode) {
-    if (!window.db || !roomCode) return;
-    const code = roomCode.toUpperCase().trim();
-    const roomRef = window.dbRef(window.db, `fanta_rooms/${code}`);
-    
-    window.dbOnValue(roomRef, (snapshot) => {
-        if (snapshot.exists()) {
-            currentRoom = snapshot.val();
-            updateUI();
+        function saveRoomData(data) {
+            if (!data || !data.code || !window.db) return;
+            const code = data.code.toUpperCase().trim();
+            window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data).catch(err => {
+                console.error("Errore salvataggio Firebase:", err);
+            });
         }
-    });
-}
-      async function joinRoom() {
-    const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
-    const userName = document.getElementById('join-name-input').value.trim();
 
-    if (!roomCode || !userName) {
-        showToast('Inserisci sia il codice stanza che il tuo nome!', 'error');
-        return;
-    }
+        function listenToRoomUpdates(roomCode) {
+            if (!window.db || !roomCode) return;
+            const code = roomCode.toUpperCase().trim();
+            const roomRef = window.dbRef(window.db, `fanta_rooms/${code}`);
+            
+            window.dbOnValue(roomRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    currentRoom = snapshot.val();
+                    updateUI();
+                }
+            });
+        }
 
-    let room = await getRoomData(roomCode);
-    if (!room) {
-        showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
-        return;
-    }
+        async function joinRoom() {
+            const roomCode = document.getElementById('join-code-input').value.toUpperCase().trim();
+            const userName = document.getElementById('join-name-input').value.trim();
 
-    let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
-    if (!student) {
-        student = { id: Date.now().toString(), name: userName, points: 0 };
-        room.students.push(student);
-        saveRoomData(room);
-    }
+            if (!roomCode || !userName) {
+                showToast('Inserisci sia il codice stanza che il tuo nome!', 'error');
+                return;
+            }
 
-    currentUser = { name: student.name, role: 'student' };
-    currentRoom = room;
+            let room = await getRoomData(roomCode);
+            if (!room) {
+                showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
+                return;
+            }
 
-    enterDashboard();
-    listenToRoomUpdates(currentRoom.code);
-    showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
-}
+            let student = room.students.find(s => s.name.toLowerCase() === userName.toLowerCase());
+            if (!student) {
+                student = { id: Date.now().toString(), name: userName, points: 0 };
+                room.students.push(student);
+                saveRoomData(room);
+            }
 
-async function createNewRoom() {
-    const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
-    const adminPin = document.getElementById('create-admin-pin').value.trim();
-    const adminName = document.getElementById('create-admin-name').value.trim();
+            currentUser = { name: student.name, role: 'student' };
+            currentRoom = room;
 
-    if (!roomCode || !adminPin || !adminName) {
-        showToast('Compila tutti i campi per creare la stanza!', 'error');
-        return;
-    }
+            enterDashboard();
+            listenToRoomUpdates(currentRoom.code);
+            showToast(`Benvenuto in ${room.code}, ${student.name}!`, 'success');
+        }
 
-    let existingRoom = await getRoomData(roomCode);
-    if (existingRoom) {
-        showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
-        return;
-    }
+        async function createNewRoom() {
+            const roomCode = document.getElementById('create-room-name').value.toUpperCase().trim();
+            const adminPin = document.getElementById('create-admin-pin').value.trim();
+            const adminName = document.getElementById('create-admin-name').value.trim();
 
-    const newRoom = {
-        code: roomCode,
-        pin: adminPin,
-        adminName: adminName,
-        students: [{ id: Date.now().toString(), name: adminName, points: 0 }],
-        pendingNotes: [],
-        approvedNotes: [],
-        chatMessages: [],
-        hallOfFame: []
-    };
+            if (!roomCode || !adminPin || !adminName) {
+                showToast('Compila tutti i campi per creare la stanza!', 'error');
+                return;
+            }
 
-    saveRoomData(newRoom);
-    currentUser = { name: adminName, role: 'admin' };
-    currentRoom = newRoom;
+            let existingRoom = await getRoomData(roomCode);
+            if (existingRoom) {
+                showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
+                return;
+            }
 
-    enterDashboard();
-    listenToRoomUpdates(currentRoom.code);
-    showToast(`Stanza ${roomCode} creata con successo!`, 'success');
-}
+            const newRoom = {
+                code: roomCode,
+                pin: adminPin,
+                adminName: adminName,
+                students: [{ id: Date.now().toString(), name: adminName, points: 0 }],
+                pendingNotes: [],
+                approvedNotes: [],
+                chatMessages: [],
+                hallOfFame: []
+            };
+
+            saveRoomData(newRoom);
+            currentUser = { name: adminName, role: 'admin' };
+            currentRoom = newRoom;
+
+            enterDashboard();
+            listenToRoomUpdates(currentRoom.code);
+            showToast(`Stanza ${roomCode} creata con successo!`, 'success');
+        }
 
         function enterDashboard() {
             if (!currentRoom || !currentUser) return;
@@ -811,21 +810,21 @@ async function createNewRoom() {
             }
         }
 
-       async function loadSavedSession() {
-    const session = localStorage.getItem('fanta_session');
-    if (session) {
-        try {
-            const { roomCode, user } = JSON.parse(session);
-            const room = await getRoomData(roomCode);
-            if (room && user && user.name) {
-                currentRoom = room;
-                currentUser = user;
-                enterDashboard();
-                listenToRoomUpdates(currentRoom.code);
+        async function loadSavedSession() {
+            const session = localStorage.getItem('fanta_session');
+            if (session) {
+                try {
+                    const { roomCode, user } = JSON.parse(session);
+                    const room = await getRoomData(roomCode);
+                    if (room && user && user.name) {
+                        currentRoom = room;
+                        currentUser = user;
+                        enterDashboard();
+                        listenToRoomUpdates(currentRoom.code);
+                    }
+                } catch(e) {}
             }
-        } catch(e) {}
-    }
-}
+        }
 
         function logoutRoom() {
             localStorage.removeItem('fanta_session');
@@ -871,7 +870,6 @@ async function createNewRoom() {
 
         function promptSubmitNote(title, points, description) {
             if (!currentUser || !currentRoom) return;
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.pendingNotes) currentRoom.pendingNotes = [];
 
             let student = currentRoom.students.find(s => s.name.toLowerCase() === currentUser.name.toLowerCase());
@@ -907,7 +905,6 @@ async function createNewRoom() {
 
         function updateUI() {
             if (!currentRoom) return;
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
 
             const userDisplay = document.getElementById('current-user-display-name');
             if (userDisplay && currentUser && currentUser.name) {
@@ -994,7 +991,6 @@ async function createNewRoom() {
             const text = input.value.trim();
             if (!text || !currentUser || !currentRoom) return;
 
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
 
             const msg = {
@@ -1028,7 +1024,6 @@ async function createNewRoom() {
         function renderChat() {
             const chatBox = document.getElementById('chat-messages');
             if (!chatBox || !currentRoom) return;
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             if (!currentRoom.chatMessages) currentRoom.chatMessages = [];
 
             let adminClearBtn = '';
@@ -1146,7 +1141,6 @@ async function createNewRoom() {
         }
 
         function approveNote(noteId) {
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             const idx = currentRoom.pendingNotes.findIndex(n => n.id === noteId);
             if (idx === -1) return;
 
@@ -1166,7 +1160,6 @@ async function createNewRoom() {
         }
 
         function rejectNote(noteId) {
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             currentRoom.pendingNotes = currentRoom.pendingNotes.filter(n => n.id !== noteId);
             saveRoomData(currentRoom);
             updateUI();
@@ -1174,7 +1167,6 @@ async function createNewRoom() {
         }
 
         function renameStudent(studentId, newName) {
-            currentRoom = getRoomData(currentRoom.code) || currentRoom;
             const student = currentRoom.students.find(s => s.id === studentId);
             if (student && newName.trim()) {
                 student.name = newName.trim();
@@ -1190,7 +1182,6 @@ async function createNewRoom() {
                 'Eliminare lo studente?',
                 'Lo studente verrà rimosso dalla classe e dalla classifica.',
                 () => {
-                    currentRoom = getRoomData(currentRoom.code) || currentRoom;
                     currentRoom.students = currentRoom.students.filter(s => s.id !== studentId);
                     saveRoomData(currentRoom);
                     updateUI();
@@ -1205,7 +1196,6 @@ async function createNewRoom() {
                 'Concludere il Mese?',
                 'Il primo in classifica verrà salvato nell\'Albo d\'Oro e i punti verranno azzerati per il nuovo mese.',
                 () => {
-                    currentRoom = getRoomData(currentRoom.code) || currentRoom;
                     const sorted = [...currentRoom.students].sort((a, b) => b.points - a.points);
                     if (sorted.length > 0 && sorted[0].points > 0) {
                         const winner = sorted[0];
