@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" class="h-full bg-slate-950 text-slate-100">
+<html lang="it" class="min-h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -39,6 +39,12 @@
         window.dbChild = child;
         window.dbOnValue = onValue;
         window.dbRemove = remove;
+        window.firebaseReady = true;
+
+        // Se c'era una sessione salvata, caricala appena Firebase è pronto
+        if (typeof window.loadSavedSession === 'function') {
+            window.loadSavedSession();
+        }
     </script>
 
     <script>
@@ -54,8 +60,14 @@
         }
     </script>
     <style>
+        html, body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
         /* TEMI (DARK, LIGHT, GREEN) */
-        body.theme-dark {
+        html.theme-dark, body.theme-dark {
             background-color: #020617;
             color: #f8fafc;
         }
@@ -81,7 +93,7 @@
         }
         .theme-dark .subtext { color: #94a3b8; }
 
-        body.theme-light {
+        html.theme-light, body.theme-light {
             background-color: #f8fafc;
             color: #0f172a;
         }
@@ -108,9 +120,18 @@
         }
         .theme-light .subtext { color: #64748b; }
         .theme-light h1, .theme-light h2, .theme-light h3, .theme-light h4 { color: #0f172a !important; }
+        .theme-light .exit-button {
+            background: rgba(15, 23, 42, 0.06);
+            border-color: rgba(15, 23, 42, 0.12);
+            color: #334155;
+        }
+        .theme-light .exit-button:hover {
+            background: rgba(15, 23, 42, 0.12);
+            color: #0f172a;
+        }
 
-        /* TEMA VERDE (Sostituto del Beige) */
-        body.theme-green {
+        /* TEMA VERDE */
+        html.theme-green, body.theme-green {
             background-color: #064e3b;
             color: #ecfdf5;
         }
@@ -164,20 +185,21 @@
             font-weight: bold;
             text-decoration: none;
             transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
         }
         .exit-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.18);
             color: #ffffff;
             transform: scale(1.05);
         }
     </style>
 </head>
-<body class="h-full flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+<body class="min-h-screen flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
 
-    <a href="#" onclick="exitToHub(event); return false;" class="exit-button" title="Torna all'Hub"><i class="fa-solid fa-arrow-left text-sm"></i></a>
+    <!-- FRECCIA INDIETRO VERSO L'HUB -->
+    <a href="index.html" onclick="exitToHub(event)" class="exit-button" title="Torna all'Hub"><i class="fa-solid fa-arrow-left text-sm"></i></a>
 
     <!-- APP CONTAINER -->
     <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-4 sm:p-6 min-h-screen pl-16 sm:pl-20">
@@ -217,7 +239,7 @@
                         <i class="fa-solid fa-user text-xs"></i> <span id="role-text">Studente</span>
                     </div>
 
-                    <button onclick="logoutRoom()" class="p-2.5 subtext hover:text-rose-500 rounded-2xl transition hover:bg-rose-500/10" title="Esci">
+                    <button onclick="logoutRoom()" class="p-2.5 subtext hover:text-rose-500 rounded-2xl transition hover:bg-rose-500/10" title="Esci dalla Stanza">
                         <i class="fa-solid fa-right-from-bracket text-sm"></i>
                     </button>
                 </div>
@@ -255,7 +277,7 @@
                             <label class="block text-xs font-bold subtext mb-1.5">Il tuo Nome e Cognome</label>
                             <input type="text" id="join-name-input" placeholder="Es. Mario Rossi" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-indigo-500 transition">
                         </div>
-                        <button onclick="joinRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
+                        <button id="btn-join-submit" onclick="joinRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
                             Entra nella Stanza
                         </button>
                     </div>
@@ -274,7 +296,7 @@
                             <label class="block text-xs font-bold subtext mb-1.5">PIN Admin Segreto</label>
                             <input type="password" id="create-admin-pin" placeholder="Es. 1234" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition">
                         </div>
-                        <button onclick="createNewRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
+                        <button id="btn-create-submit" onclick="createNewRoom()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.99]">
                             Crea Stanza & Inizia
                         </button>
                     </div>
@@ -557,9 +579,12 @@
         ];
 
         window.onload = function() {
-            setTheme('dark');
+            const savedTheme = localStorage.getItem('fanta_theme') || 'dark';
+            setTheme(savedTheme);
             renderCazzateButtons();
-            loadSavedSession();
+            if (window.firebaseReady) {
+                loadSavedSession();
+            }
         };
 
         function renderCazzateButtons(filterText = '') {
@@ -638,12 +663,15 @@
 
         function setTheme(theme) {
             currentTheme = theme;
-            document.body.className = `h-full flex flex-col font-sans theme-${theme} overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300`;
+            localStorage.setItem('fanta_theme', theme);
+            document.documentElement.className = `min-h-full theme-${theme}`;
+            document.body.className = `min-h-screen flex flex-col font-sans theme-${theme} overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300`;
         }
 
         function exitToHub(e) {
             if (e) e.preventDefault();
-            logoutRoom();
+            // Torna alla pagina principale dell'Hub (se ha un altro nome es. hub.html, modificalo qui)
+            window.location.href = 'index.html';
         }
 
         function switchLobbyTab(tab) {
@@ -669,36 +697,69 @@
             }
         }
 
+        function normalizeRoom(room) {
+            if (!room) return null;
+            if (!room.students) room.students = [];
+            if (!room.pendingNotes) room.pendingNotes = [];
+            if (!room.approvedNotes) room.approvedNotes = [];
+            if (!room.chatMessages) room.chatMessages = [];
+            if (!room.hallOfFame) room.hallOfFame = [];
+            return room;
+        }
+
         // --- FIREBASE ASYNC DATA MANAGEMENT ---
         async function getRoomData(roomCode) {
             if (!roomCode) return null;
             const code = roomCode.toUpperCase().trim();
-            if (!window.db) return null;
 
-            try {
-                const dbRef = window.dbRef(window.db, `fanta_rooms/${code}`);
-                const snapshot = await window.dbGet(dbRef);
-                if (snapshot.exists()) {
-                    const room = snapshot.val();
-                    if (!room.students) room.students = [];
-                    if (!room.pendingNotes) room.pendingNotes = [];
-                    if (!room.approvedNotes) room.approvedNotes = [];
-                    if (!room.chatMessages) room.chatMessages = [];
-                    if (!room.hallOfFame) room.hallOfFame = [];
-                    return room;
-                }
-            } catch (e) {
-                console.error("Errore lettura Firebase:", e);
+            // Attendi fino a 3 secondi se Firebase sta finendo di caricarsi
+            let retries = 0;
+            while (!window.db && retries < 30) {
+                await new Promise(r => setTimeout(r, 100));
+                retries++;
             }
+
+            if (window.db) {
+                try {
+                    const dbRef = window.dbRef(window.db, `fanta_rooms/${code}`);
+                    const snapshot = await window.dbGet(dbRef);
+                    if (snapshot.exists()) {
+                        return normalizeRoom(snapshot.val());
+                    }
+                } catch (e) {
+                    console.error("Errore lettura Firebase:", e);
+                    if (e.code === 'PERMISSION_DENIED' || (e.message && e.message.includes('Permission denied'))) {
+                        showToast('Permesso negato su Firebase! Aggiungi "fanta_rooms": {".read": true, ".write": true} nelle Regole.', 'error');
+                    }
+                }
+            }
+
+            // Fallback locale se presente sullo stesso dispositivo
+            const localData = localStorage.getItem(`fanta_room_${code}`);
+            if (localData) {
+                try {
+                    return normalizeRoom(JSON.parse(localData));
+                } catch (e) {}
+            }
+
             return null;
         }
 
-        function saveRoomData(data) {
-            if (!data || !data.code || !window.db) return;
+        async function saveRoomData(data) {
+            if (!data || !data.code) return;
             const code = data.code.toUpperCase().trim();
-            window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data).catch(err => {
-                console.error("Errore salvataggio Firebase:", err);
-            });
+            localStorage.setItem(`fanta_room_${code}`, JSON.stringify(data));
+
+            if (window.db) {
+                try {
+                    await window.dbSet(window.dbRef(window.db, `fanta_rooms/${code}`), data);
+                } catch (err) {
+                    console.error("Errore salvataggio Firebase:", err);
+                    if (err.code === 'PERMISSION_DENIED' || (err.message && err.message.includes('Permission denied'))) {
+                        showToast('Errore permessi Firebase: aggiorna le Regole del Realtime Database!', 'error');
+                    }
+                }
+            }
         }
 
         function listenToRoomUpdates(roomCode) {
@@ -708,7 +769,7 @@
             
             window.dbOnValue(roomRef, (snapshot) => {
                 if (snapshot.exists()) {
-                    currentRoom = snapshot.val();
+                    currentRoom = normalizeRoom(snapshot.val());
                     updateUI();
                 }
             });
@@ -723,9 +784,15 @@
                 return;
             }
 
+            const btn = document.getElementById('btn-join-submit');
+            if (btn) { btn.disabled = true; btn.innerText = 'Accesso in corso...'; }
+
             let room = await getRoomData(roomCode);
+
+            if (btn) { btn.disabled = false; btn.innerText = 'Entra nella Stanza'; }
+
             if (!room) {
-                showToast('Stanza non trovata! Se sei l\'admin, creala prima.', 'error');
+                showToast('Stanza non trovata! Controlla il codice o chiedi all\'Admin di crearla.', 'error');
                 return;
             }
 
@@ -733,7 +800,7 @@
             if (!student) {
                 student = { id: Date.now().toString(), name: userName, points: 0 };
                 room.students.push(student);
-                saveRoomData(room);
+                await saveRoomData(room);
             }
 
             currentUser = { name: student.name, role: 'student' };
@@ -754,8 +821,12 @@
                 return;
             }
 
+            const btn = document.getElementById('btn-create-submit');
+            if (btn) { btn.disabled = true; btn.innerText = 'Creazione stanza...'; }
+
             let existingRoom = await getRoomData(roomCode);
             if (existingRoom) {
+                if (btn) { btn.disabled = false; btn.innerText = 'Crea Stanza & Inizia'; }
                 showToast('Questa stanza esiste già! Entra con la scheda di accesso.', 'error');
                 return;
             }
@@ -771,7 +842,9 @@
                 hallOfFame: []
             };
 
-            saveRoomData(newRoom);
+            await saveRoomData(newRoom);
+            if (btn) { btn.disabled = false; btn.innerText = 'Crea Stanza & Inizia'; }
+
             currentUser = { name: adminName, role: 'admin' };
             currentRoom = newRoom;
 
@@ -810,7 +883,7 @@
             }
         }
 
-        async function loadSavedSession() {
+        window.loadSavedSession = async function() {
             const session = localStorage.getItem('fanta_session');
             if (session) {
                 try {
@@ -824,7 +897,7 @@
                     }
                 } catch(e) {}
             }
-        }
+        };
 
         function logoutRoom() {
             localStorage.removeItem('fanta_session');
