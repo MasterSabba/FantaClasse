@@ -265,7 +265,7 @@
                     <div class="text-center space-y-2">
                         <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/25 text-[11px] font-extrabold uppercase tracking-widest">PORTALE SCOLASTICO LIVE</span>
                         <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight">Entra in FantaClasse</h2>
-                        <p class="text-xs subtext">Segnala imprese epiche, scala la classifica mensile e conquista l'Albo d'Oro.</p>
+                        <p class="text-xs subtext">Completa sfide assurde, colleziona note e scala la classifica mensile.</p>
                     </div>
 
                     <div class="clean-glass p-1.5 rounded-2xl flex gap-1">
@@ -320,7 +320,7 @@
                 <!-- MAIN TAB BAR -->
                 <div class="clean-glass p-1.5 rounded-2xl flex gap-1 overflow-x-auto">
                     <button id="nav-btn-actions" onclick="switchDashboardTab('actions')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 whitespace-nowrap active-tab">
-                        <i class="fa-solid fa-bolt text-xs text-amber-400"></i> Segnala Cazzata
+                        <i class="fa-solid fa-bolt text-xs text-amber-400"></i> Sfide & Note
                     </button>
                     <button id="nav-btn-leaderboard" onclick="switchDashboardTab('leaderboard')" class="flex-1 py-3 px-4 text-xs font-bold rounded-xl subtext hover:text-indigo-400 transition flex items-center justify-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-trophy text-xs text-amber-500"></i> Classifica
@@ -336,14 +336,14 @@
                     </button>
                 </div>
 
-                <!-- TAB 1: SEGNALA CAZZATA / NOTA (SOLO PER SE STESSI) -->
+                <!-- TAB 1: SEGNALA SFIDA EPICA / NOTA (SOLO PER SE STESSI) -->
                 <div id="tab-actions" class="flex-1 space-y-6">
                     <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-6">
                         
                         <div class="flex items-center justify-between gap-4 flex-wrap">
                             <div>
-                                <h3 class="font-display font-extrabold text-xl">Nuova Segnalazione</h3>
-                                <p class="text-xs subtext">Segnala una tua cazzata rapida oppure crea una segnalazione personalizzata.</p>
+                                <h3 class="font-display font-extrabold text-xl">Sfide Epiche & Note</h3>
+                                <p class="text-xs subtext">Dimostra chi l'ha combinata più grossa completando una sfida o registrando una nota.</p>
                             </div>
                             <button onclick="openCustomModal()" class="px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Personalizzata + Suggeritore
@@ -359,21 +359,20 @@
                         <!-- BARRA DI RICERCA E FILTRI CATEGORIA -->
                         <div class="space-y-3">
                             <div class="flex items-center justify-between flex-wrap gap-2">
-                                <label class="block text-xs font-bold subtext uppercase tracking-wider">Catalogo Cazzate & Note</label>
+                                <label class="block text-xs font-bold subtext uppercase tracking-wider">Catalogo Completo</label>
                                 <div class="flex gap-1.5 flex-wrap">
-                                    <button onclick="setCategoryFilter('all')" id="cat-all" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white">Tutte</button>
-                                    <button onclick="setCategoryFilter('tech')" id="cat-tech" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">Tech & iPad</button>
-                                    <button onclick="setCategoryFilter('classe')" id="cat-classe" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">In Classe</button>
-                                    <button onclick="setCategoryFilter('note')" id="cat-note" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">Note & Preside</button>
+                                    <button onclick="setCategoryFilter('all')" id="cat-all" class="px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white">Tutte (27)</button>
+                                    <button onclick="setCategoryFilter('sfide')" id="cat-sfide" class="px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">🔥 Sfide Epiche (21)</button>
+                                    <button onclick="setCategoryFilter('note')" id="cat-note" class="px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext">📝 Note & Sanzioni (6)</button>
                                 </div>
                             </div>
                             <div class="relative">
                                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-xs subtext"></i>
-                                <input type="text" id="cazzata-search-input" onkeyup="filterCazzate()" placeholder="Cerca cazzata (Es. iPad, dormire, nota, telefono, ritardo...)" class="w-full input-field border rounded-2xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-indigo-500 transition">
+                                <input type="text" id="cazzata-search-input" onkeyup="filterCazzate()" placeholder="Cerca sfida o nota (Es. infiltrato, ananas, airdrop, preside, mamma, nota grave...)" class="w-full input-field border rounded-2xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-indigo-500 transition">
                             </div>
 
-                            <!-- GRIGLIA PULSANTI CAZZATE -->
-                            <div id="cazzate-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[420px] overflow-y-auto p-1">
+                            <!-- GRIGLIA PULSANTI SFIDE & NOTE -->
+                            <div id="cazzate-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[460px] overflow-y-auto p-1">
                                 <!-- Popolato da JS -->
                             </div>
                         </div>
@@ -451,7 +450,7 @@
                         <div class="flex items-center justify-between flex-wrap gap-2">
                             <div>
                                 <h3 class="font-display font-bold text-xl flex items-center gap-2">
-                                    <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Cronologia Note Approvate
+                                    <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> Cronologia Sfide & Note Approvate
                                 </h3>
                                 <p id="feed-admin-hint" class="text-xs subtext hidden">Modalità Admin: puoi annullare ed eliminare eventuali note assegnate per errore.</p>
                             </div>
@@ -477,14 +476,14 @@
                     <!-- ADMIN CONTROLS -->
                     <div id="admin-controls-box" class="space-y-6 hidden">
                         
-                        <!-- ASSEGNA DIRETTAMENTE CAZZATA / PUNTI A QUALCUNO -->
+                        <!-- ASSEGNA DIRETTAMENTE SFIDA / NOTA A QUALCUNO -->
                         <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 border-indigo-500/30">
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <div>
                                     <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
-                                        <i class="fa-solid fa-bolt"></i> Assegna Cazzata Diretta (Admin)
+                                        <i class="fa-solid fa-bolt"></i> Assegna Sfida / Nota Diretta (Admin)
                                     </h3>
-                                    <p class="text-xs subtext">Aggiungi subito una cazzata o punti a qualsiasi studente senza attesa.</p>
+                                    <p class="text-xs subtext">Aggiungi subito una sfida, nota o punti a qualsiasi studente senza attesa.</p>
                                 </div>
                             </div>
 
@@ -496,7 +495,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold subtext mb-1">Scegli Cazzata Rapida (Opzionale)</label>
+                                    <label class="block text-xs font-bold subtext mb-1">Scegli Sfida / Nota Rapida (Opzionale)</label>
                                     <select id="admin-preset-cazzata" onchange="applyAdminPreset()" class="w-full input-field border rounded-2xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-indigo-500">
                                         <option value="">-- Oppure scrivi sotto --</option>
                                         <!-- Popolato da JS -->
@@ -506,7 +505,7 @@
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                                 <div class="sm:col-span-2">
-                                    <label class="block text-xs font-bold subtext mb-1">Titolo Cazzata / Motivo</label>
+                                    <label class="block text-xs font-bold subtext mb-1">Titolo Sfida / Nota / Motivo</label>
                                     <input type="text" id="admin-direct-title" oninput="updatePointSuggestion(this.value, 'admin-suggestion-box', 'admin-direct-points')" placeholder="Es. Ha fatto suonare la sveglia durante verifica..." class="w-full input-field border rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
                                 </div>
                                 <div>
@@ -529,7 +528,7 @@
                         <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4 border-amber-500/25">
                             <div>
                                 <h3 class="font-display font-bold text-xl text-amber-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-list-check"></i> Note in Attesa di Approvazione
+                                    <i class="fa-solid fa-list-check"></i> Sfide & Note in Attesa di Approvazione
                                 </h3>
                                 <p class="text-xs subtext">Puoi modificare direttamente titolo, descrizione e punti prima di approvare!</p>
                             </div>
@@ -538,7 +537,7 @@
                             </div>
                         </div>
 
-                        <!-- GESTIONE STUDENTI (SCRITTA RIMOSSA) -->
+                        <!-- GESTIONE STUDENTI -->
                         <div class="clean-glass p-6 sm:p-8 rounded-3xl space-y-4">
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <h3 class="font-display font-bold text-xl flex items-center gap-2">
@@ -579,7 +578,7 @@
         <div class="clean-glass p-6 sm:p-8 rounded-3xl max-w-md w-full space-y-4 border-indigo-500/30 shadow-2xl">
             <div class="flex items-center justify-between">
                 <h3 class="font-display font-bold text-xl text-indigo-400 flex items-center gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Cazzata Personalizzata
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Cazzata personalizzata
                 </h3>
                 <button onclick="closeCustomModal()" class="subtext hover:text-white transition">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -588,7 +587,7 @@
             
             <div class="space-y-3.5">
                 <div>
-                    <label class="block text-xs font-semibold subtext mb-1.5">Titolo Cazzata / Evento</label>
+                    <label class="block text-xs font-semibold subtext mb-1.5">Titolo Sfida / Nota / Evento</label>
                     <input type="text" id="custom-title-input" oninput="updatePointSuggestion(this.value, 'student-suggestion-box', 'custom-points-input')" placeholder="Es. Ho fatto cadere il vassoio in mensa" class="w-full input-field border rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
                 </div>
 
@@ -647,30 +646,40 @@
         let currentCategoryFilter = 'all';
 
         const CAZZATE_LIST = [
-            { id: 1, cat: 'tech', title: 'iPad all\'1% durante la lezione', points: 10, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-battery-quarter' },
-            { id: 2, cat: 'tech', title: 'Gaming nascosto sotto il banco', points: 25, color: 'border-purple-500/30 bg-purple-500/10 text-purple-400', icon: 'fa-gamepad' },
-            { id: 3, cat: 'classe', title: 'Dormita profonda in prima fila', points: 30, color: 'border-blue-500/30 bg-blue-500/10 text-blue-400', icon: 'fa-bed' },
-            { id: 4, cat: 'tech', title: 'AirDrop molesto inviato a tutta la classe', points: 20, color: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400', icon: 'fa-wifi' },
-            { id: 5, cat: 'tech', title: 'Apple Pencil caduta nel silenzio tombale', points: 15, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-pen-slash' },
-            { id: 6, cat: 'classe', title: 'Battuta fuori luogo che fa ridere il prof', points: 35, color: 'border-pink-500/30 bg-pink-500/10 text-pink-400', icon: 'fa-face-laugh-squint' },
-            { id: 7, cat: 'note', title: 'Nota Lieve su registro', points: 20, color: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400', icon: 'fa-file-signature' },
-            { id: 8, cat: 'note', title: 'Nota Media su registro', points: 40, color: 'border-amber-500/30 bg-amber-500/10 text-amber-400', icon: 'fa-triangle-exclamation' },
-            { id: 9, cat: 'note', title: 'Nota Grave su registro', points: 60, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-circle-exclamation' },
-            { id: 10, cat: 'note', title: 'Nota Leggendaria dal Preside', points: 100, color: 'border-rose-600/40 bg-rose-600/20 text-rose-400', icon: 'fa-skull' },
-            { id: 11, cat: 'tech', title: 'Hotspot condiviso con 10 compagni', points: 25, color: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400', icon: 'fa-tower-cell' },
-            { id: 12, cat: 'tech', title: 'Proiettore/LIM spento per sbaglio', points: 15, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-tv' },
-            { id: 13, cat: 'tech', title: 'Film o partita in streaming in classe', points: 40, color: 'border-red-500/30 bg-red-500/10 text-red-400', icon: 'fa-film' },
-            { id: 14, cat: 'classe', title: 'Finta chiamata urgente per uscire', points: 20, color: 'border-orange-500/30 bg-orange-500/10 text-orange-400', icon: 'fa-phone-slash' },
-            { id: 15, cat: 'classe', title: 'Tutti in piedi 5 minuti prima della campanella', points: 15, color: 'border-violet-500/30 bg-violet-500/10 text-violet-400', icon: 'fa-bell' },
-            { id: 16, cat: 'classe', title: 'Prof che non si accorge di nulla per un’ora', points: 50, color: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-400', icon: 'fa-ghost' },
-            { id: 17, cat: 'classe', title: 'Consegna compito in bianco scenografica', points: 30, color: 'border-stone-500/30 bg-stone-500/10 text-stone-300', icon: 'fa-file' },
-            { id: 18, cat: 'classe', title: 'Mangiare di nascosto dietro al compagno alto', points: 20, color: 'border-lime-500/30 bg-lime-500/10 text-lime-400', icon: 'fa-burger' },
-            { id: 19, cat: 'tech', title: 'Telefono sequestrato sulla cattedra', points: 45, color: 'border-rose-500/30 bg-rose-500/10 text-rose-400', icon: 'fa-mobile-screen' },
-            { id: 20, cat: 'tech', title: 'Suoneria al massimo nel silenzio assoluto', points: 35, color: 'border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400', icon: 'fa-volume-high' },
-            { id: 21, cat: 'classe', title: 'Ritardo epico con scusa assurda', points: 20, color: 'border-sky-500/30 bg-sky-500/10 text-sky-400', icon: 'fa-person-running' },
-            { id: 22, cat: 'classe', title: 'Interrogazione schivata all\'ultimo secondo', points: 30, color: 'border-teal-500/30 bg-teal-500/10 text-teal-400', icon: 'fa-shield-halved' },
-            { id: 23, cat: 'note', title: 'Cacciato fuori dall\'aula', points: 55, color: 'border-red-600/35 bg-red-600/15 text-red-400', icon: 'fa-door-open' },
-            { id: 24, cat: 'note', title: 'Nota di classe collettiva innescata', points: 75, color: 'border-amber-600/40 bg-amber-600/20 text-amber-300', icon: 'fa-bomb' }
+            // ==========================================================
+            // CATEGORIA 1: 🔥 LE 21 SFIDE EPICHE APPROVATE (ORDINATE PER PUNTI)
+            // ==========================================================
+            { id: 11, cat: 'sfide', title: '🔥 Infiltrato Speciale (5 minuti)', desc: 'Seguire una lezione in un\'altra classe/sezione per almeno 5 minuti senza che il prof si accorga che non sei suo alunno.', points: 200, color: 'border-amber-400/60 bg-amber-500/20 text-amber-300', icon: 'fa-user-secret' },
+            { id: 13, cat: 'sfide', title: '🔥 Sopravvissuto al Preside', desc: 'Entrare in presidenza (o essere convocato) e uscirne senza nota né sanzione.', points: 100, color: 'border-rose-500/50 bg-rose-500/15 text-rose-300', icon: 'fa-crown' },
+            { id: 35, cat: 'sfide', title: '🔥 AirDrop al Prof', desc: 'Mandare per sbaglio un meme o una foto stupida via AirDrop direttamente all\'iPad o al Mac del professore.', points: 60, color: 'border-fuchsia-500/45 bg-fuchsia-500/15 text-fuchsia-300', icon: 'fa-wifi' },
+            { id: 22, cat: 'sfide', title: '🔥 La Porta Sbagliata', desc: 'Entrare in ritardo con aria spavalda, sedersi al banco e tirare fuori l\'astuccio prima di accorgersi di aver sbagliato aula.', points: 50, color: 'border-purple-500/45 bg-purple-500/15 text-purple-300', icon: 'fa-door-open' },
+            { id: 4,  cat: 'sfide', title: '🔥 Hacker della LIM', desc: 'Riuscire a collegarsi o inviare qualcosa sullo schermo della classe (o cambiare sfondo/puntatore) restando anonimo.', points: 40, color: 'border-cyan-500/40 bg-cyan-500/15 text-cyan-300', icon: 'fa-laptop-code' },
+            { id: 26, cat: 'sfide', title: '🔥 Finto Malore Oscar', desc: 'Simulare un mal di pancia o giramento di testa così teatrale da farsi accompagnare in infermeria e tornare col succo.', points: 40, color: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-300', icon: 'fa-kit-medical' },
+            { id: 37, cat: 'sfide', title: '🔥 Compito del Compagno', desc: 'Copiare talmente tanto il compito del vicino da ricopiare pari pari anche il suo nome e cognome in cima al foglio.', points: 40, color: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-300', icon: 'fa-copy' },
+            { id: 6,  cat: 'sfide', title: '🔥 Parola Segreta', desc: 'Infilare 3 volte una parola assurda scelta dalla classe (es. ananas, canguro) dentro una normale interrogazione o domanda.', points: 35, color: 'border-indigo-500/40 bg-indigo-500/15 text-indigo-300', icon: 'fa-comment-dots' },
+            { id: 9,  cat: 'sfide', title: '🔥 Merenda Estrema', desc: 'Mangiare qualcosa di rumoroso o vistoso (patatine o panino gigante) al primo o secondo banco senza farsi beccare.', points: 35, color: 'border-orange-500/40 bg-orange-500/15 text-orange-300', icon: 'fa-burger' },
+            { id: 32, cat: 'sfide', title: '🔥 Sonno da Guinness', desc: 'Addormentarsi profondamente durante la lezione e non svegliarsi nemmeno alla campanella, venendo svegliato dal prof dopo.', points: 35, color: 'border-blue-500/40 bg-blue-500/15 text-blue-300', icon: 'fa-bed' },
+            { id: 7,  cat: 'sfide', title: '🔥 Pausa Lunga', desc: 'Chiedere di andare in bagno e tornare esattamente 15 minuti dopo con una scusa credibile senza prendere richiami.', points: 30, color: 'border-teal-500/40 bg-teal-500/15 text-teal-300', icon: 'fa-clock' },
+            { id: 16, cat: 'sfide', title: '🔥 Muro di Suono', desc: 'Far squillare la suoneria più imbarazzante del telefono (sigla cartone demenziale o verso animale) nel silenzio totale.', points: 30, color: 'border-pink-500/40 bg-pink-500/15 text-pink-300', icon: 'fa-volume-high' },
+            { id: 19, cat: 'sfide', title: '🔥 Il Muto Confuso', desc: 'Rispondere al professore che fa l\'appello dicendo "Presente!" con la voce di un altro compagno, facendosi sgamare.', points: 30, color: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-300', icon: 'fa-masks-theater' },
+            { id: 24, cat: 'sfide', title: '🔥 Zaino Vuoto', desc: 'Presentarsi a scuola convinto di avere lo zaino pieno e scoprire alla prima ora di avere dentro solo acqua e fazzoletti.', points: 30, color: 'border-violet-500/40 bg-violet-500/15 text-violet-300', icon: 'fa-bag-shopping' },
+            { id: 28, cat: 'sfide', title: '🔥 Il Traduttore Guasto', desc: 'Leggere ad alta voce un testo in inglese o spagnolo inventandosi completamente la pronuncia con sicurezza assoluta.', points: 30, color: 'border-sky-500/40 bg-sky-500/15 text-sky-300', icon: 'fa-language' },
+            { id: 15, cat: 'sfide', title: '🔥 Il Test della Mela', desc: 'Provare a spegnere la LIM usando il telecomando di casa o tirando una pallina di carta (e fallire beccandosi una nota).', points: 25, color: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-300', icon: 'fa-tv' },
+            { id: 17, cat: 'sfide', title: '🔥 La Scusa del Secolo', desc: 'Giustificare un ritardo di 20 minuti dicendo al prof che ti sei perso nei corridoi della scuola in cui studi da 3 anni.', points: 25, color: 'border-indigo-500/40 bg-indigo-500/15 text-indigo-300', icon: 'fa-compass' },
+            { id: 25, cat: 'sfide', title: '🔥 L\'Applauso Solitario', desc: 'Iniziare ad applaudire convintissimo dopo una battuta del prof restando l\'unico a battere le mani per 5 secondi.', points: 25, color: 'border-amber-500/40 bg-amber-500/15 text-amber-300', icon: 'fa-hands-clapping' },
+            { id: 31, cat: 'sfide', title: '🔥 Il Giustificatore Seriale', desc: 'Farsi firmare una giustificazione inventando una scusa assurda (es. "allagamento garage colpa del cane") e farla passare.', points: 25, color: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-300', icon: 'fa-file-pen' },
+            { id: 23, cat: 'sfide', title: '🔥 Il Saluto Fatale', desc: 'Chiamare per sbaglio "Mamma" o "Papà" il professore davanti a tutta la classe nel silenzio più totale.', points: 20, color: 'border-rose-500/40 bg-rose-500/15 text-rose-300', icon: 'fa-heart-crack' },
+            { id: 29, cat: 'sfide', title: '🔥 Sedia Traditrice', desc: 'Dondolarsi sulla sedia facendo i fenomeni e ribaltarsi all\'indietro con schianto epico mentre il prof scrive alla lavagna.', points: 20, color: 'border-orange-500/40 bg-orange-500/15 text-orange-300', icon: 'fa-chair' },
+
+            // ==========================================================
+            // CATEGORIA 2: 📝 NOTE & SANZIONI UFFICIALI
+            // ==========================================================
+            { id: 101, cat: 'note', title: '📝 Nota Leggendaria dal Preside', desc: 'Convocazione ufficiale in presidenza o provvedimento disciplinare massimo.', points: 100, color: 'border-rose-600/45 bg-rose-600/20 text-rose-300', icon: 'fa-skull' },
+            { id: 102, cat: 'note', title: '📝 Nota di classe collettiva innescata', desc: 'Riuscire a far beccare una nota a tutta la classe in un colpo solo.', points: 75, color: 'border-amber-600/45 bg-amber-600/20 text-amber-300', icon: 'fa-bomb' },
+            { id: 103, cat: 'note', title: '📝 Nota Grave su registro', desc: 'Sanzione disciplinare seria annotata sul registro elettronico.', points: 60, color: 'border-rose-500/40 bg-rose-500/15 text-rose-300', icon: 'fa-circle-exclamation' },
+            { id: 104, cat: 'note', title: '📝 Cacciato fuori dall\'aula', desc: 'Espulsione temporanea nel corridoio o in vicepresidenza.', points: 55, color: 'border-red-600/40 bg-red-600/15 text-red-300', icon: 'fa-door-open' },
+            { id: 105, cat: 'note', title: '📝 Nota Media su registro', desc: 'Richiamo disciplinare di media gravità sul registro.', points: 40, color: 'border-amber-500/40 bg-amber-500/15 text-amber-300', icon: 'fa-triangle-exclamation' },
+            { id: 106, cat: 'note', title: '📝 Nota Lieve su registro', desc: 'Richiamo leggero o ammonizione scritta sul registro.', points: 20, color: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-300', icon: 'fa-file-signature' }
         ];
 
         // ============================================================
@@ -681,13 +690,13 @@
             if (!t) return null;
 
             const rules = [
+                { keywords: ['infiltrato', 'altra sezione', 'altra classe'], points: 200, label: 'Impresa Leggendaria Infiltrato' },
                 { keywords: ['preside', 'sospensione', 'sospeso', 'convocazione', 'genitori'], points: 100, label: 'Evento Leggendario / Preside' },
-                { keywords: ['collettiva', 'tutta la classe', 'cacciato', 'fuori dall\'aula', 'espulso'], points: 65, label: 'Alta Gravità / Impatto Classe' },
-                { keywords: ['nota grave', 'nota disciplinare', 'sequestrato', 'sequestro', 'copiato', 'bigliettino'], points: 55, label: 'Sanzione / Rischio Elevato' },
-                { keywords: ['nota', 'film', 'partita', 'streaming', 'dormito', 'dormire', 'russo'], points: 40, label: 'Infrazione Media' },
-                { keywords: ['suoneria', 'battuta', 'risata', 'interrogazione', 'bianco', 'ritardo'], points: 30, label: 'Classico da Classe' },
-                { keywords: ['gioco', 'brawl', 'clash', 'minecraft', 'fortnite', 'airdrop', 'hotspot', 'mangiare', 'panino'], points: 20, label: 'Leggera / Quotidiana' },
-                { keywords: ['ipad', 'batteria', 'caricatore', 'penna', 'pencil', 'bagno', 'acqua', 'caduta'], points: 15, label: 'Piccolo Imprevisto' }
+                { keywords: ['collettiva', 'tutta la classe', 'cacciato', 'fuori dall\'aula', 'espulso', 'airdrop al prof'], points: 65, label: 'Alta Gravità / Rischio Massimo' },
+                { keywords: ['nota grave', 'nota disciplinare', 'porta sbagliata', 'copiato', 'nome e cognome'], points: 50, label: 'Epic Fail / Sanzione Seria' },
+                { keywords: ['nota', 'hacker', 'lim', 'malore', 'infermeria', 'ananas', 'merenda', 'sonno'], points: 35, label: 'Sfida / Infrazione Media' },
+                { keywords: ['suoneria', 'appello', 'muto', 'zaino vuoto', 'traduttore', 'applauso', 'ritardo'], points: 30, label: 'Figura Epica in Classe' },
+                { keywords: ['mamma', 'papà', 'sedia', 'caduto', 'telecomando', 'giustificazione'], points: 20, label: 'Figuraccia Classica' }
             ];
 
             for (const rule of rules) {
@@ -747,13 +756,13 @@
 
         function setCategoryFilter(cat) {
             currentCategoryFilter = cat;
-            ['all', 'tech', 'classe', 'note'].forEach(c => {
+            ['all', 'sfide', 'note'].forEach(c => {
                 const btn = document.getElementById(`cat-${c}`);
                 if (!btn) return;
                 if (c === cat) {
-                    btn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white';
+                    btn.className = 'px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase bg-indigo-600 text-white';
                 } else {
-                    btn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext';
+                    btn.className = 'px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase clean-card subtext';
                 }
             });
             filterCazzate();
@@ -763,23 +772,27 @@
             const grid = document.getElementById('cazzate-grid');
             if (!grid) return;
             const filtered = CAZZATE_LIST.filter(c => {
-                const matchesText = c.title.toLowerCase().includes(filterText.toLowerCase());
+                const search = filterText.toLowerCase();
+                const matchesText = c.title.toLowerCase().includes(search) || (c.desc && c.desc.toLowerCase().includes(search));
                 const matchesCat = currentCategoryFilter === 'all' || c.cat === currentCategoryFilter;
                 return matchesText && matchesCat;
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<p class="text-xs subtext col-span-full text-center py-6">Nessuna cazzata trovata. Usa "Personalizzata" in alto!</p>';
+                grid.innerHTML = '<p class="text-xs subtext col-span-full text-center py-6">Nessuna sfida o nota trovata. Usa "Personalizzata" in alto!</p>';
                 return;
             }
 
             grid.innerHTML = filtered.map(c => `
-                <button onclick="onCazzataButtonClick('${c.title.replace(/'/g, "\\'")}', ${c.points})" class="p-3.5 rounded-2xl border ${c.color} text-left transition hover:scale-[1.02] flex items-center justify-between gap-2 shadow-sm">
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <i class="fa-solid ${c.icon} text-sm shrink-0"></i>
-                        <span class="font-bold text-xs truncate">${c.title}</span>
+                <button onclick="onCazzataButtonClick('${c.title.replace(/'/g, "\\'")}', ${c.points}, '${(c.desc || 'Segnalazione veloce').replace(/'/g, "\\'")}')" class="p-3.5 rounded-2xl border ${c.color} text-left transition hover:scale-[1.02] flex flex-col justify-between gap-2 shadow-sm">
+                    <div class="flex items-start justify-between gap-2 w-full">
+                        <div class="flex items-center gap-2.5">
+                            <i class="fa-solid ${c.icon} text-sm shrink-0"></i>
+                            <span class="font-bold text-xs leading-snug">${c.title}</span>
+                        </div>
+                        <span class="font-mono text-xs font-black shrink-0">+${c.points} pt</span>
                     </div>
-                    <span class="font-mono text-xs font-black shrink-0">+${c.points} pt</span>
+                    ${c.desc ? `<p class="text-[11px] opacity-80 leading-tight">${c.desc}</p>` : ''}
                 </button>
             `).join('');
         }
@@ -789,8 +802,8 @@
             renderCazzateButtons(val);
         }
 
-        function onCazzataButtonClick(title, points) {
-            promptSubmitNote(title, points, 'Segnalazione veloce');
+        function onCazzataButtonClick(title, points, desc) {
+            promptSubmitNote(title, points, desc || 'Segnalazione veloce');
         }
 
         function showToast(message, type = 'success') {
@@ -830,7 +843,7 @@
             const points = parseInt(document.getElementById('custom-points-input').value) || 20;
 
             if (!title) {
-                showToast('Inserisci un titolo per la cazzata personalizzata!', 'error');
+                showToast('Inserisci un titolo per la sfida o nota personalizzata!', 'error');
                 return;
             }
 
@@ -1364,11 +1377,10 @@
             `).join('');
 
             if (currentRoom.approvedNotes.length === 0) {
-                feedList.innerHTML = '<p class="text-xs subtext text-center py-6">Nessuna nota ancora approvata.</p>';
+                feedList.innerHTML = '<p class="text-xs subtext text-center py-6">Nessuna sfida o nota ancora approvata.</p>';
             }
         }
 
-        // FUNZIONE SOLO ADMIN PER ANNULLARE UNA NOTA APPROVATA E SCALARE I PUNTI
         function undoApprovedNote(noteId) {
             if (!currentUser || currentUser.role !== 'admin') return;
             const note = (currentRoom.approvedNotes || []).find(n => n.id === noteId);
@@ -1376,8 +1388,8 @@
 
             showConfirmModal(
                 '↩️',
-                'Annullare questa nota?',
-                `La nota "${note.severity}" verrà rimossa dal registro e verranno tolti ${note.points} pt a ${note.studentName.toUpperCase()}.`,
+                'Annullare questa voce?',
+                `"${note.severity}" verrà rimossa dal registro e verranno tolti ${note.points} pt a ${note.studentName.toUpperCase()}.`,
                 () => {
                     currentRoom.approvedNotes = currentRoom.approvedNotes.filter(n => n.id !== noteId);
 
@@ -1390,7 +1402,7 @@
 
                     saveRoomData(currentRoom);
                     updateUI();
-                    showToast(`Nota annullata e ${note.points} pt rimossi a ${note.studentName.toUpperCase()}!`, 'info');
+                    showToast(`Voce annullata e ${note.points} pt rimossi a ${note.studentName.toUpperCase()}!`, 'info');
                 }
             );
         }
@@ -1443,7 +1455,7 @@
                         
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                             <div class="sm:col-span-2">
-                                <label class="block text-[10px] font-bold subtext uppercase mb-1">Titolo Cazzata (Modificabile)</label>
+                                <label class="block text-[10px] font-bold subtext uppercase mb-1">Titolo Sfida / Nota (Modificabile)</label>
                                 <input type="text" id="edit-title-${n.id}" value="${(n.severity || '').replace(/"/g, '&quot;')}" class="w-full input-field border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
                             </div>
                             <div>
@@ -1469,7 +1481,7 @@
                 `).join('');
 
                 if (currentRoom.pendingNotes.length === 0) {
-                    pendingList.innerHTML = '<p class="text-xs subtext">Nessuna nota in attesa di approvazione.</p>';
+                    pendingList.innerHTML = '<p class="text-xs subtext">Nessuna segnalazione in attesa di approvazione.</p>';
                 }
             }
 
@@ -1495,7 +1507,7 @@
             const points = parseInt(document.getElementById('admin-direct-points').value);
 
             if (!studentId || !title || isNaN(points)) {
-                showToast('Seleziona lo studente, scrivi la cazzata e inserisci i punti!', 'error');
+                showToast('Seleziona lo studente, scrivi la sfida/nota e inserisci i punti!', 'error');
                 return;
             }
 
@@ -1575,7 +1587,7 @@
             currentRoom.approvedNotes.unshift(note);
             saveRoomData(currentRoom);
             updateUI();
-            showToast(`Nota approvata per ${student.name.toUpperCase()} (${note.points >= 0 ? '+' : ''}${note.points} pt)!`, 'success');
+            showToast(`Approvato per ${student.name.toUpperCase()} (${note.points >= 0 ? '+' : ''}${note.points} pt)!`, 'success');
         }
 
         function rejectNote(noteId) {
