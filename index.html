@@ -1,46 +1,17 @@
 <!DOCTYPE html>
-<html lang="it" class="min-h-full theme-dark">
+<html lang="it" class="min-h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FantaClasse 🎓 - Il Fanta-Studenti</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, get, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBxZQF5OO5-znaipaPYeFcjOARjFXO1_gc",
-            authDomain: "mastersabba-games.firebaseapp.com",
-            databaseURL: "https://mastersabba-games-default-rtdb.firebaseio.com",
-            projectId: "mastersabba-games",
-            storageBucket: "mastersabba-games.firebasestorage.app",
-            messagingSenderId: "254141019232",
-            appId: "1:254141019232:web:29702c03b91f8a76677f05",
-            measurementId: "G-775DFWZ6PC"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        window.db = db;
-        window.dbRef = ref;
-        window.dbSet = set;
-        window.dbGet = get;
-        window.dbChild = child;
-        window.dbOnValue = onValue;
-        window.dbRemove = remove;
-        window.firebaseReady = true;
-
-        if (typeof window.initFirebaseSync === 'function') {
-            window.initFirebaseSync();
-        }
-    </script>
 
     <script>
         tailwind.config = {
@@ -60,114 +31,40 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            background: radial-gradient(circle at 15% 10%, #1e1b4b 0%, #0b1120 48%, #040711 100%);
+            color: #f8fafc;
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* TEMA 1: CYBER MIDNIGHT */
-        html.theme-dark, body.theme-dark {
-            background: radial-gradient(circle at 15% 10%, #241f5e 0%, #0d1222 45%, #060913 100%);
-            color: #f8fafc;
-        }
-        .theme-dark .clean-glass {
-            background: rgba(17, 25, 46, 0.84);
+        .clean-glass {
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(139, 148, 255, 0.18);
-            box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(129, 140, 248, 0.22);
+            box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
             color: #f8fafc;
         }
-        .theme-dark .clean-card {
-            background: rgba(30, 41, 66, 0.65);
+        .clean-card {
+            background: rgba(30, 41, 59, 0.68);
             border: 1px solid rgba(148, 163, 184, 0.16);
             color: #f8fafc;
         }
-        .theme-dark .clean-card:hover {
-            background: rgba(38, 52, 82, 0.88);
+        .clean-card:hover {
+            background: rgba(39, 53, 78, 0.9);
             border-color: rgba(129, 140, 248, 0.48);
         }
-        .theme-dark .input-field {
-            background: rgba(8, 12, 26, 0.88);
-            border-color: rgba(129, 140, 248, 0.25);
+        .input-field {
+            background: rgba(8, 13, 28, 0.9);
+            border-color: rgba(129, 140, 248, 0.28);
             color: #ffffff;
         }
-        .theme-dark .subtext { color: #94a3b8; }
-
-        /* TEMA 2: NORDIC DAYLIGHT */
-        html.theme-light, body.theme-light {
-            background: radial-gradient(circle at 15% 10%, #e0e7ff 0%, #f4f6fb 50%, #ffffff 100%);
-            color: #0f172a;
-        }
-        .theme-light .clean-glass {
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(99, 102, 241, 0.18);
-            box-shadow: 0 18px 40px -15px rgba(30, 41, 59, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.98);
-            color: #0f172a;
-        }
-        .theme-light .clean-card {
-            background: rgba(241, 245, 249, 0.96);
-            border: 1px solid rgba(15, 23, 42, 0.12);
-            color: #0f172a;
-        }
-        .theme-light .clean-card:hover {
-            background: #ffffff;
-            border-color: rgba(79, 70, 229, 0.42);
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.08);
-            color: #0f172a;
-        }
-        .theme-light .input-field {
-            background: #ffffff;
-            border-color: #cbd5e1;
-            color: #0f172a;
-        }
-        .theme-light .subtext { color: #475569; }
-        .theme-light h1, .theme-light h2, .theme-light h3, .theme-light h4 { color: #0f172a; }
-
-        /* TEMA 3: EMERALD FOREST */
-        html.theme-green, body.theme-green {
-            background: radial-gradient(circle at 15% 10%, #065f46 0%, #033327 50%, #011f18 100%);
-            color: #ecfdf5;
-        }
-        .theme-green .clean-glass {
-            background: rgba(4, 47, 36, 0.88);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(52, 211, 153, 0.28);
-            box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(167, 243, 208, 0.15);
-            color: #ecfdf5;
-        }
-        .theme-green .clean-card {
-            background: rgba(6, 78, 59, 0.65);
-            border: 1px solid rgba(52, 211, 153, 0.24);
-            color: #ecfdf5;
-        }
-        .theme-green .clean-card:hover {
-            background: rgba(6, 95, 70, 0.88);
-            border-color: rgba(52, 211, 153, 0.6);
-            color: #ffffff;
-        }
-        .theme-green .input-field {
-            background: rgba(1, 28, 22, 0.92);
-            border-color: rgba(52, 211, 153, 0.35);
-            color: #ecfdf5;
-        }
-        .theme-green .subtext { color: #a7f3d0; }
-        .theme-green h1, .theme-green h2, .theme-green h3, .theme-green h4 { color: #ffffff; }
+        .subtext { color: #94a3b8; }
 
         .bottom-nav-active {
             color: #818cf8 !important;
-            background: rgba(99, 102, 241, 0.16);
-        }
-        .theme-light .bottom-nav-active {
-            color: #4f46e5 !important;
-            background: rgba(79, 70, 229, 0.12);
-        }
-        .theme-green .bottom-nav-active {
-            color: #34d399 !important;
-            background: rgba(16, 185, 129, 0.18);
+            background: rgba(99, 102, 241, 0.18);
         }
 
         .uppercase-input { text-transform: uppercase; }
@@ -175,15 +72,15 @@
         /* EFFETTI LUCI E LAMPEGGI */
         @keyframes ambientPulseSlow {
             0%, 100% { opacity: 0.45; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.12); }
+            50% { opacity: 0.88; transform: scale(1.12); }
         }
         @keyframes borderShimmer {
-            0%, 100% { box-shadow: 0 0 18px rgba(99, 102, 241, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
-            50% { box-shadow: 0 0 32px rgba(168, 85, 247, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+            50% { box-shadow: 0 0 34px rgba(168, 85, 247, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
         }
         @keyframes auctionUrgentFlash {
-            0%, 100% { box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.35), 0 0 28px rgba(244, 63, 94, 0.35); border-color: rgba(244, 63, 94, 0.8); }
-            50% { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.65), 0 0 46px rgba(251, 191, 36, 0.6); border-color: rgba(251, 191, 36, 0.95); }
+            0%, 100% { box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.4), 0 0 28px rgba(244, 63, 94, 0.35); border-color: rgba(244, 63, 94, 0.85); }
+            50% { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.65), 0 0 46px rgba(251, 191, 36, 0.65); border-color: rgba(251, 191, 36, 0.95); }
         }
         @keyframes screenWinFlash {
             0% { opacity: 0.85; }
@@ -198,16 +95,17 @@
         .screen-flash-active { animation: screenWinFlash 1.1s ease-out forwards; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans theme-dark overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300 relative pb-24">
+<body class="min-h-screen flex flex-col font-sans overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300 relative pb-24">
 
-    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <!-- LUCI AMBIENTALI UNIFORMI INDACO / VIOLA -->
+    <div class="fixed inset-0 pointer-events-none select-none overflow-hidden -z-10">
         <div class="ambient-orb absolute -top-24 -left-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div class="ambient-orb-delayed absolute top-1/3 -right-24 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-3xl"></div>
-        <div class="ambient-orb absolute bottom-10 left-1/4 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl"></div>
+        <div class="ambient-orb-delayed absolute top-1/3 -right-24 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl"></div>
+        <div class="ambient-orb absolute bottom-10 left-1/4 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl"></div>
     </div>
 
     <!-- OVERLAY FLASH LAMPEGGIANTE ALLA CHIUSURA DELL'ASTA -->
-    <div id="auction-win-flash-overlay" class="fixed inset-0 z-50 pointer-events-none opacity-0 bg-gradient-to-tr from-amber-400/50 via-emerald-400/40 to-indigo-500/50"></div>
+    <div id="auction-win-flash-overlay" class="fixed inset-0 z-50 pointer-events-none select-none opacity-0 bg-gradient-to-tr from-indigo-500/50 via-amber-300/40 to-violet-500/50"></div>
 
     <!-- POP-UP TOAST IN BASSO A DESTRA -->
     <div id="toast-banner" class="fixed bottom-24 right-4 z-50 max-w-xs sm:max-w-sm bg-slate-800 text-slate-100 border border-white/15 px-4 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none translate-y-3 flex items-center gap-2.5">
@@ -220,14 +118,14 @@
         <!-- HEADER -->
         <header class="clean-glass glow-pulse-header rounded-[28px] p-4 sm:p-5 mb-5 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-fuchsia-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-600/40 animate-pulse shrink-0">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-fuchsia-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-600/35 animate-pulse shrink-0">
                     🎓
                 </div>
                 <div class="min-w-0">
                     <div class="flex items-center gap-2 flex-wrap">
                         <h1 class="font-display font-black text-lg sm:text-2xl tracking-tight truncate">FANTACLASSE</h1>
-                        <span id="header-status-pill" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-500/20 subtext border border-white/10">
-                            LOCALE
+                        <span id="header-status-pill" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                            CONNESSIONE...
                         </span>
                     </div>
                     <p id="header-room-name" class="text-[11px] sm:text-xs subtext font-semibold uppercase tracking-wide mt-0.5 truncate">Pronto per entrare in classe</p>
@@ -235,26 +133,20 @@
             </div>
 
             <div class="flex items-center gap-2 flex-wrap ml-auto">
-                <div class="bg-black/20 p-1 rounded-2xl border border-white/10 flex items-center gap-0.5">
-                    <button onclick="setTheme('dark')" title="Cyber Midnight" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">🌙</button>
-                    <button onclick="setTheme('light')" title="Nordic Daylight" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">☀️</button>
-                    <button onclick="setTheme('green')" title="Emerald Forest" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs hover:bg-white/10 transition">🌿</button>
-                </div>
-
                 <div id="header-actions" class="hidden items-center gap-2 flex-wrap">
                     <div class="bg-indigo-500/15 px-3 py-1.5 rounded-2xl border border-indigo-500/30 text-xs flex items-center gap-1.5">
                         <span class="subtext font-semibold hidden sm:inline">STANZA:</span>
-                        <span id="header-room-code" class="font-mono font-black text-amber-400 tracking-wider">----</span>
-                        <button onclick="copyRoomCode()" title="Copia Codice" class="subtext hover:text-indigo-400 transition ml-1 p-0.5">
+                        <span id="header-room-code" class="font-mono font-black text-amber-300 tracking-wider">----</span>
+                        <button type="button" onclick="copyRoomCode()" title="Copia Codice" class="subtext hover:text-indigo-300 transition ml-1 p-0.5 cursor-pointer">
                             <i class="fa-regular fa-copy"></i>
                         </button>
                     </div>
 
-                    <div id="role-badge" class="px-3 py-1.5 rounded-2xl text-xs font-bold flex items-center gap-1.5 bg-indigo-500/15 text-indigo-400 border border-indigo-500/25">
+                    <div id="role-badge" class="px-3 py-1.5 rounded-2xl text-xs font-bold flex items-center gap-1.5 bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
                         <i class="fa-solid fa-user text-xs"></i> <span id="role-text">STUDENTE</span>
                     </div>
 
-                    <button onclick="logoutRoom()" class="w-9 h-9 flex items-center justify-center subtext hover:text-rose-400 rounded-2xl clean-card transition hover:border-rose-500/30 active:scale-95" title="Esci dalla Stanza">
+                    <button type="button" onclick="logoutRoom()" class="w-9 h-9 flex items-center justify-center subtext hover:text-rose-400 rounded-2xl clean-card transition hover:border-rose-500/30 active:scale-95 cursor-pointer" title="Esci dalla Stanza">
                         <i class="fa-solid fa-right-from-bracket text-xs"></i>
                     </button>
                 </div>
@@ -263,56 +155,77 @@
 
         <main class="flex-1 flex flex-col">
 
-            <!-- LOBBY VIEW -->
+            <!-- LOBBY VIEW (TEMA UNICO PULITO INDACO / VIOLA) -->
             <section id="lobby-view" class="flex-1 flex items-center justify-center py-3">
                 <div class="w-full max-w-md space-y-5">
 
                     <div class="text-center space-y-2 px-2">
-                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/25 text-[11px] font-extrabold uppercase tracking-widest">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-[11px] font-extrabold uppercase tracking-widest text-indigo-300">
+                            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
                             PORTALE SCOLASTICO LIVE
-                        </span>
+                        </div>
                         <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight">Bentornato in classe!</h2>
                         <p class="text-xs sm:text-sm subtext leading-relaxed">Fai l'asta live con i compagni, schiera la formazione nelle 4 categorie e invia le segnalazioni all'Admin.</p>
                     </div>
 
-                    <div class="clean-glass p-1.5 rounded-2xl flex gap-1.5">
-                        <button id="tab-btn-join" onclick="switchLobbyTab('join')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
-                            Entra in Stanza
+                    <!-- SCHEDE ENTRA / CREA -->
+                    <div class="clean-glass p-1.5 rounded-2xl flex gap-1.5 border border-white/15">
+                        <button type="button" id="tab-btn-join" onclick="switchLobbyTab('join')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/30 cursor-pointer">
+                            <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Entra in Stanza
                         </button>
-                        <button id="tab-btn-create" onclick="switchLobbyTab('create')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-400 transition">
-                            Crea Stanza (Admin)
+                        <button type="button" id="tab-btn-create" onclick="switchLobbyTab('create')" class="flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-300 transition cursor-pointer">
+                            <i class="fa-solid fa-shield-halved mr-1.5"></i> Crea Stanza (Admin)
                         </button>
                     </div>
 
-                    <div id="form-join" class="clean-glass p-6 sm:p-8 rounded-[28px] space-y-4">
+                    <!-- FORM ENTRA -->
+                    <div id="form-join" class="clean-glass p-6 sm:p-8 rounded-[28px] space-y-4 border border-indigo-500/30">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-black uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Accesso Giocatore
+                            </span>
+                            <button type="button" onclick="openHowToPlayModal()" class="text-[11px] font-bold text-indigo-300 hover:underline cursor-pointer">
+                                Come si gioca?
+                            </button>
+                        </div>
                         <div>
                             <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Codice Stanza (Es. 4LSC)</label>
-                            <input type="text" id="join-code-input" placeholder="ES. 4LSC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-500 transition">
+                            <input type="text" id="join-code-input" placeholder="ES. 4LSC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-400 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Il tuo Nome e Cognome</label>
-                            <input type="text" id="join-name-input" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-500 transition">
+                            <input type="text" id="join-name-input" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-400 transition">
                         </div>
-                        <button onclick="joinRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.98]">
-                            Entra nella Stanza
+                        <button type="button" onclick="joinRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-500 hover:brightness-110 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/35 transition transform active:scale-[0.98] cursor-pointer">
+                            Entra nella Stanza <i class="fa-solid fa-arrow-right ml-1.5"></i>
                         </button>
+                        
                     </div>
 
-                    <div id="form-create" class="clean-glass p-6 sm:p-8 rounded-[28px] space-y-4 hidden">
+                    <!-- FORM CREA STANZA -->
+                    <div id="form-create" class="clean-glass p-6 sm:p-8 rounded-[28px] space-y-4 hidden border border-indigo-500/30">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-black uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Pannello Creazione Admin
+                            </span>
+                            <button type="button" onclick="openHowToPlayModal()" class="text-[11px] font-bold text-indigo-300 hover:underline cursor-pointer">
+                                Come si gioca?
+                            </button>
+                        </div>
                         <div>
                             <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Nome/Codice Stanza (Es. 4LSC)</label>
-                            <input type="text" id="create-room-name" placeholder="ES. 4LSC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-500 transition">
+                            <input type="text" id="create-room-name" placeholder="ES. 4LSC" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-black uppercase-input tracking-wider focus:outline-none focus:border-indigo-400 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">Nome Admin</label>
-                            <input type="text" id="create-admin-name" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-500 transition">
+                            <input type="text" id="create-admin-name" oninput="this.value = this.value.toUpperCase()" placeholder="ES. MARIO ROSSI" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold uppercase-input focus:outline-none focus:border-indigo-400 transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold subtext uppercase tracking-wider mb-1.5">PIN Admin Segreto</label>
-                            <input type="password" id="create-admin-pin" placeholder="ES. 1234" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition">
+                            <input type="password" id="create-admin-pin" placeholder="ES. 1234" class="w-full input-field border rounded-2xl px-4 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-400 transition">
                         </div>
-                        <button onclick="createNewRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/30 transition transform active:scale-[0.98]">
-                            Crea Stanza & Inizia ✨
+                        <button type="button" onclick="createNewRoom()" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 hover:brightness-110 text-white font-extrabold text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-indigo-600/35 transition transform active:scale-[0.98] cursor-pointer">
+                            Crea Stanza
                         </button>
                     </div>
 
@@ -327,42 +240,42 @@
                     <div class="clean-glass p-5 sm:p-7 rounded-[28px] space-y-5">
                         <div class="flex items-start justify-between gap-4 flex-wrap">
                             <div>
-                                <h3 class="font-display font-extrabold text-xl">Listino Cazzate & Regolamento</h3>
+                                <h3 class="font-display font-extrabold text-xl">Listino Cazzate &amp; Regolamento</h3>
                                 <p class="text-xs subtext mt-0.5">Clicca una voce per confermare chi ha commesso l'azione e inviarla all'Admin.</p>
                             </div>
-                            <button onclick="openCustomModal()" class="px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-indigo-600/30 transition active:scale-95 flex items-center gap-2">
+                            <button type="button" onclick="openCustomModal()" class="px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:brightness-110 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-indigo-600/25 transition active:scale-95 flex items-center gap-2 cursor-pointer">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Evento Libero
                             </button>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div class="px-4 py-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between">
+                            <div class="px-4 py-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-between">
                                 <span class="text-xs subtext font-semibold">Manager attivo:</span>
-                                <span id="current-user-display-name" class="font-black text-xs text-indigo-400 uppercase tracking-wide">---</span>
+                                <span id="current-user-display-name" class="font-black text-xs text-indigo-300 uppercase tracking-wide">---</span>
                             </div>
-                            <button type="button" onclick="openHowToPlayModal()" class="px-4 py-3 rounded-2xl clean-card border border-indigo-400/25 hover:border-indigo-400/60 flex items-center justify-between gap-2 transition active:scale-[0.98] text-left">
+                            <button type="button" onclick="openHowToPlayModal()" class="px-4 py-3 rounded-2xl clean-card border border-indigo-400/30 hover:border-indigo-400/60 flex items-center justify-between gap-2 transition active:scale-[0.98] text-left cursor-pointer">
                                 <span class="text-xs font-extrabold flex items-center gap-2">
                                     <i class="fa-solid fa-circle-question text-indigo-400 text-sm"></i>
                                     Come si gioca?
                                 </span>
-                                <span class="text-[11px] font-bold text-indigo-400">Leggi regolamento &rarr;</span>
+                                <span class="text-[11px] font-bold text-indigo-300">Leggi regolamento &rarr;</span>
                             </button>
                         </div>
 
                         <div id="no-squad-signal-warning" class="hidden p-4 rounded-2xl bg-amber-500/15 border border-amber-500/35 text-xs text-amber-200 flex items-center justify-between gap-3 flex-wrap">
                             <span><i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-400"></i> Puoi segnalare eventi <strong>solo per gli studenti che hai acquistato nella tua rosa</strong>.</span>
-                            <button onclick="switchDashboardTab('squad')" class="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black uppercase text-[10px]">Vai all'Asta</button>
+                            <button type="button" onclick="switchDashboardTab('squad')" class="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black uppercase text-[10px] cursor-pointer">Vai all'Asta</button>
                         </div>
 
                         <div class="space-y-3">
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <div class="flex gap-1.5 flex-wrap">
-                                    <button onclick="setCategoryFilter('brutti_voti')" id="cat-brutti_voti" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-600 text-white transition">Brutti Voti</button>
-                                    <button onclick="setCategoryFilter('buoni_voti')" id="cat-buoni_voti" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition">Buoni Voti</button>
-                                    <button onclick="setCategoryFilter('note')" id="cat-note" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition">Note</button>
-                                    <button onclick="setCategoryFilter('figure_merda')" id="cat-figure_merda" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition">Figure di Merda</button>
-                                    <button onclick="setCategoryFilter('eventi_generali')" id="cat-eventi_generali" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition">Eventi Generali</button>
-                                    <button onclick="setCategoryFilter('eventi_speciali')" id="cat-eventi_speciali" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition">Eventi Speciali</button>
+                                    <button type="button" onclick="setCategoryFilter('brutti_voti')" id="cat-brutti_voti" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-600 text-white transition cursor-pointer">Brutti Voti</button>
+                                    <button type="button" onclick="setCategoryFilter('buoni_voti')" id="cat-buoni_voti" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer">Buoni Voti</button>
+                                    <button type="button" onclick="setCategoryFilter('note')" id="cat-note" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer">Note</button>
+                                    <button type="button" onclick="setCategoryFilter('figure_merda')" id="cat-figure_merda" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer">Figure di Merda</button>
+                                    <button type="button" onclick="setCategoryFilter('eventi_generali')" id="cat-eventi_generali" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer">Eventi Generali</button>
+                                    <button type="button" onclick="setCategoryFilter('eventi_speciali')" id="cat-eventi_speciali" class="px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer">Eventi Speciali</button>
                                 </div>
                             </div>
 
@@ -400,7 +313,7 @@
                             <div id="auction-players-wrapper" class="space-y-2">
                                 <div class="flex items-center justify-between">
                                     <span class="text-[11px] font-extrabold uppercase tracking-wider subtext">Listone Studenti (Tocca per chiamare)</span>
-                                    <span id="available-students-count" class="text-[11px] font-mono font-bold text-indigo-400">0 disp.</span>
+                                    <span id="available-students-count" class="text-[11px] font-mono font-bold text-indigo-300">0 disp.</span>
                                 </div>
                                 <div id="auction-players-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1"></div>
                             </div>
@@ -410,17 +323,17 @@
                         <div class="clean-glass p-5 sm:p-6 rounded-[28px] space-y-4">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <h3 class="font-display font-extrabold text-lg">Budget & Partecipanti</h3>
+                                    <h3 class="font-display font-extrabold text-lg">Budget &amp; Partecipanti</h3>
                                     <p class="text-xs subtext">Crediti residui e posti occupati in rosa (max 5).</p>
                                 </div>
-                                <span id="my-credits-pill" class="px-3.5 py-1.5 rounded-2xl font-mono font-black text-sm bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                                <span id="my-credits-pill" class="px-3.5 py-1.5 rounded-2xl font-mono font-black text-sm bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
                                     500 CR
                                 </span>
                             </div>
 
                             <div class="flex gap-2">
                                 <input type="text" id="new-student-name-input" oninput="this.value = this.value.toUpperCase()" placeholder="AGGIUNGI STUDENTE AL LISTONE..." class="flex-1 input-field border rounded-2xl px-3.5 py-2.5 text-xs font-bold uppercase-input focus:outline-none focus:border-indigo-500">
-                                <button onclick="addStudentToListone()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-xs font-extrabold uppercase transition active:scale-95">
+                                <button type="button" onclick="addStudentToListone()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-extrabold uppercase transition active:scale-95 cursor-pointer">
                                     + Aggiungi
                                 </button>
                             </div>
@@ -450,7 +363,7 @@
                                 <h3 class="font-display font-extrabold text-xl mt-1.5">Il Tuo Scontro Diretto</h3>
                                 <p class="text-xs subtext">Sfida settimanale: 3 pt per la vittoria, 1 pt per il pareggio (entro 2 pt), 0 pt sconfitta.</p>
                             </div>
-                            <span class="px-3.5 py-2 rounded-2xl bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 text-[11px] font-extrabold flex items-center gap-1.5">
+                            <span class="px-3.5 py-2 rounded-2xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/25 text-[11px] font-extrabold flex items-center gap-1.5">
                                 <i class="fa-solid fa-calendar-check"></i> Chiusura automatica ogni Venerdì
                             </span>
                         </div>
@@ -479,7 +392,7 @@
                                 </h3>
                                 <p class="text-xs subtext">Punteggi live con Capitano (x1.5), Panchina (50%) e chiusura automatica ogni venerdì.</p>
                             </div>
-                            <button onclick="shareWhatsAppSummary()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95">
+                            <button type="button" onclick="shareWhatsAppSummary()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
                                 <i class="fa-brands fa-whatsapp"></i> Condividi
                             </button>
                         </div>
@@ -501,7 +414,7 @@
                         <div id="chat-messages" class="h-80 overflow-y-auto space-y-2.5 p-4 rounded-2xl clean-card"></div>
                         <div class="flex gap-2.5">
                             <input type="text" id="chat-input" onkeypress="if(event.key==='Enter') sendChatMessage()" placeholder="Scrivi un messaggio alla classe..." class="flex-1 input-field border rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition">
-                            <button onclick="sendChatMessage()" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition active:scale-95">
+                            <button type="button" onclick="sendChatMessage()" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-600/30 transition active:scale-95 cursor-pointer">
                                 <i class="fa-solid fa-paper-plane"></i>
                             </button>
                         </div>
@@ -521,20 +434,20 @@
                 <!-- TAB 7: ADMIN -->
                 <div id="tab-admin" class="flex-1 space-y-5 hidden">
                     <div id="admin-controls-box" class="space-y-5">
-                        <div class="clean-glass p-5 sm:p-7 rounded-[28px] space-y-4 border-amber-500/30">
+                        <div class="clean-glass p-5 sm:p-7 rounded-[28px] space-y-4 border-amber-500/35">
                             <div class="flex items-center justify-between gap-2 flex-wrap">
                                 <div>
-                                    <h3 class="font-display font-bold text-xl text-amber-400">Messaggi & Segnalazioni in Arrivo</h3>
+                                    <h3 class="font-display font-bold text-xl text-amber-400">Messaggi &amp; Segnalazioni in Arrivo</h3>
                                     <p class="text-xs subtext">Ogni messaggio indica il mittente, lo studente della sua rosa e il ruolo schierato.</p>
                                 </div>
-                                <span id="admin-pending-count-label" class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-black">0</span>
+                                <span id="admin-pending-count-label" class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black">0</span>
                             </div>
                             <div id="admin-pending-list" class="space-y-3"></div>
                         </div>
 
                         <div class="clean-glass p-5 sm:p-7 rounded-[28px] space-y-4">
                             <div>
-                                <h3 class="font-display font-bold text-lg text-indigo-400">Assegnazione Diretta Admin (Anche Senza Segnalazioni)</h3>
+                                <h3 class="font-display font-bold text-lg text-indigo-300">Assegnazione Diretta Admin (Anche Senza Segnalazioni)</h3>
                                 <p class="text-xs subtext">Registra direttamente un voto, una nota o un evento accaduto in classe.</p>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -545,7 +458,7 @@
                                 <input type="text" id="admin-direct-title" placeholder="Motivo / evento..." class="sm:col-span-2 input-field border rounded-2xl px-3.5 py-3 text-xs font-semibold">
                                 <div class="flex gap-2">
                                     <input type="number" id="admin-direct-points" value="5" class="w-24 input-field border rounded-2xl px-3 py-3 text-xs font-mono font-black">
-                                    <button onclick="submitAdminDirect()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-extrabold uppercase transition">
+                                    <button type="button" onclick="submitAdminDirect()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-extrabold uppercase transition cursor-pointer">
                                         Applica
                                     </button>
                                 </div>
@@ -565,7 +478,7 @@
                 <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-black uppercase tracking-wider">
                     Conferma Segnalazione
                 </span>
-                <button onclick="closeConfirmEventModal()" class="w-8 h-8 rounded-xl clean-card flex items-center justify-center text-xs">
+                <button type="button" onclick="closeConfirmEventModal()" class="w-8 h-8 rounded-xl clean-card flex items-center justify-center text-xs cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -581,10 +494,10 @@
             </div>
 
             <div class="flex gap-2.5 pt-1">
-                <button onclick="closeConfirmEventModal()" class="flex-1 py-3.5 rounded-2xl clean-card text-xs font-extrabold uppercase subtext transition">
+                <button type="button" onclick="closeConfirmEventModal()" class="flex-1 py-3.5 rounded-2xl clean-card text-xs font-extrabold uppercase subtext transition cursor-pointer">
                     Annulla
                 </button>
-                <button onclick="confirmAndSendCatalogEvent()" class="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs font-extrabold uppercase shadow-lg shadow-indigo-600/30 transition">
+                <button type="button" onclick="confirmAndSendCatalogEvent()" class="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:brightness-110 text-white text-xs font-extrabold uppercase shadow-lg shadow-indigo-600/30 transition cursor-pointer">
                     Invia all'Admin
                 </button>
             </div>
@@ -596,7 +509,7 @@
         <div class="clean-glass w-full max-w-md rounded-[28px] p-6 space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="font-display font-extrabold text-lg">Invia Evento Libero all'Admin</h3>
-                <button onclick="closeCustomModal()" class="w-8 h-8 rounded-xl clean-card flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeCustomModal()" class="w-8 h-8 rounded-xl clean-card flex items-center justify-center text-xs cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div>
                 <label class="block text-xs font-bold subtext uppercase mb-1">Studente</label>
@@ -610,7 +523,7 @@
                 <label class="block text-xs font-bold subtext uppercase mb-1">Punti proposti (+ / -)</label>
                 <input type="number" id="custom-points-input" value="5" class="w-full input-field border rounded-2xl px-3.5 py-3 text-xs font-mono font-black">
             </div>
-            <button onclick="submitCustomEvent()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs uppercase rounded-2xl shadow-lg transition">
+            <button type="button" onclick="submitCustomEvent()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs uppercase rounded-2xl shadow-lg transition cursor-pointer">
                 Invia all'Amministratore
             </button>
         </div>
@@ -626,14 +539,14 @@
                     </span>
                     <h3 class="font-display font-black text-xl sm:text-2xl mt-1.5">Come si gioca a FantaClasse</h3>
                 </div>
-                <button type="button" onclick="closeHowToPlayModal()" class="w-9 h-9 rounded-2xl clean-card flex items-center justify-center text-sm hover:text-rose-400 transition">
+                <button type="button" onclick="closeHowToPlayModal()" class="w-9 h-9 rounded-2xl clean-card flex items-center justify-center text-sm hover:text-rose-400 transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <div class="overflow-y-auto pr-1 space-y-3.5 text-xs leading-relaxed">
                 <div class="clean-card p-4 rounded-2xl space-y-1.5">
-                    <h4 class="font-display font-extrabold text-sm text-indigo-400 flex items-center gap-2">
+                    <h4 class="font-display font-extrabold text-sm text-indigo-300 flex items-center gap-2">
                         <i class="fa-solid fa-gavel text-amber-400"></i> 1. Asta &amp; Crediti (500 CR)
                     </h4>
                     <p class="subtext">Ogni manager inizia con <strong class="text-white">500 CR</strong> e può acquistare fino a <strong class="text-white">5 studenti</strong> in esclusiva (nessuno può prendere lo stesso studente due volte).</p>
@@ -641,30 +554,30 @@
                 </div>
 
                 <div class="clean-card p-4 rounded-2xl space-y-1.5">
-                    <h4 class="font-display font-extrabold text-sm text-indigo-400 flex items-center gap-2">
-                        <i class="fa-solid fa-users-gear text-emerald-400"></i> 2. 4 Categorie, Panchina &amp; Capitano (x1.5)
+                    <h4 class="font-display font-extrabold text-sm text-indigo-300 flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear text-indigo-400"></i> 2. 4 Categorie, Panchina &amp; Capitano (x1.5)
                     </h4>
                     <p class="subtext">Schiera i tuoi studenti nei 4 ruoli titolari: <strong class="text-white">Brutti Voti</strong>, <strong class="text-white">Buoni Voti</strong>, <strong class="text-white">Note</strong> e <strong class="text-white">Figure di Merda</strong>, oppure in <strong class="text-white">Panchina</strong> (i punti ottenuti in panchina valgono il <strong class="text-white">50%</strong>).</p>
                     <p class="subtext">Puoi nominare un <strong class="text-amber-300">Capitano</strong> tra i tuoi giocatori per moltiplicare per <strong class="text-amber-300">1.5x</strong> i suoi fantapunti.</p>
                 </div>
 
                 <div class="clean-card p-4 rounded-2xl space-y-1.5">
-                    <h4 class="font-display font-extrabold text-sm text-indigo-400 flex items-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles text-fuchsia-400"></i> 3. Cazzate, Eventi Speciali &amp; Approvazione Admin
+                    <h4 class="font-display font-extrabold text-sm text-indigo-300 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-violet-400"></i> 3. Cazzate, Eventi Speciali &amp; Approvazione Admin
                     </h4>
                     <p class="subtext">Puoi segnalare eventi <strong class="text-white">solo per gli studenti della tua rosa</strong>. Se selezioni una voce legata a un ruolo specifico (<em>Brutti Voti</em>, <em>Buoni Voti</em>, <em>Note</em> o <em>Figure di Merda</em>), potrai scegliere tra i tuoi giocatori schierati in quel ruolo.</p>
                     <p class="subtext">Gli <strong class="text-white">Eventi Speciali</strong> (<em>Verifica in bianco</em>, <em>Dal preside</em>, <em>Sospensione</em>) cambiano punteggio in base al ruolo in cui è schierato lo studente. Ogni segnalazione arriva all'<strong class="text-amber-300">Admin</strong>, che può confermarla e aggiungere i punti oppure rifiutarla.</p>
                 </div>
 
                 <div class="clean-card p-4 rounded-2xl space-y-1.5">
-                    <h4 class="font-display font-extrabold text-sm text-indigo-400 flex items-center gap-2">
+                    <h4 class="font-display font-extrabold text-sm text-indigo-300 flex items-center gap-2">
                         <i class="fa-solid fa-trophy text-amber-400"></i> 4. Giornate &amp; Classifica
                     </h4>
                     <p class="subtext">Nella sezione <strong class="text-white">Giornate</strong> trovi la tua sfida diretta settimanale (<strong class="text-white">Tu contro ...</strong>) e tutti gli accoppiamenti live. Ogni venerdì alle 18:00 la giornata si chiude automaticamente assegnando <strong class="text-white">3 pt</strong> per la vittoria, <strong class="text-white">1 pt</strong> per il pareggio (entro 2 pt di scarto) e <strong class="text-white">0 pt</strong> per la sconfitta.</p>
                 </div>
             </div>
 
-            <button type="button" onclick="closeHowToPlayModal()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-indigo-600/30 transition shrink-0">
+            <button type="button" onclick="closeHowToPlayModal()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition shrink-0 cursor-pointer">
                 Ho capito, torna al gioco
             </button>
         </div>
@@ -673,38 +586,104 @@
     <!-- BARRA DI NAVIGAZIONE FISSA IN FONDO -->
     <nav id="bottom-nav" class="fixed bottom-0 inset-x-0 z-40 clean-glass border-t border-white/10 rounded-none hidden">
         <div class="max-w-5xl mx-auto px-1.5 py-2 flex items-center justify-around gap-0.5">
-            <button id="bnav-actions" onclick="switchDashboardTab('actions')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight transition bottom-nav-active">
+            <button type="button" id="bnav-actions" onclick="switchDashboardTab('actions')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight transition bottom-nav-active cursor-pointer">
                 <i class="fa-solid fa-bolt text-sm"></i>
                 <span>Cazzate</span>
             </button>
-            <button id="bnav-squad" onclick="switchDashboardTab('squad')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition">
+            <button type="button" id="bnav-squad" onclick="switchDashboardTab('squad')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition cursor-pointer">
                 <i class="fa-solid fa-gavel text-sm"></i>
-                <span>Asta & Rosa</span>
+                <span>Asta &amp; Rosa</span>
             </button>
-            <button id="bnav-matchdays" onclick="switchDashboardTab('matchdays')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition">
+            <button type="button" id="bnav-matchdays" onclick="switchDashboardTab('matchdays')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition cursor-pointer">
                 <i class="fa-solid fa-calendar-week text-sm"></i>
                 <span>Giornate</span>
             </button>
-            <button id="bnav-leaderboard" onclick="switchDashboardTab('leaderboard')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition">
+            <button type="button" id="bnav-leaderboard" onclick="switchDashboardTab('leaderboard')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition cursor-pointer">
                 <i class="fa-solid fa-trophy text-sm"></i>
                 <span>Classifica</span>
             </button>
-            <button id="bnav-memes" onclick="switchDashboardTab('memes')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition">
+            <button type="button" id="bnav-memes" onclick="switchDashboardTab('memes')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition cursor-pointer">
                 <i class="fa-solid fa-comments text-sm"></i>
                 <span>Chat</span>
             </button>
-            <button id="bnav-feed" onclick="switchDashboardTab('feed')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition">
+            <button type="button" id="bnav-feed" onclick="switchDashboardTab('feed')" class="flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight subtext transition cursor-pointer">
                 <i class="fa-solid fa-clock-rotate-left text-sm"></i>
                 <span>Registro</span>
             </button>
-            <button id="bnav-admin" onclick="switchDashboardTab('admin')" class="hidden flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight text-amber-400 transition relative">
+            <button type="button" id="bnav-admin" onclick="switchDashboardTab('admin')" class="hidden flex-1 py-2 px-1 rounded-2xl flex flex-col items-center gap-1 text-[10px] font-extrabold uppercase tracking-tight text-amber-400 transition relative cursor-pointer">
                 <i class="fa-solid fa-user-shield text-sm"></i>
                 <span>Admin</span>
-                <span id="admin-pending-badge" class="hidden absolute top-1 right-1 px-1.5 py-0.2 bg-rose-500 text-white rounded-full text-[9px] font-black">0</span>
+                <span id="admin-pending-badge" class="hidden absolute top-1 right-1 px-1.5 py-0.2 bg-amber-500 text-slate-950 rounded-full text-[9px] font-black">0</span>
             </button>
         </div>
     </nav>
 
+    <!-- INIZIALIZZAZIONE FIREBASE ROBUSTA -->
+    <script>
+        (function initCompatFirebase() {
+            const firebaseConfig = {
+                apiKey: "AIzaSyA2u9_3d07c59803cb10ca51f5253bb",
+                authDomain: "fantaclasse-13305.firebaseapp.com",
+                databaseURL: "https://fantaclasse-13305-default-rtdb.europe-west1.firebasedatabase.app",
+                projectId: "fantaclasse-13305",
+                storageBucket: "fantaclasse-13305.firebasestorage.app",
+                messagingSenderId: "1053907343211",
+                appId: "1:1053907343211:web:76c91bc2f977f0ca8a0d5c"
+            };
+
+            window.firebaseReady = false;
+            window.firebaseError = null;
+
+            const updateStatusPill = (online) => {
+                const pill = document.getElementById('header-status-pill');
+                if (!pill) return;
+                if (online) {
+                    pill.textContent = 'LIVE';
+                    pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30';
+                } else {
+                    pill.textContent = 'LOCALE';
+                    pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-500/20 subtext border border-white/10';
+                }
+            };
+
+            try {
+                if (typeof firebase !== 'undefined' && firebase.apps) {
+                    const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+                    const db = app.database(firebaseConfig.databaseURL);
+
+                    window.db = db;
+                    window.dbRef = (database, path) => database.ref(path);
+                    window.dbSet = (reference, value) => reference.set(value);
+                    window.dbGet = (reference) => reference.get();
+                    window.dbChild = (reference, subPath) => reference.child(subPath);
+                    window.dbOnValue = (reference, onSuccess, onError) => {
+                        const cb = (snap) => onSuccess(snap);
+                        reference.on('value', cb, onError);
+                        return () => reference.off('value', cb);
+                    };
+                    window.dbRemove = (reference) => reference.remove();
+                    window.firebaseReady = true;
+                    updateStatusPill(true);
+
+                    if (firebase.auth) {
+                        firebase.auth().signInAnonymously().catch(() => {});
+                    }
+
+                    if (typeof window.initFirebaseSync === 'function') {
+                        window.initFirebaseSync();
+                    }
+                } else {
+                    updateStatusPill(false);
+                }
+            } catch (err) {
+                window.firebaseError = err?.message || String(err);
+                console.error('Firebase init error:', err);
+                updateStatusPill(false);
+            }
+        })();
+    </script>
+
+    <!-- LOGICA COMPLETA APPLICAZIONE -->
     <script>
         const STARTING_CREDITS = 500;
         const SQUAD_SIZE = 5;
@@ -813,7 +792,7 @@
 
             const variants = {
                 green: {
-                    cls: 'fixed bottom-24 right-4 z-50 max-w-xs sm:max-w-sm bg-emerald-600 text-white border border-emerald-300/40 px-4 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all duration-300 flex items-center gap-2.5',
+                    cls: 'fixed bottom-24 right-4 z-50 max-w-xs sm:max-w-sm bg-indigo-600 text-white border border-indigo-300/40 px-4 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all duration-300 flex items-center gap-2.5',
                     icon: 'fa-solid fa-circle-check text-sm shrink-0'
                 },
                 red: {
@@ -834,17 +813,7 @@
             clearTimeout(window._toastTimer);
             window._toastTimer = setTimeout(() => {
                 banner.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
-            }, 2800);
-        }
-
-        function setTheme(theme) {
-            ['theme-dark', 'theme-light', 'theme-green'].forEach(t => {
-                document.documentElement.classList.remove(t);
-                document.body.classList.remove(t);
-            });
-            document.documentElement.classList.add(`theme-${theme}`);
-            document.body.classList.add(`theme-${theme}`);
-            localStorage.setItem('fantaclasse_theme', theme);
+            }, 3000);
         }
 
         function switchLobbyTab(tab) {
@@ -854,13 +823,13 @@
             const createForm = document.getElementById('form-create');
 
             if (tab === 'join') {
-                joinBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-indigo-600 text-white shadow-lg shadow-indigo-600/30';
-                createBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-400 transition';
+                joinBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/30 cursor-pointer';
+                createBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-300 transition cursor-pointer';
                 joinForm.classList.remove('hidden');
                 createForm.classList.add('hidden');
             } else {
-                createBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-indigo-600 text-white shadow-lg shadow-indigo-600/30';
-                joinBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-400 transition';
+                createBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl transition bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-600/30 cursor-pointer';
+                joinBtn.className = 'flex-1 py-3 text-xs font-extrabold uppercase tracking-wider rounded-xl subtext hover:text-indigo-300 transition cursor-pointer';
                 createForm.classList.remove('hidden');
                 joinForm.classList.add('hidden');
             }
@@ -905,12 +874,18 @@
         }
 
         function saveLocalRoom(code, data) {
-            localStorage.setItem(`fantaclasse_room_${code}`, JSON.stringify(data));
+            try {
+                localStorage.setItem(`fantaclasse_room_${code}`, JSON.stringify(data));
+            } catch (_) {}
         }
 
         function loadLocalRoom(code) {
-            const raw = localStorage.getItem(`fantaclasse_room_${code}`);
-            return raw ? JSON.parse(raw) : null;
+            try {
+                const raw = localStorage.getItem(`fantaclasse_room_${code}`);
+                return raw ? JSON.parse(raw) : null;
+            } catch (_) {
+                return null;
+            }
         }
 
         function pushRoomState(nextData) {
@@ -918,16 +893,19 @@
             state.roomData = nextData;
             saveLocalRoom(state.roomCode, nextData);
 
-            if (window.firebaseReady && window.db) {
-                window.dbSet(window.dbRef(window.db, `fantaclasse_rooms/${state.roomCode}`), nextData)
+            if (window.firebaseReady && window.db && typeof window.dbSet === 'function') {
+                window.dbSet(window.dbRef(window.db, `fanta_rooms/${state.roomCode}`), nextData)
                     .then(() => {
                         const pill = document.getElementById('header-status-pill');
                         if (pill) {
                             pill.textContent = 'LIVE';
-                            pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                            pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30';
                         }
                     })
-                    .catch(() => {});
+                    .catch((err) => {
+                        console.error('Errore scrittura Firebase:', err);
+                        showToast('Errore sincronizzazione Firebase (salvato in locale).', 'red');
+                    });
             }
             renderAll();
         }
@@ -943,8 +921,8 @@
                 state.unsubscribe();
                 state.unsubscribe = null;
             }
-            if (window.firebaseReady && window.db) {
-                const roomRef = window.dbRef(window.db, `fantaclasse_rooms/${code}`);
+            if (window.firebaseReady && window.db && typeof window.dbOnValue === 'function') {
+                const roomRef = window.dbRef(window.db, `fanta_rooms/${code}`);
                 state.unsubscribe = window.dbOnValue(roomRef, (snap) => {
                     if (snap.exists()) {
                         state.roomData = snap.val();
@@ -952,10 +930,12 @@
                         const pill = document.getElementById('header-status-pill');
                         if (pill) {
                             pill.textContent = 'LIVE';
-                            pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                            pill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30';
                         }
                         renderAll();
                     }
+                }, (err) => {
+                    console.error('Errore lettura Firebase:', err);
                 });
             }
         }
@@ -970,11 +950,10 @@
             if (!state.roomData.managers) state.roomData.managers = {};
             if (!state.roomData.managers[userName]) {
                 state.roomData.managers[userName] = { credits: STARTING_CREDITS, squad: [], captain: null, leaguePoints: 0 };
-                pushRoomState(state.roomData);
             }
 
+            pushRoomState(state.roomData);
             localStorage.setItem('fantaclasse_session', JSON.stringify({ code, userName, isAdmin: verifiedAdmin }));
-            saveLocalRoom(code, state.roomData);
             subscribeToRoom(code);
             checkAutomaticFridayClose();
 
@@ -1069,7 +1048,41 @@
             }
             const payload = defaultRoomPayload(code, adminName, pin);
             enterSession(code, adminName, payload, true);
-            showToast(`Stanza ${code} creata! Sei l'Admin della lega.`, 'green');
+            showToast(`Stanza ${code} creata su Firebase! Sei l'Admin della lega.`, 'green');
+        }
+
+        function startQuickDemo() {
+            const code = 'DEMO4A';
+            const adminName = 'MARCO ROSSI';
+            const demoRoom = defaultRoomPayload(code, adminName, '1234');
+            demoRoom.students = ['MARCO ROSSI', 'GIULIA BIANCHI', 'LUCA FERRARI', 'SOFIA CONTI', 'DAVIDE RICCI', 'ELENA GALLO'];
+            demoRoom.managers['GIULIA BIANCHI'] = {
+                credits: 445,
+                squad: [{ student: 'LUCA FERRARI', category: 'buoni_voti', price: 55 }],
+                captain: 'LUCA FERRARI',
+                leaguePoints: 3
+            };
+            demoRoom.managers[adminName] = {
+                credits: 430,
+                squad: [{ student: 'DAVIDE RICCI', category: 'brutti_voti', price: 70 }],
+                captain: 'DAVIDE RICCI',
+                leaguePoints: 0
+            };
+            demoRoom.auction.unlocked = true;
+            demoRoom.auction.readyManagers = { [adminName]: true, 'GIULIA BIANCHI': true };
+            demoRoom.pendingEvents = [
+                {
+                    id: 'ev_demo_1',
+                    student: 'LUCA FERRARI',
+                    title: 'Voto 9 (Buoni Voti)',
+                    points: 11,
+                    category: 'buoni_voti',
+                    by: 'GIULIA BIANCHI',
+                    createdAt: '11:45'
+                }
+            ];
+            enterSession(code, adminName, demoRoom, true);
+            showToast('Modalità Demo avviata al volo!', 'green');
         }
 
         function joinRoom() {
@@ -1093,10 +1106,13 @@
                 showToast(`Benvenuto in ${code}, ${name}!`, 'green');
             };
 
-            if (window.firebaseReady && window.db) {
-                window.dbGet(window.dbChild(window.dbRef(window.db), `fantaclasse_rooms/${code}`))
+            if (window.firebaseReady && window.db && typeof window.dbGet === 'function') {
+                window.dbGet(window.dbChild(window.dbRef(window.db), `fanta_rooms/${code}`))
                     .then((snap) => proceed(snap.exists() ? snap.val() : loadLocalRoom(code)))
-                    .catch(() => proceed(loadLocalRoom(code)));
+                    .catch((err) => {
+                        console.error('Errore lettura stanza:', err);
+                        proceed(loadLocalRoom(code));
+                    });
             } else {
                 proceed(loadLocalRoom(code));
             }
@@ -1104,6 +1120,10 @@
 
         function logoutRoom() {
             localStorage.removeItem('fantaclasse_session');
+            if (state.unsubscribe) {
+                state.unsubscribe();
+                state.unsubscribe = null;
+            }
             state.roomCode = null;
             state.roomData = null;
             state.isAdmin = false;
@@ -1158,9 +1178,9 @@
                 const btn = document.getElementById(`cat-${c}`);
                 if (!btn) return;
                 if (c === cat) {
-                    btn.className = 'px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-600 text-white transition';
+                    btn.className = 'px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-600 text-white transition cursor-pointer';
                 } else {
-                    btn.className = 'px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition';
+                    btn.className = 'px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase clean-card subtext transition cursor-pointer';
                 }
             });
             filterCazzate();
@@ -1244,13 +1264,13 @@
             grid.innerHTML = filtered.map(item => {
                 const sign = item.points > 0 ? `+${item.points}` : `${item.points}`;
                 const badgeColor = item.points > 0
-                    ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                    ? 'bg-indigo-500/20 text-indigo-300 border-indigo-400/30'
                     : item.points < 0
-                        ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                        ? 'bg-rose-500/20 text-rose-300 border-rose-500/30'
                         : 'bg-slate-500/20 subtext border-white/10';
 
                 return `
-                    <button onclick="sendCatalogItemDirectly('${item.id}')" class="clean-card p-3.5 rounded-2xl text-left flex items-center justify-between gap-3 transition active:scale-[0.98]">
+                    <button type="button" onclick="sendCatalogItemDirectly('${item.id}')" class="clean-card p-3.5 rounded-2xl text-left flex items-center justify-between gap-3 transition active:scale-[0.98] cursor-pointer">
                         <div class="min-w-0">
                             <p class="text-xs font-extrabold truncate">${item.title}</p>
                             <p class="text-[11px] subtext truncate mt-0.5">${item.desc}</p>
@@ -1946,23 +1966,23 @@
                             ${connectedManagers.map(name => {
                                 const isR = Boolean(readyMap[name]);
                                 return `
-                                    <div class="flex items-center justify-between px-3 py-2 rounded-2xl clean-card border ${isR ? 'border-emerald-500/40 bg-emerald-500/10' : 'border-white/10'} text-xs">
+                                    <div class="flex items-center justify-between px-3 py-2 rounded-2xl clean-card border ${isR ? 'border-indigo-400/40 bg-indigo-500/10' : 'border-white/10'} text-xs">
                                         <span class="font-extrabold truncate flex items-center gap-1.5">
-                                            <span class="w-2 h-2 rounded-full ${isR ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}"></span>
+                                            <span class="w-2 h-2 rounded-full ${isR ? 'bg-indigo-400' : 'bg-amber-400 animate-pulse'}"></span>
                                             ${name}
                                         </span>
-                                        <span class="text-[10px] font-black uppercase ${isR ? 'text-emerald-400' : 'subtext'}">${isR ? 'Pronto' : 'In attesa'}</span>
+                                        <span class="text-[10px] font-black uppercase ${isR ? 'text-indigo-300' : 'subtext'}">${isR ? 'Pronto' : 'In attesa'}</span>
                                     </div>
                                 `;
                             }).join('')}
                         </div>
 
                         <div class="flex gap-2 pt-1">
-                            <button type="button" onclick="toggleManagerReadyForAuction()" class="flex-1 py-3 rounded-2xl ${iAmReady ? 'bg-emerald-600 text-white' : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white'} text-xs font-black uppercase tracking-wider shadow-lg transition active:scale-95">
+                            <button type="button" onclick="toggleManagerReadyForAuction()" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-black uppercase tracking-wider shadow-lg transition active:scale-95 cursor-pointer">
                                 ${iAmReady ? '✓ Sei Pronto (Annulla)' : 'Sono Pronto per l’Asta'}
                             </button>
                             ${state.isAdmin ? `
-                                <button type="button" onclick="unlockAuctionLobbyNow()" class="px-3.5 py-3 rounded-2xl clean-card hover:border-amber-400 text-[11px] font-extrabold uppercase text-amber-300 transition">
+                                <button type="button" onclick="unlockAuctionLobbyNow()" class="px-3.5 py-3 rounded-2xl clean-card hover:border-amber-400 text-[11px] font-extrabold uppercase text-amber-300 transition cursor-pointer">
                                     Avvia Ora
                                 </button>
                             ` : ''}
@@ -1974,7 +1994,7 @@
                 stageEl.innerHTML = `
                     <div class="space-y-3">
                         <div class="flex items-center justify-between gap-2 flex-wrap">
-                            <span class="px-2.5 py-1 rounded-xl bg-emerald-500/15 text-emerald-400 text-[10px] font-black uppercase">
+                            <span class="px-2.5 py-1 rounded-xl bg-indigo-500/15 text-indigo-300 text-[10px] font-black uppercase">
                                 <i class="fa-solid fa-circle-check mr-1"></i> Tutti Pronti (${connectedManagers.length} collegati)
                             </span>
                             <span class="text-[11px] subtext font-semibold">Base d'asta: 10 CR</span>
@@ -2008,28 +2028,27 @@
                                     Miglior offerta: <strong class="text-amber-300">${auc.highestBidder || 'Nessuno'}</strong>
                                 </p>
                             </div>
-                            <div class="text-right shrink-0 px-3.5 py-2 rounded-2xl bg-emerald-500/15 border border-emerald-500/30">
-                                <p class="text-[10px] font-bold uppercase text-emerald-300">Prezzo</p>
-                                <p class="font-mono font-black text-2xl text-emerald-400">${auc.currentBid}</p>
+                            <div class="text-right shrink-0 px-3.5 py-2 rounded-2xl bg-indigo-500/15 border border-indigo-500/30">
+                                <p class="text-[10px] font-bold uppercase text-indigo-300">Prezzo</p>
+                                <p class="font-mono font-black text-2xl text-amber-300">${auc.currentBid}</p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-3 gap-2">
-                            <button onclick="placeBid(1)" class="py-2.5 rounded-xl clean-card hover:border-indigo-400 text-xs font-black transition active:scale-95">+1</button>
-                            <button onclick="placeBid(5)" class="py-2.5 rounded-xl clean-card hover:border-indigo-400 text-xs font-black transition active:scale-95">+5</button>
-                            <button onclick="placeBid(10)" class="py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition active:scale-95">+10</button>
+                            <button type="button" onclick="placeBid(1)" class="py-2.5 rounded-xl clean-card hover:border-indigo-400 text-xs font-black transition active:scale-95 cursor-pointer">+1</button>
+                            <button type="button" onclick="placeBid(5)" class="py-2.5 rounded-xl clean-card hover:border-indigo-400 text-xs font-black transition active:scale-95 cursor-pointer">+5</button>
+                            <button type="button" onclick="placeBid(10)" class="py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition active:scale-95 cursor-pointer">+10</button>
                         </div>
 
                         <div class="flex gap-2">
                             <input type="number" id="custom-bid-input" min="${minNextBid}" max="${maxCap}" placeholder="Offerta libera (min ${minNextBid}, max ${maxCap})" class="flex-1 input-field border rounded-xl px-3 py-2 text-xs font-mono font-bold focus:outline-none focus:border-indigo-500">
-                            <button onclick="placeCustomBid()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black uppercase transition active:scale-95">
+                            <button type="button" onclick="placeCustomBid()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black uppercase transition active:scale-95 cursor-pointer">
                                 Offri
                             </button>
                         </div>
 
                         <div class="flex items-center justify-between gap-2 pt-1 border-t border-white/10">
-                            
-                            <button onclick="cancelActiveAuction()" class="px-3.5 py-2 rounded-xl clean-card text-[11px] font-extrabold uppercase subtext hover:text-rose-400 transition">
+                            <button type="button" onclick="cancelActiveAuction()" class="px-3.5 py-2 rounded-xl clean-card text-[11px] font-extrabold uppercase subtext hover:text-rose-400 transition cursor-pointer">
                                 Annulla Chiamata
                             </button>
                         </div>
@@ -2044,10 +2063,10 @@
                     : freeStudents.map(student => {
                         const isCurrent = auc.active && auc.studentName === student;
                         return `
-                            <button type="button" onclick="startAuctionForStudent('${student.replace(/'/g, "\\'")}')" class="px-3.5 py-2.5 rounded-2xl clean-card hover:border-indigo-400 flex items-center justify-between gap-2 text-left transition active:scale-95 ${isCurrent ? 'border-amber-400 bg-amber-500/10' : ''}">
+                            <button type="button" onclick="startAuctionForStudent('${student.replace(/'/g, "\\'")}')" class="px-3.5 py-2.5 rounded-2xl clean-card hover:border-indigo-400 flex items-center justify-between gap-2 text-left transition active:scale-95 cursor-pointer ${isCurrent ? 'border-amber-400 bg-amber-500/10' : ''}">
                                 <div class="min-w-0">
                                     <p class="font-extrabold text-xs truncate">${student}</p>
-                                    <p class="text-[10px] text-emerald-400 font-bold">Svincolato</p>
+                                    <p class="text-[10px] text-indigo-300 font-bold">Svincolato</p>
                                 </div>
                                 <span class="px-2.5 py-1 rounded-xl bg-indigo-600 text-white text-[10px] font-black uppercase shrink-0">${isCurrent ? 'In Asta' : 'Chiama'}</span>
                             </button>
@@ -2084,7 +2103,7 @@
                                 <p class="font-extrabold text-sm">${slot.student}</p>
                                 <p class="text-[11px] subtext font-mono">Pagato: ${slot.price} CR</p>
                             </div>
-                            <button onclick="setCaptain('${slot.student}')" class="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase border transition ${isCap ? 'bg-amber-400 text-slate-950 border-amber-400' : 'clean-card subtext hover:text-amber-400'}">
+                            <button type="button" onclick="setCaptain('${slot.student}')" class="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase border transition cursor-pointer ${isCap ? 'bg-amber-400 text-slate-950 border-amber-400' : 'clean-card subtext hover:text-amber-400'}">
                                 ${isCap ? '★ CAP x1.5' : '☆ Capitano'}
                             </button>
                         </div>
@@ -2128,9 +2147,9 @@
                     heroEl.innerHTML = `
                         <div class="flex items-center justify-between gap-4 text-center">
                             <div class="flex-1 min-w-0">
-                                <span class="text-[10px] font-extrabold uppercase text-indigo-400">Tu</span>
+                                <span class="text-[10px] font-extrabold uppercase text-indigo-300">Tu</span>
                                 <p class="font-display font-black text-base sm:text-lg truncate">${state.userName}</p>
-                                <p class="font-mono font-black text-2xl text-emerald-400 mt-1">${myPts}</p>
+                                <p class="font-mono font-black text-2xl text-indigo-300 mt-1">${myPts}</p>
                             </div>
                             <div class="px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10 font-display font-black text-xs uppercase text-amber-300">
                                 VS
@@ -2138,7 +2157,7 @@
                             <div class="flex-1 min-w-0">
                                 <span class="text-[10px] font-extrabold uppercase subtext">Avversario</span>
                                 <p class="font-display font-black text-base sm:text-lg truncate">${opponent}</p>
-                                <p class="font-mono font-black text-2xl text-rose-400 mt-1">${oppPts}</p>
+                                <p class="font-mono font-black text-2xl text-violet-300 mt-1">${oppPts}</p>
                             </div>
                         </div>
                     `;
@@ -2170,7 +2189,7 @@
                     : history.map(h => `
                         <div class="p-3.5 rounded-2xl clean-card text-xs space-y-1">
                             <div class="flex items-center justify-between">
-                                <span class="font-extrabold text-indigo-400">Giornata ${h.day}</span>
+                                <span class="font-extrabold text-indigo-300">Giornata ${h.day}</span>
                                 <span class="text-[10px] subtext font-mono">${h.closedAt || ''}</span>
                             </div>
                             <p class="subtext leading-relaxed">${(h.results || []).join(' · ')}</p>
@@ -2193,13 +2212,13 @@
             document.getElementById('leaderboard-list').innerHTML = rows.map((r, idx) => `
                 <div class="flex items-center justify-between px-4 py-3 rounded-2xl clean-card">
                     <div class="flex items-center gap-3">
-                        <span class="w-7 h-7 rounded-xl flex items-center justify-center font-mono font-black text-xs ${idx === 0 ? 'bg-amber-400 text-slate-950' : 'bg-indigo-500/15 text-indigo-400'}">${idx + 1}</span>
+                        <span class="w-7 h-7 rounded-xl flex items-center justify-center font-mono font-black text-xs ${idx === 0 ? 'bg-amber-400 text-slate-950' : 'bg-indigo-500/15 text-indigo-300'}">${idx + 1}</span>
                         <div>
                             <p class="font-extrabold text-sm">${r.name}</p>
                             <p class="text-[11px] subtext">${r.count}/${SQUAD_SIZE} in rosa · Fantapunti: <strong>${r.pts}</strong></p>
                         </div>
                     </div>
-                    <span class="font-mono font-black text-base text-indigo-400">${r.leaguePts} pt</span>
+                    <span class="font-mono font-black text-base text-indigo-300">${r.leaguePts} pt</span>
                 </div>
             `).join('');
 
@@ -2213,7 +2232,7 @@
             document.getElementById('students-leaderboard-list').innerHTML = sSorted.map(([name, pts], idx) => `
                 <div class="flex items-center justify-between px-4 py-2.5 rounded-xl clean-card text-xs">
                     <span class="font-bold"><span class="font-mono subtext mr-2">#${idx + 1}</span> ${name}</span>
-                    <span class="font-mono font-black ${pts >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${pts > 0 ? `+${pts}` : pts} pt</span>
+                    <span class="font-mono font-black ${pts >= 0 ? 'text-indigo-300' : 'text-rose-400'}">${pts > 0 ? `+${pts}` : pts} pt</span>
                 </div>
             `).join('');
         }
@@ -2225,7 +2244,7 @@
                 ? msgs.map(m => `
                     <div class="p-3 rounded-2xl clean-card text-xs space-y-1">
                         <div class="flex items-center justify-between">
-                            <span class="font-extrabold text-indigo-400">${m.sender}</span>
+                            <span class="font-extrabold text-indigo-300">${m.sender}</span>
                             <span class="text-[10px] subtext font-mono">${m.time || ''}</span>
                         </div>
                         <p class="leading-relaxed">${m.text}</p>
@@ -2244,7 +2263,7 @@
                             <p class="font-extrabold">${ev.student} <span class="font-normal subtext">· ${ev.title}</span></p>
                             <p class="text-[10px] subtext mt-0.5">Segnalato da ${ev.by} · ${ev.createdAt || ''}</p>
                         </div>
-                        <span class="px-2.5 py-1 rounded-xl font-mono font-black ${ev.points >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">${ev.points > 0 ? `+${ev.points}` : ev.points}</span>
+                        <span class="px-2.5 py-1 rounded-xl font-mono font-black ${ev.points >= 0 ? 'bg-indigo-500/20 text-indigo-300' : 'bg-rose-500/20 text-rose-300'}">${ev.points > 0 ? `+${ev.points}` : ev.points}</span>
                     </div>
                 `).join('')
                 : `<p class="text-xs subtext text-center py-6">Nessun evento approvato finora.</p>`;
@@ -2291,10 +2310,10 @@
                         </p>
 
                         <div class="flex gap-2.5 pt-2 flex-wrap">
-                            <button onclick="approvePendingEvent('${ev.id}')" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px] shadow-md shadow-emerald-600/20 transition active:scale-95">
+                            <button type="button" onclick="approvePendingEvent('${ev.id}')" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-[11px] shadow-md shadow-indigo-600/20 transition active:scale-95 cursor-pointer">
                                 &#10003; Conferma &amp; Aggiungi Punti
                             </button>
-                            <button onclick="rejectPendingEvent('${ev.id}')" class="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/30 font-extrabold text-[11px] transition active:scale-95">
+                            <button type="button" onclick="rejectPendingEvent('${ev.id}')" class="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/30 font-extrabold text-[11px] transition active:scale-95 cursor-pointer">
                                 &#10005; Rifiuta
                             </button>
                         </div>
@@ -2304,9 +2323,6 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('fantaclasse_theme') || 'dark';
-            setTheme(savedTheme);
-
             const savedSession = localStorage.getItem('fantaclasse_session');
             if (savedSession) {
                 try {
